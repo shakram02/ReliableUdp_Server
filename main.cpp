@@ -10,12 +10,15 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <time.h>
 
 #define PORT_NUM "4950"
 #define BUFF_LEN 50
 
 
 void log_error(const char *);
+
+char *get_time();
 
 void *get_in_addr(struct sockaddr *);
 
@@ -74,22 +77,30 @@ int main()
     char buffer[BUFF_LEN];
     int num_bytes;
 
-    printf("Server:Waiting for a packet...\n");
-    num_bytes = (int) recvfrom(sockfd, buffer, BUFF_LEN - 1, 0, (struct sockaddr *) &client_addr,
-            (socklen_t *) &sotrage_len);
-    if (num_bytes == -1)
+    while (1)
     {
-        log_error("receive from");
-        exit(5);
-    }
+        printf("Server:Waiting for a packet...\n");
+        num_bytes = (int) recvfrom(sockfd, buffer, BUFF_LEN - 1, 0, (struct sockaddr *) &client_addr,
+                (socklen_t *) &sotrage_len);
+        if (num_bytes == -1)
+        {
+            log_error("receive from");
+            exit(5);
+        }
 
-    char ip[INET_ADDRSTRLEN];
-    inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *) &client_addr),
-            ip, INET_ADDRSTRLEN);
-    printf("Got packet from:%s", ip);
-    printf("Server: packet is %d bytes long\n", num_bytes);
-    buffer[num_bytes] = '\0';   // Terminate the string
-    printf("listener: packet contains \"%s\"\n", buffer);
+        char ip[INET_ADDRSTRLEN];
+        inet_ntop(client_addr.ss_family, get_in_addr((struct sockaddr *) &client_addr),
+                ip, INET_ADDRSTRLEN);
+        printf("Got packet from:%s\n", ip);
+        printf("Server: packet is %d bytes long\n", num_bytes);
+        buffer[num_bytes] = '\0';   // Terminate the string
+        printf("listener: packet contains \"%s\" at %s\n", buffer, get_time());    //%T
+
+        if (!strcmp("exit", buffer))
+        {
+            break;
+        }
+    }
 
 
     return 0;
@@ -108,4 +119,18 @@ void *get_in_addr(struct sockaddr *sa)
         return &(((struct sockaddr_in *) sa)->sin_addr);
     }
     return &(((struct sockaddr_in6 *) sa)->sin6_addr);
+}
+
+char *get_time()
+{
+    time_t rawtime;
+    struct tm *timeinfo;
+    int time_length = 20;
+    char *buffer = (char *) malloc(sizeof(char) * time_length);
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(buffer, 20, "%T%p", timeinfo);
+    return buffer;
 }
