@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp
+stdio.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netdb.h
+-
+memory.h
+-
+arpa/inet.h
+-
+netinet/in.h
+-
+errno.h
+-
+cstdlib
+-
+string.h
+-
+arpa/inet.h
+-
+unistd.h
+-
+
