@@ -14,6 +14,7 @@
 
 #define BUFF_LEN 50
 
+#include "timecalc.h"
 #include "UdpSocketServer.h"
 #include <string>
 
@@ -24,10 +25,11 @@ void log_error(const char *);
 
 void *get_in_addr(struct sockaddr *);
 
-void on_recv(string msg, string& reply)
+void on_recv(const string msg, const string senderInfo[], string &reply)
 {
-    cout << "Got:" << msg << endl;
-    (reply) = "backreplasdasdasdasdy";
+    cout << "Got:\"" << msg
+         << "\" Address:" << senderInfo[0]
+         << " Port:" << senderInfo[1] << " At:" << get_time() << endl;
 }
 
 int main()
@@ -36,20 +38,3 @@ int main()
     s.StartReceiving(on_recv);
     return 0;
 }
-
-
-void log_error(const char *func_name)
-{
-    printf("%s:%s\n", func_name, strerror(errno));
-}
-
-
-void *get_in_addr(struct sockaddr *sa)
-{
-    if (sa->sa_family == AF_INET)
-    {
-        return &(((struct sockaddr_in *) sa)->sin_addr);
-    }
-    return &(((struct sockaddr_in6 *) sa)->sin6_addr);
-}
-

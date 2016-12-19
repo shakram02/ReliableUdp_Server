@@ -26,14 +26,13 @@ using namespace std;
 class UdpSocketServer
 {
 public:
-    UdpSocketServer(char *serverIp, int portNumber);
+    UdpSocketServer(const string serverIp, unsigned const short portNumber);
 
     ~UdpSocketServer();
 
-    void StartReceiving(void (*recvHandler)(string msg, string& reply));
+    void StartReceiving(void (*recvHandler)(const string msg, const string senderInfo[], string &reply));
 
 private:
-    sockaddr_in endpoint;
     bool isReceiving;
     int socketFd;
 };

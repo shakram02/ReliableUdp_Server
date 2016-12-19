@@ -9,8 +9,6 @@
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp
 UdpSocketServer.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h
-timecalc.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h
 stdio.h
@@ -69,6 +67,8 @@ arpa/inet.h
 -
 unistd.h
 -
+timecalc.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
 timecalc.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
 UdpSocketServer.h
