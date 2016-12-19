@@ -9,7 +9,9 @@ char *get_time()
     time_t rawtime;
     struct tm *timeinfo;
     int time_length = 20;
-    char *buffer = (char *) malloc(sizeof(char) * time_length);
+    char *buffer = (char *) calloc(time_length, sizeof(char));
+
+    // TODO use calloc everywhere
 
     time(&rawtime);
     timeinfo = localtime(&rawtime);

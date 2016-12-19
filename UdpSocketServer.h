@@ -17,14 +17,20 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <iostream>
 #include "../libs/netutils.h"
+#include <string>
+
+using namespace std;
 
 class UdpSocketServer
 {
 public:
-    UdpSocketServer(int portNumber);
+    UdpSocketServer(char *serverIp, int portNumber);
+
     ~UdpSocketServer();
-    void StartReceiving();
+
+    void StartReceiving(void (*recvHandler)(string msg, string& reply));
 
 private:
     sockaddr_in endpoint;

@@ -3,10 +3,10 @@
 //
 
 #include "UdpSocketServer.h"
+#include "timecalc.h"
 
-#define SERVER_IP "192.168.1.7"
 
-UdpSocketServer::UdpSocketServer(int portNumber)
+UdpSocketServer::UdpSocketServer(char *serverIp, int portNumber)
 {
 
     unsigned int namelen;
@@ -15,8 +15,7 @@ UdpSocketServer::UdpSocketServer(int portNumber)
 
     server.sin_family = AF_INET;  /* Server is in Internet Domain */
     server.sin_port = htons(portNumber);
-    inet_pton(AF_INET, SERVER_IP, &server.sin_addr.s_addr);
-    //= SERVER_IP;/* Server's Internet Address   */
+    inet_pton(AF_INET, serverIp, &server.sin_addr.s_addr);
 
     if ((this->socketFd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
     {
@@ -38,14 +37,13 @@ UdpSocketServer::UdpSocketServer(int portNumber)
         exit(3);
     }
 
-
     printf("Port assigned is %d\n", ntohs(server.sin_port));
-
-
 }
 
-void UdpSocketServer::StartReceiving()
+void UdpSocketServer::StartReceiving(void (*recvHandler)(string msg, string &reply))
 {
+    this->isReceiving = true;
+
     while (this->isReceiving)
     {
         char buf[32] = {0};
@@ -60,13 +58,18 @@ void UdpSocketServer::StartReceiving()
             exit(4);
         }
 
-        printf("Received message %s - port %d internet address %s\n",
+
+        printf("Received message %s - port %d internet address %s at %s\n",
                 buf,
                 ntohs(client.sin_port),
-                inet_ntoa(client.sin_addr));
+                inet_ntoa(client.sin_addr), get_time());
 
-        char *reply = "REPLY";
-        sendto(this->socketFd, reply, sizeof(reply), 0, (struct sockaddr *) &client, client_address_size);
+        string reply;
+        recvHandler(buf, reply);   // Fire the event
+
+        cout << "#DEBUG sending:" << reply << endl;
+        sendto(this->socketFd, reply.c_str(), reply.size(), 0, (struct sockaddr *) &client, client_address_size);
+
     }
 }
 

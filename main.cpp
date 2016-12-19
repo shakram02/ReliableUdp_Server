@@ -15,19 +15,28 @@
 #define BUFF_LEN 50
 
 #include "UdpSocketServer.h"
+#include <string>
 
+#define SERVER_IP "192.168.1.7"
 #define PORT_NUM 62135
 
 void log_error(const char *);
 
 void *get_in_addr(struct sockaddr *);
 
+void on_recv(string msg, string& reply)
+{
+    cout << "Got:" << msg << endl;
+    (reply) = "backreplasdasdasdasdy";
+}
+
 int main()
 {
-    UdpSocketServer s(PORT_NUM);
-    s.StartReceiving();
+    UdpSocketServer s(SERVER_IP, PORT_NUM);
+    s.StartReceiving(on_recv);
     return 0;
 }
+
 
 void log_error(const char *func_name)
 {
