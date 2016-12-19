@@ -30,7 +30,7 @@ public:
 
     ~UdpSocketServer();
 
-    void StartReceiving(void (*recvHandler)(const string msg, const string senderInfo[], string &reply));
+    void StartReceiving(void (*recvHandler)(char *msg, const string senderInfo[], char **reply));
 
 private:
     bool isReceiving;

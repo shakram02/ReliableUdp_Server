@@ -3,6 +3,7 @@
 //
 
 #include "UdpSocketServer.h"
+#include "../libs/data_packet.h"
 
 // TODO remove this later
 void log_error(const char *func_name)
@@ -43,16 +44,15 @@ UdpSocketServer::UdpSocketServer(const string serverIp, unsigned const short por
     printf("Port assigned is %d\n", ntohs(server.sin_port));
 }
 
-void UdpSocketServer::StartReceiving(void (*recvHandler)(const string msg, const string senderInfo[], string &reply))
+void UdpSocketServer::StartReceiving(void (*recvHandler)(char *msg, const string senderInfo[], char **reply))
 {
     this->isReceiving = true;
 
     while (this->isReceiving)
     {
-        char buf[32] = {0};
+        char buf[256] = {0};
 
         struct sockaddr_in client;
-        string reply;
         unsigned int client_address_size = sizeof(client);
 
 
@@ -69,22 +69,17 @@ void UdpSocketServer::StartReceiving(void (*recvHandler)(const string msg, const
                 break;
         }
 
-        reply = string(buf);
+        char *reply;
         string clientInfo[2];
         clientInfo[0] = (inet_ntoa(client.sin_addr));
         clientInfo[1] = to_string(ntohs(client.sin_port));
 
-        recvHandler(buf, clientInfo, reply);   // Fire the event
+        recvHandler(buf, clientInfo, &reply);   // Fire the event
 
-        cout << "#DEBUG sending:" << reply << endl;
+        //cout << "#DEBUG sending:" << reply << endl;
 
-        if (reply.size() == 0)
-        {
-            // If no reply is available don't send it
-            continue;
-        }
 
-        sendto(this->socketFd, reply.c_str(), reply.size(), 0, (struct sockaddr *) &client, client_address_size);
+        sendto(this->socketFd, reply, sizeof(data_packet), 0, (struct sockaddr *) &client, client_address_size);
     }
 }
 
