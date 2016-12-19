@@ -17,14 +17,19 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-//#include "../libs/netutils.h"
+#include "../libs/netutils.h"
 
-class SocketServer
+class UdpSocketServer
 {
 public:
-    SocketServer(int socketType, int portNumber);
+    UdpSocketServer(int portNumber);
+    ~UdpSocketServer();
+    void StartReceiving();
 
 private:
+    sockaddr_in endpoint;
+    bool isReceiving;
+    int socketFd;
 };
 
 

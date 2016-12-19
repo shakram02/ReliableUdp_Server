@@ -81,28 +81,28 @@ CMakeFiles/enhancedUdpServer.dir/main.cpp.o.provides: CMakeFiles/enhancedUdpServ
 CMakeFiles/enhancedUdpServer.dir/main.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/main.cpp.o
 
 
-CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
-CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o: ../SocketServer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.cpp
+CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
+CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o: ../UdpSocketServer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp
 
-CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.cpp > CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.i
+CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp > CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i
 
-CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.cpp -o CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.s
+CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp -o CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s
 
-CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.requires:
+CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires:
 
-.PHONY : CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.requires
+.PHONY : CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires
 
-CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.provides: CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.provides.build
-.PHONY : CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.provides
+CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides.build
+.PHONY : CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides
 
-CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o
+CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o
 
 
 CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
@@ -156,7 +156,7 @@ CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netu
 # Object files for target enhancedUdpServer
 enhancedUdpServer_OBJECTS = \
 "CMakeFiles/enhancedUdpServer.dir/main.cpp.o" \
-"CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o" \
+"CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o" \
 "CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o" \
 "CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o"
 
@@ -164,7 +164,7 @@ enhancedUdpServer_OBJECTS = \
 enhancedUdpServer_EXTERNAL_OBJECTS =
 
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/main.cpp.o
-enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o
+enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/build.make
@@ -178,7 +178,7 @@ CMakeFiles/enhancedUdpServer.dir/build: enhancedUdpServer
 .PHONY : CMakeFiles/enhancedUdpServer.dir/build
 
 CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/main.cpp.o.requires
-CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o.requires
+CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires
 CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.requires
 CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o.requires
 

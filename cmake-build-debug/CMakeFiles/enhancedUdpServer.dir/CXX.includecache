@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.cpp
-SocketServer.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp
+UdpSocketServer.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h
 
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h
 stdio.h
 -
 sys/types.h
@@ -35,6 +35,8 @@ arpa/inet.h
 -
 unistd.h
 -
+../libs/netutils.h
+/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp
 stdio.h
@@ -63,6 +65,8 @@ unistd.h
 -
 timecalc.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
+UdpSocketServer.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.cpp
 time.h
@@ -71,4 +75,22 @@ malloc.h
 -
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
+stdio.h
+-
+sys/socket.h
+-
+unistd.h
+-
+netdb.h
+-
+memory.h
+-
+arpa/inet.h
+-
+errno.h
+-
+stdlib.h
+-
 

@@ -84,10 +84,10 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.cpp">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/SocketServer.h">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp">

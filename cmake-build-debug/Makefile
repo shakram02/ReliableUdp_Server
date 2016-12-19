@@ -123,32 +123,32 @@ enhancedUdpServer/fast:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/build
 .PHONY : enhancedUdpServer/fast
 
-SocketServer.o: SocketServer.cpp.o
+UdpSocketServer.o: UdpSocketServer.cpp.o
 
-.PHONY : SocketServer.o
+.PHONY : UdpSocketServer.o
 
 # target to build an object file
-SocketServer.cpp.o:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o
-.PHONY : SocketServer.cpp.o
+UdpSocketServer.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o
+.PHONY : UdpSocketServer.cpp.o
 
-SocketServer.i: SocketServer.cpp.i
+UdpSocketServer.i: UdpSocketServer.cpp.i
 
-.PHONY : SocketServer.i
+.PHONY : UdpSocketServer.i
 
 # target to preprocess a source file
-SocketServer.cpp.i:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.i
-.PHONY : SocketServer.cpp.i
+UdpSocketServer.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i
+.PHONY : UdpSocketServer.cpp.i
 
-SocketServer.s: SocketServer.cpp.s
+UdpSocketServer.s: UdpSocketServer.cpp.s
 
-.PHONY : SocketServer.s
+.PHONY : UdpSocketServer.s
 
 # target to generate assembly for a file
-SocketServer.cpp.s:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.s
-.PHONY : SocketServer.cpp.s
+UdpSocketServer.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s
+.PHONY : UdpSocketServer.cpp.s
 
 home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o: home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
 
@@ -240,9 +240,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... enhancedUdpServer"
-	@echo "... SocketServer.o"
-	@echo "... SocketServer.i"
-	@echo "... SocketServer.s"
+	@echo "... UdpSocketServer.o"
+	@echo "... UdpSocketServer.i"
+	@echo "... UdpSocketServer.s"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.i"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.s"
