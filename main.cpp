@@ -10,15 +10,13 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <time.h>
+#include "timecalc.h"
 
 #define PORT_NUM "4950"
 #define BUFF_LEN 50
 
 
 void log_error(const char *);
-
-char *get_time();
 
 void *get_in_addr(struct sockaddr *);
 
@@ -73,15 +71,14 @@ int main()
     freeaddrinfo(serverinfo);
 
     struct sockaddr_storage client_addr;
-    int sotrage_len = sizeof(client_addr);
-    char buffer[BUFF_LEN];
+    unsigned int sotrage_len = sizeof(client_addr);
+    char buffer[BUFF_LEN];  // memset this
     int num_bytes;
 
     while (1)
     {
         printf("Server:Waiting for a packet...\n");
-        num_bytes = (int) recvfrom(sockfd, buffer, BUFF_LEN - 1, 0, (struct sockaddr *) &client_addr,
-                (socklen_t *) &sotrage_len);
+        num_bytes = (int) recvfrom(sockfd, buffer, BUFF_LEN - 1, 0, (struct sockaddr *) &client_addr, &sotrage_len);
         if (num_bytes == -1)
         {
             log_error("receive from");
@@ -95,6 +92,8 @@ int main()
         printf("Server: packet is %d bytes long\n", num_bytes);
         buffer[num_bytes] = '\0';   // Terminate the string
         printf("listener: packet contains \"%s\" at %s\n", buffer, get_time());    //%T
+
+        sendto(sockfd, buffer, sizeof(buffer), 0, (struct sockaddr *) &client_addr, sotrage_len);
 
         if (!strcmp("exit", buffer))
         {
@@ -121,16 +120,3 @@ void *get_in_addr(struct sockaddr *sa)
     return &(((struct sockaddr_in6 *) sa)->sin6_addr);
 }
 
-char *get_time()
-{
-    time_t rawtime;
-    struct tm *timeinfo;
-    int time_length = 20;
-    char *buffer = (char *) malloc(sizeof(char) * time_length);
-
-    time(&rawtime);
-    timeinfo = localtime(&rawtime);
-
-    strftime(buffer, 20, "%T%p", timeinfo);
-    return buffer;
-}

@@ -123,6 +123,60 @@ enhancedUdpServer/fast:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/build
 .PHONY : enhancedUdpServer/fast
 
+SocketServer.o: SocketServer.cpp.o
+
+.PHONY : SocketServer.o
+
+# target to build an object file
+SocketServer.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.o
+.PHONY : SocketServer.cpp.o
+
+SocketServer.i: SocketServer.cpp.i
+
+.PHONY : SocketServer.i
+
+# target to preprocess a source file
+SocketServer.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.i
+.PHONY : SocketServer.cpp.i
+
+SocketServer.s: SocketServer.cpp.s
+
+.PHONY : SocketServer.s
+
+# target to generate assembly for a file
+SocketServer.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/SocketServer.cpp.s
+.PHONY : SocketServer.cpp.s
+
+home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o: home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
+
+.PHONY : home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o
+
+# target to build an object file
+home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
+.PHONY : home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
+
+home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.i: home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.i
+
+.PHONY : home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.i
+
+# target to preprocess a source file
+home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.i
+.PHONY : home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.i
+
+home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.s: home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.s
+
+.PHONY : home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.s
+
+# target to generate assembly for a file
+home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.s
+.PHONY : home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -150,6 +204,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+timecalc.o: timecalc.cpp.o
+
+.PHONY : timecalc.o
+
+# target to build an object file
+timecalc.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o
+.PHONY : timecalc.cpp.o
+
+timecalc.i: timecalc.cpp.i
+
+.PHONY : timecalc.i
+
+# target to preprocess a source file
+timecalc.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.i
+.PHONY : timecalc.cpp.i
+
+timecalc.s: timecalc.cpp.s
+
+.PHONY : timecalc.s
+
+# target to generate assembly for a file
+timecalc.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.s
+.PHONY : timecalc.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +240,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... enhancedUdpServer"
+	@echo "... SocketServer.o"
+	@echo "... SocketServer.i"
+	@echo "... SocketServer.s"
+	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o"
+	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.i"
+	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... timecalc.o"
+	@echo "... timecalc.i"
+	@echo "... timecalc.s"
 .PHONY : help
 
 
