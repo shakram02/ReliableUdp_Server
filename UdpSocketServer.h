@@ -26,15 +26,31 @@ using namespace std;
 class UdpSocketServer
 {
 public:
+    /**
+     * Creates a new instance of a UDP server, this doesn't start any networking operation
+     */
     UdpSocketServer(const string serverIp, unsigned const short portNumber);
 
     ~UdpSocketServer();
 
-    void StartReceiving(void (*recvHandler)(char *msg, const string senderInfo[], char **reply));
+    /**
+     * Starts receiving clients, this should run on a separate process
+     * @param clientRequestHandler Event handler to receive the packets
+     */
+    void StartReceiving(void (*clientRequestHandler)(const unsigned int redirectSocketFd,
+            const sockaddr_in redirectAddr));
 
 private:
+    int CreateClientSocket(unsigned short &redirectPort, sockaddr_in &redirectAddr);
+
+    string handShake;
+    string serverIp;
     bool isReceiving;
     int socketFd;
+
+    void PrintClientDetails(sockaddr_in clientAddr);
+
+    void callwithredirect(unsigned int fd, sockaddr_in in);
 };
 
 

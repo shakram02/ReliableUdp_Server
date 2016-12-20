@@ -14,28 +14,13 @@ void log_error(const char *);
 
 void *get_in_addr(struct sockaddr *);
 
-void on_recv(char *msg, const string senderInfo[], char **reply)
-{
-    data_packet packet;
-    packet.seqno = 12;
-    packet.len = 24;
-
-    memset(packet.data, 0, sizeof(packet.data));
-    memcpy(packet.data, "HALOLOA", sizeof(packet.data));
-
-    *reply = reinterpret_cast<char *>(&packet);
-
-    data_packet *unpacked = reinterpret_cast<data_packet *>(msg);
-    cout << "Got:\"" << unpacked->data
-         << "\" Address:" << senderInfo[0]
-         << " Port:" << senderInfo[1] << " At:" << get_time() << endl;
-}
 
 int main()
 {
     UdpSocketServer s(SERVER_IP, PORT_NUM);
-
-
-    s.StartReceiving(on_recv);
+    s.StartReceiving([](const unsigned int sockfd, const sockaddr_in info) {
+        cout << "Lambdad ";
+        cout << sockfd << endl;
+    });
     return 0;
 }

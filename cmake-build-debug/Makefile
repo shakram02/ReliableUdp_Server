@@ -123,6 +123,33 @@ enhancedUdpServer/fast:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/build
 .PHONY : enhancedUdpServer/fast
 
+NetworkOperationResult.o: NetworkOperationResult.cpp.o
+
+.PHONY : NetworkOperationResult.o
+
+# target to build an object file
+NetworkOperationResult.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o
+.PHONY : NetworkOperationResult.cpp.o
+
+NetworkOperationResult.i: NetworkOperationResult.cpp.i
+
+.PHONY : NetworkOperationResult.i
+
+# target to preprocess a source file
+NetworkOperationResult.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.i
+.PHONY : NetworkOperationResult.cpp.i
+
+NetworkOperationResult.s: NetworkOperationResult.cpp.s
+
+.PHONY : NetworkOperationResult.s
+
+# target to generate assembly for a file
+NetworkOperationResult.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.s
+.PHONY : NetworkOperationResult.cpp.s
+
 UdpSocketServer.o: UdpSocketServer.cpp.o
 
 .PHONY : UdpSocketServer.o
@@ -240,6 +267,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... enhancedUdpServer"
+	@echo "... NetworkOperationResult.o"
+	@echo "... NetworkOperationResult.i"
+	@echo "... NetworkOperationResult.s"
 	@echo "... UdpSocketServer.o"
 	@echo "... UdpSocketServer.i"
 	@echo "... UdpSocketServer.s"

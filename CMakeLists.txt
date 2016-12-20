@@ -3,5 +3,5 @@ project(enhancedUdpServer)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp UdpSocketServer.cpp UdpSocketServer.h timecalc.h timecalc.cpp ../libs/netutils.c ../libs/netutils.h)
+set(SOURCE_FILES main.cpp UdpSocketServer.cpp UdpSocketServer.h timecalc.h timecalc.cpp ../libs/netutils.c ../libs/netutils.h NetworkOperationResult.cpp)
 add_executable(enhancedUdpServer ${SOURCE_FILES})

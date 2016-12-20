@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o"
+  "CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o"
   "enhancedUdpServer.pdb"
   "enhancedUdpServer"
 )
