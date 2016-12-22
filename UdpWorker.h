@@ -24,6 +24,8 @@ public:
 private:
     int socket_fd;
     sockaddr_in client_addr;
+
+    bool AssertRedirection(int client_sock_fd);
 };
 
 

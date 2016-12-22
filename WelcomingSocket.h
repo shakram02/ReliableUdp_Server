@@ -59,8 +59,6 @@ private:
     int socketFd;
 
     void PrintClientDetails(sockaddr_in client_address);
-
-    void callwithredirect(int fd, sockaddr_in in);  // TODO moved to the client socket
 };
 
 

@@ -94,8 +94,6 @@ void WelcomingSocket::StartReceiving(std::function<void(int, sockaddr_in)> callb
         sendto(this->socketFd, message.c_str(), message.size(),
                 0, (struct sockaddr *) &client, clientAddrSize);
 
-        //callwithredirect(redirect_socket_descriptor, redirect_addr); // In the child process
-        // Alert the RequestHandler, create a child process
         callback(redirect_socket_descriptor, redirect_addr);   // Fire the event
 
     }
@@ -156,29 +154,6 @@ void WelcomingSocket::PrintClientDetails(sockaddr_in client_address)
          << ", IP:" << inet_ntoa(client_address.sin_addr)
          << "  Port:" << to_string(ntohs(client_address.sin_port))
          << endl;
-}
-
-void WelcomingSocket::callwithredirect(int fd, sockaddr_in in)
-{
-    // FIXME doesn't receive all the message because of WELCOME_BUFFLEN
-    // TODO move to the client socket class
-    struct sockaddr_in client;
-    char buf[BUFF_LEN] = {0};
-    unsigned int clientAddrSize = sizeof(client);
-
-    // Weird switch to save declaring variables
-    switch (recvfrom(fd, buf, sizeof(buf), 0, (struct sockaddr *) &client, &clientAddrSize)) {
-        case 0:
-            log_error("client closed connection");
-
-        case -1:
-            log_error("recvfrom");
-
-        default:
-            cout << "AFTER REDIRECT:" << string(buf) << endl;
-            break;
-    }
-
 }
 
 void WelcomingSocket::StopReceiving()

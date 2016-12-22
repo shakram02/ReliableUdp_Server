@@ -27,10 +27,6 @@ public :
 
 
 private:
-    void OnClientConnect(const int redirectSocketFd, const sockaddr_in redirectAddr);
-
-    void ClientTask(int socketFd, sockaddr_in addr);
-
     WelcomingSocket welcome_socket;
     bool isReceiving;
     std::thread mainThread;

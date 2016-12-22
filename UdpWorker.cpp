@@ -8,6 +8,8 @@
 #include "UdpWorker.h"
 #include "../libs/netutils.h"
 
+#define REDIRECT_SUCCESS "REDIRECT SUCCESSFUL"
+
 UdpWorker::UdpWorker(int client_socket_descriptor, const sockaddr_in &client_address)
 {
     this->socket_fd = client_socket_descriptor;
@@ -19,31 +21,21 @@ UdpWorker::UdpWorker(int client_socket_descriptor, const sockaddr_in &client_add
             << endl;
 
     string message = "July";
-
-//    for (int i = 0; i < 10; i++) {
-//        ssize_t bytes = sendto(this->socket_fd, "abcd", strlen("abcd"),
-//                0, (struct sockaddr *) &client_addr, sizeof(client_addr));
-//
-//        cout << "Sent " << bytes << " bytes" << endl;
-//        usleep(1000 * 1000 * 1000);
-//    }
-
-    char buf[128] = {0};
-    struct sockaddr_in client;
-    unsigned int client_addr_size = sizeof(client);
-
-    // Weird switch to save declaring variables
-    switch (recvfrom(client_socket_descriptor, buf, sizeof(buf), 0, (struct sockaddr *) &client,
-            &client_addr_size)) {
-        case 0:
-            log_error("client closed connection");
-
-        case -1:
-            log_error("recvfrom");
-
-        default:
-            cout << "AFTER REDIRECT:" << string(buf) << endl;
-            break;
+    if (AssertRedirection(client_socket_descriptor)) {
+        cout << "Client redirected successfully" << endl;
+    } else {
+        cerr << "Client failed to redirect" << endl;
     }
+
+}
+
+bool UdpWorker::AssertRedirection(int client_sock_fd)
+{
+    char buf[strlen(REDIRECT_SUCCESS)] = {0};
+
+    recvfrom(client_sock_fd, buf, sizeof(buf), 0, NULL, NULL);
+
+    // We don't need info about the client now
+    return string(buf) == REDIRECT_SUCCESS;
 
 }
