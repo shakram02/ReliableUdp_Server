@@ -81,57 +81,33 @@ CMakeFiles/enhancedUdpServer.dir/main.cpp.o.provides: CMakeFiles/enhancedUdpServ
 CMakeFiles/enhancedUdpServer.dir/main.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/main.cpp.o
 
 
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o: ../UdpSocketServer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: ../WelcomingSocket.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp
 
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp > CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp > CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.i
 
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp -o CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp -o CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.s
 
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires:
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.requires:
 
-.PHONY : CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires
+.PHONY : CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.requires
 
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides.build
-.PHONY : CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.provides: CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.requires
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.provides.build
+.PHONY : CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.provides
 
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o
-
-
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o: ../timecalc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.cpp
-
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.cpp > CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.i
-
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.cpp -o CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.s
-
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.requires:
-
-.PHONY : CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.requires
-
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.provides: CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.requires
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.provides.build
-.PHONY : CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.provides
-
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o
 
 
 CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o: CMakeFiles/enhancedUdpServer.dir/flags.make
 CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o: /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o"
 	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o   -c /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c
 
 CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.i: cmake_force
@@ -155,7 +131,7 @@ CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netu
 
 CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
 CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o: ../NetworkOperationResult.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp
 
 CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.i: cmake_force
@@ -177,25 +153,75 @@ CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o.provides: CMakeFil
 CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o
 
 
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o: ../UdpWorker.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp
+
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp > CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.i
+
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp -o CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.s
+
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.requires:
+
+.PHONY : CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.requires
+
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.provides: CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.requires
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.provides.build
+.PHONY : CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.provides
+
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o
+
+
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: CMakeFiles/enhancedUdpServer.dir/flags.make
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: ../ClientObserver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o -c /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp
+
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp > CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.i
+
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp -o CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.s
+
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.requires:
+
+.PHONY : CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.requires
+
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.provides: CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.requires
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.provides.build
+.PHONY : CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.provides
+
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.provides.build: CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o
+
+
 # Object files for target enhancedUdpServer
 enhancedUdpServer_OBJECTS = \
 "CMakeFiles/enhancedUdpServer.dir/main.cpp.o" \
-"CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o" \
-"CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o" \
+"CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o" \
 "CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o" \
-"CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o"
+"CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o" \
+"CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o" \
+"CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o"
 
 # External object files for target enhancedUdpServer
 enhancedUdpServer_EXTERNAL_OBJECTS =
 
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/main.cpp.o
-enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o
-enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o
+enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o
+enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o
+enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/build.make
 enhancedUdpServer: CMakeFiles/enhancedUdpServer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable enhancedUdpServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable enhancedUdpServer"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/enhancedUdpServer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -204,10 +230,11 @@ CMakeFiles/enhancedUdpServer.dir/build: enhancedUdpServer
 .PHONY : CMakeFiles/enhancedUdpServer.dir/build
 
 CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/main.cpp.o.requires
-CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o.requires
-CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o.requires
+CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o.requires
 CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o.requires
 CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o.requires
+CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o.requires
+CMakeFiles/enhancedUdpServer.dir/requires: CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o.requires
 
 .PHONY : CMakeFiles/enhancedUdpServer.dir/requires
 

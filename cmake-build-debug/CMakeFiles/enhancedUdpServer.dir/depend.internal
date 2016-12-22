@@ -4,16 +4,27 @@
 CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
-CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o
- /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp
- /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
+ /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
+CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp
+CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h
+ /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 CMakeFiles/enhancedUdpServer.dir/main.cpp.o
- /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
-CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o
- /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.cpp

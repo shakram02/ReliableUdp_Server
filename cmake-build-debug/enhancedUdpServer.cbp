@@ -84,19 +84,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.cpp">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpSocketServer.h">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp">
-			<Option target="enhancedUdpServer"/>
-		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h">

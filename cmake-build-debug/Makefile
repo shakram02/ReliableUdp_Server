@@ -123,6 +123,33 @@ enhancedUdpServer/fast:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/build
 .PHONY : enhancedUdpServer/fast
 
+ClientObserver.o: ClientObserver.cpp.o
+
+.PHONY : ClientObserver.o
+
+# target to build an object file
+ClientObserver.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o
+.PHONY : ClientObserver.cpp.o
+
+ClientObserver.i: ClientObserver.cpp.i
+
+.PHONY : ClientObserver.i
+
+# target to preprocess a source file
+ClientObserver.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.i
+.PHONY : ClientObserver.cpp.i
+
+ClientObserver.s: ClientObserver.cpp.s
+
+.PHONY : ClientObserver.s
+
+# target to generate assembly for a file
+ClientObserver.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.s
+.PHONY : ClientObserver.cpp.s
+
 NetworkOperationResult.o: NetworkOperationResult.cpp.o
 
 .PHONY : NetworkOperationResult.o
@@ -150,32 +177,59 @@ NetworkOperationResult.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.s
 .PHONY : NetworkOperationResult.cpp.s
 
-UdpSocketServer.o: UdpSocketServer.cpp.o
+UdpWorker.o: UdpWorker.cpp.o
 
-.PHONY : UdpSocketServer.o
+.PHONY : UdpWorker.o
 
 # target to build an object file
-UdpSocketServer.cpp.o:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.o
-.PHONY : UdpSocketServer.cpp.o
+UdpWorker.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o
+.PHONY : UdpWorker.cpp.o
 
-UdpSocketServer.i: UdpSocketServer.cpp.i
+UdpWorker.i: UdpWorker.cpp.i
 
-.PHONY : UdpSocketServer.i
+.PHONY : UdpWorker.i
 
 # target to preprocess a source file
-UdpSocketServer.cpp.i:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.i
-.PHONY : UdpSocketServer.cpp.i
+UdpWorker.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.i
+.PHONY : UdpWorker.cpp.i
 
-UdpSocketServer.s: UdpSocketServer.cpp.s
+UdpWorker.s: UdpWorker.cpp.s
 
-.PHONY : UdpSocketServer.s
+.PHONY : UdpWorker.s
 
 # target to generate assembly for a file
-UdpSocketServer.cpp.s:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpSocketServer.cpp.s
-.PHONY : UdpSocketServer.cpp.s
+UdpWorker.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.s
+.PHONY : UdpWorker.cpp.s
+
+WelcomingSocket.o: WelcomingSocket.cpp.o
+
+.PHONY : WelcomingSocket.o
+
+# target to build an object file
+WelcomingSocket.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o
+.PHONY : WelcomingSocket.cpp.o
+
+WelcomingSocket.i: WelcomingSocket.cpp.i
+
+.PHONY : WelcomingSocket.i
+
+# target to preprocess a source file
+WelcomingSocket.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.i
+.PHONY : WelcomingSocket.cpp.i
+
+WelcomingSocket.s: WelcomingSocket.cpp.s
+
+.PHONY : WelcomingSocket.s
+
+# target to generate assembly for a file
+WelcomingSocket.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.s
+.PHONY : WelcomingSocket.cpp.s
 
 home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o: home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
 
@@ -231,33 +285,6 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-timecalc.o: timecalc.cpp.o
-
-.PHONY : timecalc.o
-
-# target to build an object file
-timecalc.cpp.o:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.o
-.PHONY : timecalc.cpp.o
-
-timecalc.i: timecalc.cpp.i
-
-.PHONY : timecalc.i
-
-# target to preprocess a source file
-timecalc.cpp.i:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.i
-.PHONY : timecalc.cpp.i
-
-timecalc.s: timecalc.cpp.s
-
-.PHONY : timecalc.s
-
-# target to generate assembly for a file
-timecalc.cpp.s:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/timecalc.cpp.s
-.PHONY : timecalc.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -267,21 +294,24 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... enhancedUdpServer"
+	@echo "... ClientObserver.o"
+	@echo "... ClientObserver.i"
+	@echo "... ClientObserver.s"
 	@echo "... NetworkOperationResult.o"
 	@echo "... NetworkOperationResult.i"
 	@echo "... NetworkOperationResult.s"
-	@echo "... UdpSocketServer.o"
-	@echo "... UdpSocketServer.i"
-	@echo "... UdpSocketServer.s"
+	@echo "... UdpWorker.o"
+	@echo "... UdpWorker.i"
+	@echo "... UdpWorker.s"
+	@echo "... WelcomingSocket.o"
+	@echo "... WelcomingSocket.i"
+	@echo "... WelcomingSocket.s"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.i"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... timecalc.o"
-	@echo "... timecalc.i"
-	@echo "... timecalc.s"
 .PHONY : help
 
 
