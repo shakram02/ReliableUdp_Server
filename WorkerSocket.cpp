@@ -14,15 +14,15 @@ WorkerSocket::WorkerSocket(int client_sockfd)
     this->socket_fd = client_sockfd;
 
 
-    string message = "July";
     if (AssertRedirection()) {
         cout << "Client redirected successfully" << endl;
 
-        char *buf = "OK";
+        string confirmation_msg = "OK";
         int len = sizeof((this->client_addr));
 
         for (int i = 0; i < 2; i++) {
-            sendto(this->socket_fd, buf, strlen("OK"), 0, (sockaddr *) &(this->client_addr), len);
+            sendto(this->socket_fd, confirmation_msg.c_str(), confirmation_msg.size(), 0,
+                    (sockaddr *) &(this->client_addr), len);
         }
     } else {
         cerr << "Client failed to redirect" << endl;
@@ -32,8 +32,6 @@ WorkerSocket::WorkerSocket(int client_sockfd)
          << " Receive Port:" << ntohs(this->client_addr.sin_port)
          << " Socket:" << this->socket_fd
          << endl;
-
-
 }
 
 bool WorkerSocket::AssertRedirection()

@@ -41,11 +41,13 @@ void ClientObserver::ServeClient(void *thing)
 
 void ClientObserver::NotifyForClient(int sock_fd)
 {
-    cerr << "Welcomed" << endl;
 
-    WorkerSocket ws(sock_fd);
+    std::thread th([=]() {
+        cerr << "Welcomed" << endl;
+        WorkerSocket ws(sock_fd);
+    });
 
-
+    th.detach();
 }
 
 
