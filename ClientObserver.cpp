@@ -4,6 +4,7 @@
 
 #include "ClientObserver.h"
 
+
 ClientObserver::ClientObserver(const string &serverIp, const unsigned short &portNumber) : welcome_socket(serverIp,
         portNumber)
 {
@@ -43,7 +44,13 @@ void ClientObserver::NotifyForClient(int sock_fd)
 {
 
     std::thread th([=]() {
-        cerr << "Welcomed" << endl;
+        time_t t = time(0);   // get time now
+        struct tm *now = localtime(&t);
+
+        cout << "Welcomed at "
+             << now->tm_hour << ":"
+             << now->tm_min << ":"
+             << now->tm_sec << endl;
         WorkerSocket ws(sock_fd);
     });
 

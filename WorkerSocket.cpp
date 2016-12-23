@@ -13,17 +13,16 @@ WorkerSocket::WorkerSocket(int client_sockfd)
 {
     this->socket_fd = client_sockfd;
 
-
     if (AssertRedirection()) {
         cout << "Client redirected successfully" << endl;
-
         string confirmation_msg = "OK";
+
         int len = sizeof((this->client_addr));
 
-        for (int i = 0; i < 2; i++) {
-            sendto(this->socket_fd, confirmation_msg.c_str(), confirmation_msg.size(), 0,
-                    (sockaddr *) &(this->client_addr), len);
-        }
+        sendto(this->socket_fd, confirmation_msg.c_str(),
+                confirmation_msg.size(), 0,
+                (sockaddr *) &(this->client_addr), (socklen_t) len);
+
     } else {
         cerr << "Client failed to redirect" << endl;
     }
@@ -39,6 +38,7 @@ bool WorkerSocket::AssertRedirection()
 
     string buf = ReadProtocolString((int) strlen(REDIRECT_SUCCESS));
     // We don't need info about the client now
+    cout << "Worker#redirection message:" << buf << endl;
     return string(buf) == REDIRECT_SUCCESS;
 }
 
@@ -53,12 +53,11 @@ string WorkerSocket::ReadProtocolString(int count)
     recvfrom(this->socket_fd, buf, sizeof(buf), 0, (sockaddr *) &(this->client_addr), &len);
 
 
-    cout << "Client IP: " << inet_ntoa((this->client_addr).sin_addr)
-         << " Client Port:" << ntohs((this->client_addr).sin_port)
+    cout << "Worker#Client IP: " << inet_ntoa((this->client_addr).sin_addr)
+         << "Worker#Client Port:" << ntohs((this->client_addr).sin_port)
          << endl;
 
-    return
-            string(buf);
+    return string(buf);
 }
 
 WorkerSocket::~WorkerSocket()
