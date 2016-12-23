@@ -26,6 +26,7 @@
 
 #include "../libs/netutils.h"
 
+
 using namespace std;
 
 /**
@@ -46,17 +47,20 @@ public:
      * Starts receiving clients, this should run on a separate process
      * @param clientRequestHandler Event handler to receive the packets
      */
-    void StartReceiving(std::function<void(int, sockaddr_in)> callback);
+    //void StartReceiving(std::function<void(int, sockaddr_in)> notify_above);
+    void StartReceiving();
 
     void StopReceiving();
 
+    bool is_receiving;
 private:
     int CreateClientSocket(unsigned short &redirect_port, sockaddr_in &redirect_address);
 
     string handShake;
-    string serverIp;
-    bool isReceiving;
-    int socketFd;
+    string server_ip;
+
+    int socket_fd;
+    //ClientObserver* observer;
 
     void PrintClientDetails(sockaddr_in client_address);
 };

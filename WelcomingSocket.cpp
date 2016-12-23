@@ -6,6 +6,8 @@
 
 #include "WelcomingSocket.h"
 #include "../libs/data_packet.h"
+#include "ClientObserver.h"
+
 
 #define BUFF_LEN 256
 
@@ -22,6 +24,7 @@ WelcomingSocket::WelcomingSocket(const string serverIp, unsigned const short por
 {
     // Set the handshake string
     this->handShake = HANDSHAKE;
+    this->is_receiving = false;
 
     unsigned int namelen;
     struct sockaddr_in server;
@@ -30,19 +33,19 @@ WelcomingSocket::WelcomingSocket(const string serverIp, unsigned const short por
     server.sin_port = htons(portNumber);
     inet_pton(AF_INET, serverIp.c_str(), &server.sin_addr.s_addr);
 
-    if ((this->socketFd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+    if ((this->socket_fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
         log_error("socket()");
         exit(1);
     }
 
-    if (bind(this->socketFd, (struct sockaddr *) &server, sizeof(server)) < 0) {
+    if (bind(this->socket_fd, (struct sockaddr *) &server, sizeof(server)) < 0) {
         log_error("bind()");
         exit(2);
     }
 
-    this->serverIp = serverIp;
+    this->server_ip = serverIp;
     namelen = sizeof(server);
-    if (getsockname(this->socketFd, (struct sockaddr *) &server, &namelen) < 0) {
+    if (getsockname(this->socket_fd, (struct sockaddr *) &server, &namelen) < 0) {
         log_error("getsockname()");
         exit(3);
     }
@@ -50,18 +53,18 @@ WelcomingSocket::WelcomingSocket(const string serverIp, unsigned const short por
     printf("Port assigned is %d\n", ntohs(server.sin_port));
 }
 
-void WelcomingSocket::StartReceiving(std::function<void(int, sockaddr_in)> callback)
+void WelcomingSocket::StartReceiving()
 {
-    this->isReceiving = true;
+    this->is_receiving = true;
 
-    while (this->isReceiving) {
+    while (this->is_receiving) {
 
         struct sockaddr_in client;
         char buf[WELCOME_BUFFLEN] = {0};
         unsigned int clientAddrSize = sizeof(client);
 
         // Weird switch to save declaring variables
-        switch (recvfrom(this->socketFd, buf, sizeof(buf), 0, (struct sockaddr *) &client, &clientAddrSize)) {
+        switch (recvfrom(this->socket_fd, buf, sizeof(buf), 0, (struct sockaddr *) &client, &clientAddrSize)) {
             case 0:
                 log_error("client closed connection");
                 continue;
@@ -89,12 +92,14 @@ void WelcomingSocket::StartReceiving(std::function<void(int, sockaddr_in)> callb
 
         string message = string("redirect") + to_string(redirectPort);
 
-        cout << "Sending:" << message << endl;
+        cout << "WelcSock#Sending:" << message << endl;
+
         // Send redirect message to client
-        sendto(this->socketFd, message.c_str(), message.size(),
+        sendto(this->socket_fd, message.c_str(), message.size(),
                 0, (struct sockaddr *) &client, clientAddrSize);
 
-        callback(redirect_socket_descriptor, redirect_addr);   // Fire the event
+        cout << "Notified above" << endl;
+        ClientObserver::NotifyForClient(redirect_socket_descriptor);
 
     }
     cout << endl << "Stopped listening for ppl" << endl;
@@ -109,7 +114,7 @@ int WelcomingSocket::CreateClientSocket(unsigned short &redirect_port, sockaddr_
     redirect_address.sin_family = AF_INET;  /* Server is in Internet Domain */
     redirect_address.sin_port = 0;    // Get any available port
     // Use the same server IP, a clustered system would change the ip to a worker node
-    inet_pton(AF_INET, this->serverIp.c_str(), &redirect_address.sin_addr.s_addr);
+    inet_pton(AF_INET, this->server_ip.c_str(), &redirect_address.sin_addr.s_addr);
 
     if ((redirect_socket_descriptor = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
         log_error("socket()");
@@ -139,13 +144,17 @@ int WelcomingSocket::CreateClientSocket(unsigned short &redirect_port, sockaddr_
         log_error("set receive timeout");
     }
 
+    if (!setsockopt(redirect_socket_descriptor, SOL_SOCKET, SO_SNDTIMEO, (char *) &timeout, sizeof(timeval))) {
+        log_error("set receive timeout");
+    }
+
     return redirect_socket_descriptor;
 }
 
 
 WelcomingSocket::~WelcomingSocket()
 {
-    close(socketFd);
+    close(socket_fd);
 }
 
 void WelcomingSocket::PrintClientDetails(sockaddr_in client_address)
@@ -158,5 +167,5 @@ void WelcomingSocket::PrintClientDetails(sockaddr_in client_address)
 
 void WelcomingSocket::StopReceiving()
 {
-    this->isReceiving = false;
+    this->is_receiving = false;
 }

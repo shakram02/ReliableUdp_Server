@@ -93,16 +93,16 @@
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp">
-			<Option target="enhancedUdpServer"/>
-		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h">
-			<Option target="enhancedUdpServer"/>
-		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp">

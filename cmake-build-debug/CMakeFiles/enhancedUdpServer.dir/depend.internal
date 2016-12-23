@@ -7,23 +7,26 @@ CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netu
 CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
- /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp
-CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o
- /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp
- /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h
- /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
+ /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
+CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.o
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.cpp
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 CMakeFiles/enhancedUdpServer.dir/main.cpp.o
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h

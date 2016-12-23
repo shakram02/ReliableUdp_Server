@@ -177,33 +177,6 @@ NetworkOperationResult.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.s
 .PHONY : NetworkOperationResult.cpp.s
 
-UdpWorker.o: UdpWorker.cpp.o
-
-.PHONY : UdpWorker.o
-
-# target to build an object file
-UdpWorker.cpp.o:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.o
-.PHONY : UdpWorker.cpp.o
-
-UdpWorker.i: UdpWorker.cpp.i
-
-.PHONY : UdpWorker.i
-
-# target to preprocess a source file
-UdpWorker.cpp.i:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.i
-.PHONY : UdpWorker.cpp.i
-
-UdpWorker.s: UdpWorker.cpp.s
-
-.PHONY : UdpWorker.s
-
-# target to generate assembly for a file
-UdpWorker.cpp.s:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/UdpWorker.cpp.s
-.PHONY : UdpWorker.cpp.s
-
 WelcomingSocket.o: WelcomingSocket.cpp.o
 
 .PHONY : WelcomingSocket.o
@@ -230,6 +203,33 @@ WelcomingSocket.s: WelcomingSocket.cpp.s
 WelcomingSocket.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.s
 .PHONY : WelcomingSocket.cpp.s
+
+WorkerSocket.o: WorkerSocket.cpp.o
+
+.PHONY : WorkerSocket.o
+
+# target to build an object file
+WorkerSocket.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.o
+.PHONY : WorkerSocket.cpp.o
+
+WorkerSocket.i: WorkerSocket.cpp.i
+
+.PHONY : WorkerSocket.i
+
+# target to preprocess a source file
+WorkerSocket.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.i
+.PHONY : WorkerSocket.cpp.i
+
+WorkerSocket.s: WorkerSocket.cpp.s
+
+.PHONY : WorkerSocket.s
+
+# target to generate assembly for a file
+WorkerSocket.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.s
+.PHONY : WorkerSocket.cpp.s
 
 home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o: home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
 
@@ -300,12 +300,12 @@ help:
 	@echo "... NetworkOperationResult.o"
 	@echo "... NetworkOperationResult.i"
 	@echo "... NetworkOperationResult.s"
-	@echo "... UdpWorker.o"
-	@echo "... UdpWorker.i"
-	@echo "... UdpWorker.s"
 	@echo "... WelcomingSocket.o"
 	@echo "... WelcomingSocket.i"
 	@echo "... WelcomingSocket.s"
+	@echo "... WorkerSocket.o"
+	@echo "... WorkerSocket.i"
+	@echo "... WorkerSocket.s"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.i"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.s"

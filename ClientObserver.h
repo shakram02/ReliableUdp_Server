@@ -10,6 +10,9 @@
 #include <netinet/in.h>
 #include "WelcomingSocket.h"
 
+#include "WorkerSocket.h"
+
+//using namespace boost;
 using namespace std;
 
 /**
@@ -25,14 +28,17 @@ public :
 
     ClientObserver(const string &serverIp, const unsigned short &portNumber);
 
+    static void NotifyForClient(int sock_fd);
 
 private:
+
+
+    static void ServeClient(void *thing);
+
     WelcomingSocket welcome_socket;
     bool isReceiving;
     std::thread mainThread;
-    vector<thread> client_threads;
-
-
+    //vector<thread> client_threads;
 };
 
 

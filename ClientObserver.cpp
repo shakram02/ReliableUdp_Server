@@ -2,21 +2,17 @@
 // Created by ahmed on 12/21/16.
 //
 
-
-
 #include "ClientObserver.h"
-#include "UdpWorker.h"
 
-ClientObserver::ClientObserver(const string &serverIp, const unsigned short &portNumber) :
-        welcome_socket(serverIp, portNumber)
+ClientObserver::ClientObserver(const string &serverIp, const unsigned short &portNumber) : welcome_socket(serverIp,
+        portNumber)
 {
-    this->isReceiving = false;
 }
 
 
 void ClientObserver::StopListening()
 {
-    if (!this->isReceiving) {
+    if (!welcome_socket.is_receiving) {
         return;
     }
     this->isReceiving = false;
@@ -25,15 +21,33 @@ void ClientObserver::StopListening()
 
 void ClientObserver::StartListening()
 {
-    // FIX ME
-    if (this->isReceiving)return;
+    if (this->welcome_socket.is_receiving)return;
 
-    this->isReceiving = true;
-
-
-    this->welcome_socket.StartReceiving([](int socket_fd, sockaddr_in client_address) {
-        UdpWorker w(socket_fd, client_address);
-    });
+//    this->welcome_socket.StartReceiving([](int socket_fd, sockaddr_in client_address) {
+//        WorkerSocket w(socket_fd, client_address);
+//        std::thread th(ClientObserver::OnClientConnect, this, socket_fd, client_address);
+//        th.detach();
+//    });
+    //boost::thread th(bind(&ClientObserver::ServeClient, this));
+    this->welcome_socket.StartReceiving();
 
 }
+
+
+void ClientObserver::ServeClient(void *thing)
+{
+    cerr << "Thread HELLO!!!" << endl;
+}
+
+void ClientObserver::NotifyForClient(int sock_fd)
+{
+    cerr << "Welcomed" << endl;
+
+    WorkerSocket ws(sock_fd);
+
+
+}
+
+
+//obs->ServeClient();
 

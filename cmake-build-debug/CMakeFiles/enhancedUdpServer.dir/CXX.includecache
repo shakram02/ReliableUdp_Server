@@ -9,8 +9,6 @@
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
-UdpWorker.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
 vector
@@ -21,34 +19,18 @@ netinet/in.h
 -
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
+WorkerSocket.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp
-
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.cpp
-arpa/inet.h
--
-cstring
--
-zconf.h
--
-UdpWorker.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h
-../libs/netutils.h
-/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
-
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/UdpWorker.h
-string
--
-iostream
--
-netinet/in.h
--
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
 ../libs/data_packet.h
 /home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
+ClientObserver.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
 stdio.h
@@ -87,6 +69,24 @@ functional
 -
 ../libs/netutils.h
 /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.cpp
+arpa/inet.h
+-
+cstring
+-
+WorkerSocket.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
+../libs/netutils.h
+/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
+string
+-
+iostream
+-
+netinet/in.h
+-
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp
 sys/socket.h

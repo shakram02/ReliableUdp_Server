@@ -16,16 +16,20 @@ using namespace std;
  * and will handle sending and receiving data / ack packets and will notify the above class
  * for any packets that are lost
  */
-class UdpWorker
+class WorkerSocket
 {
 public:
-    UdpWorker(int client_socket_descriptor, const sockaddr_in &client_address);
+    WorkerSocket(int client_sockfd);
+
+    ~WorkerSocket();
 
 private:
     int socket_fd;
     sockaddr_in client_addr;
 
-    bool AssertRedirection(int client_sock_fd);
+    bool AssertRedirection();
+
+    string ReadProtocolString(int count);
 };
 
 
