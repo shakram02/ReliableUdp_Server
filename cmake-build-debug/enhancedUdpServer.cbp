@@ -90,6 +90,12 @@
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.h">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
@@ -97,6 +103,12 @@
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerFacade.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerFacade.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.cpp">

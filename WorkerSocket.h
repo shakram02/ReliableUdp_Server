@@ -19,17 +19,34 @@ using namespace std;
 class WorkerSocket
 {
 public:
+    /**
+     * Creates a worker socket to handle the client
+     * @param client_sockfd socket file descriptor for the connected client
+     */
     WorkerSocket(int client_sockfd);
 
+    /**
+     * Closes the assigned socket and disposes the object
+     */
     ~WorkerSocket();
 
 private:
+    /**
+     * Client socket file descriptor
+     */
     int socket_fd;
+    /**
+     * The IP address information of the connected client
+     */
     sockaddr_in client_addr;
 
-    bool AssertRedirection();
+    bool is_serving;
 
-    string ReadProtocolString(int count);
+    /**
+     * Waits the client message for port redirection
+     * @return Whether the client redirected or not
+     */
+    bool AssertRedirection();
 };
 
 

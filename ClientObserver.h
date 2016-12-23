@@ -22,23 +22,37 @@ using namespace std;
 class ClientObserver
 {
 public :
+    /**
+     * Start receiving clients and redirecting them
+     */
     void StartListening();
 
+    /**
+     * Stop receiving clients
+     */
     void StopListening();
 
+    /**
+     * Creates an instance of the client observer to handle incoming clients on spearate threads
+     * @param serverIp The IP that the server will take (this machine)
+     * @param portNumber The port number of the welcoming port,
+     *          this number should be a constant and must be know for the clients
+     */
     ClientObserver(const string &serverIp, const unsigned short &portNumber);
 
     static void NotifyForClient(int sock_fd);
 
 private:
 
-
-    static void ServeClient(void *thing);
-
+    /**
+     * Main receiving socket that redirects the clients to their dedicated ports
+     */
     WelcomingSocket welcome_socket;
-    bool isReceiving;
-    std::thread mainThread;
-    //vector<thread> client_threads;
+    /**
+     * Vector holding all client threads
+     * Report if a client fails?
+     */
+    //static vector<std::thread> client_threads;
 };
 
 

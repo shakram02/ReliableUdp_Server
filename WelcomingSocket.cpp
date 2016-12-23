@@ -87,20 +87,18 @@ void WelcomingSocket::StartReceiving()
         sockaddr_in redirect_addr;
         unsigned short redirectPort;
 
-        // FIXME close the open socket when done with it
         int redirect_socket_descriptor = CreateClientSocket(redirectPort, redirect_addr);
-
         string message = string("redirect") + to_string(redirectPort);
 
-        cout << "WelcSock#Sending:" << message << endl;
-
         // Send redirect message to client
-        sendto(this->socket_fd, message.c_str(), message.size(),
-                0, (struct sockaddr *) &client, clientAddrSize);
+        sendto(this->socket_fd, message.c_str(), message.size(), 0,
+                (struct sockaddr *) &client, clientAddrSize);
 
-        cout << "Notified above" << endl;
+
+        // TODO start thread here ?
         ClientObserver::NotifyForClient(redirect_socket_descriptor);
 
+        cout << endl << endl;
     }
     cout << endl << "Stopped listening for ppl" << endl;
 }
@@ -140,12 +138,12 @@ int WelcomingSocket::CreateClientSocket(unsigned short &redirect_port, sockaddr_
     // Removing memset causes unidentified behaviour as the values are originally garbage
     memset(&timeout, 0, sizeof(timeout));
     timeout.tv_sec = 3;
-    if (!setsockopt(redirect_socket_descriptor, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeval))) {
+
+    if (setsockopt(redirect_socket_descriptor, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeval))) {
         log_error("set receive timeout");
     }
-
-    if (!setsockopt(redirect_socket_descriptor, SOL_SOCKET, SO_SNDTIMEO, (char *) &timeout, sizeof(timeval))) {
-        log_error("set receive timeout");
+    if (setsockopt(redirect_socket_descriptor, SOL_SOCKET, SO_SNDTIMEO, (char *) &timeout, sizeof(timeval))) {
+        log_error("set send timeout");
     }
 
     return redirect_socket_descriptor;

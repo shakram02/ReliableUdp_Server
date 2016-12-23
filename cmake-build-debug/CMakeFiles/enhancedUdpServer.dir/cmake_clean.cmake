@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o"
+  "CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.o"
+  "CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.o"
   "enhancedUdpServer.pdb"
   "enhancedUdpServer"
 )

@@ -150,6 +150,33 @@ ClientObserver.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.s
 .PHONY : ClientObserver.cpp.s
 
+FileFragmenter.o: FileFragmenter.cpp.o
+
+.PHONY : FileFragmenter.o
+
+# target to build an object file
+FileFragmenter.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.o
+.PHONY : FileFragmenter.cpp.o
+
+FileFragmenter.i: FileFragmenter.cpp.i
+
+.PHONY : FileFragmenter.i
+
+# target to preprocess a source file
+FileFragmenter.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.i
+.PHONY : FileFragmenter.cpp.i
+
+FileFragmenter.s: FileFragmenter.cpp.s
+
+.PHONY : FileFragmenter.s
+
+# target to generate assembly for a file
+FileFragmenter.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.s
+.PHONY : FileFragmenter.cpp.s
+
 NetworkOperationResult.o: NetworkOperationResult.cpp.o
 
 .PHONY : NetworkOperationResult.o
@@ -203,6 +230,33 @@ WelcomingSocket.s: WelcomingSocket.cpp.s
 WelcomingSocket.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.s
 .PHONY : WelcomingSocket.cpp.s
+
+WorkerFacade.o: WorkerFacade.cpp.o
+
+.PHONY : WorkerFacade.o
+
+# target to build an object file
+WorkerFacade.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.o
+.PHONY : WorkerFacade.cpp.o
+
+WorkerFacade.i: WorkerFacade.cpp.i
+
+.PHONY : WorkerFacade.i
+
+# target to preprocess a source file
+WorkerFacade.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.i
+.PHONY : WorkerFacade.cpp.i
+
+WorkerFacade.s: WorkerFacade.cpp.s
+
+.PHONY : WorkerFacade.s
+
+# target to generate assembly for a file
+WorkerFacade.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.s
+.PHONY : WorkerFacade.cpp.s
 
 WorkerSocket.o: WorkerSocket.cpp.o
 
@@ -297,12 +351,18 @@ help:
 	@echo "... ClientObserver.o"
 	@echo "... ClientObserver.i"
 	@echo "... ClientObserver.s"
+	@echo "... FileFragmenter.o"
+	@echo "... FileFragmenter.i"
+	@echo "... FileFragmenter.s"
 	@echo "... NetworkOperationResult.o"
 	@echo "... NetworkOperationResult.i"
 	@echo "... NetworkOperationResult.s"
 	@echo "... WelcomingSocket.o"
 	@echo "... WelcomingSocket.i"
 	@echo "... WelcomingSocket.s"
+	@echo "... WorkerFacade.o"
+	@echo "... WorkerFacade.i"
+	@echo "... WorkerFacade.s"
 	@echo "... WorkerSocket.o"
 	@echo "... WorkerSocket.i"
 	@echo "... WorkerSocket.s"
