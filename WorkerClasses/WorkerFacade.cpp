@@ -2,9 +2,10 @@
 // Created by ahmed on 12/23/16.
 //
 
+#include <cstring>
 #include "WorkerFacade.h"
 
-#define FRAGMENT_SIZE 2048
+#define FRAGMENT_SIZE 128
 #define MAX_FAIL_COUNT 10
 #define SERV_FILESZ_HEADER "FILESIZE-"
 
@@ -16,29 +17,27 @@ void WorkerFacade::StartWorking()
 
     cout << "void WorkerFacade::StartWorking()" << endl;
 
-    basic_string<char> p(SERV_FILESZ_HEADER);
+    basic_string<char> file_send_header(SERV_FILESZ_HEADER);
     string num(to_string(this->fragmenter.GetFragmentCount()));
-    cout << "NUM:" << num << endl;
-    p.append(num);
-    //p.append("\0");
 
-    cout << "WorkerFacade#Sending number of fragments:" << p << endl;
+    file_send_header.append(num);
 
-    worker_socket.SendPacket(p);
+    cout << "WorkerFacade#Sending number of fragments:" << num << endl;
+    worker_socket.SendPacket(file_send_header);
+
 
     while (!fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
         // Generate the packet * window_size
-        char *buff = {0};
 
-        fragmenter.NextFragment(&buff);
+        char *buff = {0};
+        int frag_size = fragmenter.NextFragment(&buff);
         // Send it to the worker_socket, wait for the worker_socket response for the whole window
         // -use Select/Non blocking IO?-
         worker_socket.SendPacket(basic_string<char>(buff));
         // Read the worker_socket response(s)
         // ACK -> WillAdvance = true
         // NACK -> WillAdvance = false
-
-        free(buff);
+        cout << "Fragmenter#Fragment size:" << frag_size << " bytes" << endl;
     }
 
 }

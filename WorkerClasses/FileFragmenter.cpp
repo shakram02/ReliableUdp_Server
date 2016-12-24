@@ -6,12 +6,12 @@
 #include <sys/stat.h>
 #include "FileFragmenter.h"
 
-void FileFragmenter::NextFragment(char **buffer)
+unsigned int FileFragmenter::NextFragment(char **buffer)
 {
 
     if (!this->has_bytes) {
         (*buffer) = nullptr;
-        return;
+        return -1;
     }
     // Read fragment size from file
     if (this->current_fragment_idx < this->file_fragments) {
@@ -32,6 +32,7 @@ void FileFragmenter::NextFragment(char **buffer)
         this->file.read((*buffer), current_frag_size);
 
         this->current_fragment_idx++;
+        return current_frag_size;
     }
 }
 

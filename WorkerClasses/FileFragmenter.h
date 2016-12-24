@@ -22,11 +22,12 @@ public:
 
     bool SetFilePath(string file_path);
 
-    void NextFragment(char **buffer);
+    unsigned int NextFragment(char **buffer);
 
     bool EndOfFile();
 
     int GetFragmentCount();
+
     ~FileFragmenter();
 
 private:
