@@ -32,7 +32,7 @@ public:
 
     string GetRequestedFile();
 
-    bool SendPacket(basic_string<char> data);
+    bool SendPacket(void* data, unsigned int length);
 
 private:
     /**

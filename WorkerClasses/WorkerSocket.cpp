@@ -83,10 +83,9 @@ string WorkerSocket::GetRequestedFile()
     }
 }
 
-bool WorkerSocket::SendPacket(basic_string<char> data)
+bool WorkerSocket::SendPacket(void *data, unsigned int length)
 {
-    sendto(this->socket_fd, data.c_str(),
-            data.size(), 0,
+    sendto(this->socket_fd, data, length, 0,
             (sockaddr *) &(this->client_addr), (socklen_t) (sizeof(this->client_addr)));
     return false;
 }

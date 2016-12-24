@@ -27,6 +27,7 @@ unsigned int FileFragmenter::NextFragment(char **buffer)
             this->has_bytes = false;
         }
 
+
         //cout << "Fragment size:" << current_frag_size << endl;
         (*buffer) = (char *) calloc((size_t) current_frag_size, sizeof(char));
         this->file.read((*buffer), current_frag_size);
