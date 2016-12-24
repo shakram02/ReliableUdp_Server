@@ -22,7 +22,7 @@ public:
 
     bool SetFilePath(string file_path);
 
-    unsigned int NextFragment(char **buffer);
+    unsigned int NextFragment(void **buffer);
 
     bool EndOfFile();
 

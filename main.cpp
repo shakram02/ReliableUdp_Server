@@ -20,7 +20,7 @@ void *get_in_addr(struct sockaddr *);
 void TestFileFragmenter()
 {
     FileFragmenter ff("mizo.txt", 5);
-    char *fragm;
+    void *fragm;
 
     while (!ff.EndOfFile()) {
         ff.NextFragment(&fragm);

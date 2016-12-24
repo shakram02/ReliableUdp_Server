@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include "FileFragmenter.h"
 
-unsigned int FileFragmenter::NextFragment(char **buffer)
+unsigned int FileFragmenter::NextFragment(void **buffer)
 {
 
     if (!this->has_bytes) {
@@ -30,7 +30,7 @@ unsigned int FileFragmenter::NextFragment(char **buffer)
 
         //cout << "Fragment size:" << current_frag_size << endl;
         (*buffer) = (char *) calloc((size_t) current_frag_size, sizeof(char));
-        this->file.read((*buffer), current_frag_size);
+        this->file.read((char *) (*buffer), current_frag_size);
 
         this->current_fragment_idx++;
         return current_frag_size;

@@ -19,33 +19,26 @@ void WorkerFacade::StartWorking()
 
     basic_string<char> file_send_header(SERV_FILESZ_HEADER);
     string num(to_string(this->fragmenter.GetFragmentCount()));
-
-    num = "1";  // TODO remove this test
     file_send_header.append(num);
 
     cout << "WorkerFacade#Sending number of fragments:" << num << endl;
     worker_socket.SendPacket((void *) file_send_header.c_str(), (unsigned int) file_send_header.length());
 
-
-    char abnormal[4] = {4, 0, 2, 'a'};
-    worker_socket.SendPacket((void *) abnormal, 4);
-
-
-    while (false && !fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
+    while (!fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
         // Generate the packet * window_size
 
-        //char *buff = {0};
-        //int frag_size = fragmenter.NextFragment(&buff);
+        void *buff = {0};
+        int frag_size = fragmenter.NextFragment(&buff);
         // Send it to the worker_socket, wait for the worker_socket response for the whole window
         // -use Select/Non blocking IO?-
 
-        //worker_socket.SendPacket(basic_string<char>(buff));
+        worker_socket.SendPacket(buff, frag_size);
         // Read the worker_socket response(s)
         // ACK -> WillAdvance = true
         // NACK -> WillAdvance = false
 
         // TODO check if the file contained zero while reading, what happens?
-        //cout << "Fragmenter#Fragment size:" << frag_size << " bytes" << endl;
+        cout << "Fragmenter#Fragment size:" << frag_size << " bytes" << endl;
     }
 
 }
