@@ -24,6 +24,7 @@ public:
     void StopWorking();
 
     ~WorkerFacade();
+
 private:
     WorkerSocket worker_socket;
     FileFragmenter fragmenter;

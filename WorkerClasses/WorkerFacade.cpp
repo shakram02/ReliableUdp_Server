@@ -5,7 +5,7 @@
 #include <cstring>
 #include "WorkerFacade.h"
 
-#define FRAGMENT_SIZE 128
+#define FRAGMENT_SIZE 256   // MAX UDP transfer is 256 bytes
 #define MAX_FAIL_COUNT 10
 #define SERV_FILESZ_HEADER "FILESIZE-"
 
@@ -24,6 +24,7 @@ void WorkerFacade::StartWorking()
     cout << "WorkerFacade#Sending number of fragments:" << num << endl;
     worker_socket.SendPacket((void *) file_send_header.c_str(), (unsigned int) file_send_header.length());
 
+    int i = 0;
     while (!fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
         // Generate the packet * window_size
 
@@ -33,12 +34,18 @@ void WorkerFacade::StartWorking()
         // -use Select/Non blocking IO?-
 
         worker_socket.SendPacket(buff, frag_size);
+        cout << "Fragmenter#Fragment size:" << frag_size << " bytes, #" << i++ << endl;
+
+        void *rcv_buff = calloc(FRAGMENT_SIZE, sizeof(char));
+        worker_socket.ReceivePacket(&rcv_buff, FRAGMENT_SIZE);
+        cout << "ACK:" << string((char *) rcv_buff) << endl;
+
         // Read the worker_socket response(s)
         // ACK -> WillAdvance = true
         // NACK -> WillAdvance = false
 
-        // TODO check if the file contained zero while reading, what happens?
-        cout << "Fragmenter#Fragment size:" << frag_size << " bytes" << endl;
+        free(buff);
+        free(rcv_buff);
     }
 
 }

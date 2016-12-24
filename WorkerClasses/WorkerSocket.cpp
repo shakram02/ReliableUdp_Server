@@ -89,3 +89,9 @@ bool WorkerSocket::SendPacket(void *data, unsigned int length)
             (sockaddr *) &(this->client_addr), (socklen_t) (sizeof(this->client_addr)));
     return false;
 }
+
+long WorkerSocket::ReceivePacket(void **data, unsigned int buffer_size)
+{
+    socklen_t len = sizeof(struct sockaddr_in);
+    return recvfrom(this->socket_fd, (*data), buffer_size, 0, (sockaddr *) &(this->client_addr), &len);
+}

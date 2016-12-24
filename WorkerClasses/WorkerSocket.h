@@ -32,7 +32,9 @@ public:
 
     string GetRequestedFile();
 
-    bool SendPacket(void* data, unsigned int length);
+    bool SendPacket(void *data, unsigned int length);
+
+    long ReceivePacket(void **data, unsigned int buffer_size);
 
 private:
     /**
