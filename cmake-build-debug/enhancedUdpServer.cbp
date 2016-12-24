@@ -90,13 +90,10 @@
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.cpp">
-			<Option target="enhancedUdpServer"/>
-		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.h">
-			<Option target="enhancedUdpServer"/>
-		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/PathLossProbability.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp">
@@ -105,16 +102,22 @@
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerFacade.cpp">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerFacade.h">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.cpp">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp">

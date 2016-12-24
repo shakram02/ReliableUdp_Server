@@ -19,24 +19,8 @@ netinet/in.h
 -
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
-WorkerSocket.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
-
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.cpp
-vector
--
-sys/stat.h
--
-FileFragmenter.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.h
-
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.h
-iostream
--
-string
--
-fstream
--
+WorkerClasses/WorkerSocket.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/NetworkOperationResult.cpp
 
@@ -86,27 +70,43 @@ functional
 ../libs/netutils.h
 /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerFacade.cpp
-WorkerFacade.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerFacade.h
-
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerFacade.h
-WorkerSocket.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.cpp
+vector
+-
+sys/stat.h
+-
 FileFragmenter.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.h
 
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.cpp
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.h
+iostream
+-
+string
+-
+fstream
+-
+
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.cpp
+WorkerFacade.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
+WorkerSocket.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
+FileFragmenter.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.cpp
 arpa/inet.h
 -
 cstring
 -
 WorkerSocket.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
-../libs/netutils.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
+../../libs/netutils.h
 /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerSocket.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
 string
 -
 iostream
@@ -125,8 +125,8 @@ WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
-FileFragmenter.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/FileFragmenter.h
+WorkerClasses/FileFragmenter.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/timecalc.h
 time.h

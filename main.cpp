@@ -7,7 +7,7 @@
 
 #include "WelcomingSocket.h"
 #include "ClientObserver.h"
-#include "FileFragmenter.h"
+#include "WorkerClasses/FileFragmenter.h"
 
 #define SERVER_IP "192.168.1.7"
 #define PORT_NUM 62135
@@ -31,14 +31,14 @@ void TestFileFragmenter()
 
 int main()
 {
-//    ClientObserver obs(SERVER_IP, PORT_NUM);
-//    obs.StartListening();
-//
-//    string d;
-//    cout << "Hit enter to terminate..." << endl;
-//    cin >> d;
-//
-//    obs.StopListening();
+    ClientObserver obs(SERVER_IP, PORT_NUM);
+    obs.StartListening();
+
+    string d;
+    cout << "Hit enter to terminate..." << endl;
+    cin >> d;
+
+    obs.StopListening();
 
     //TestFileFragmenter();
     return 0;

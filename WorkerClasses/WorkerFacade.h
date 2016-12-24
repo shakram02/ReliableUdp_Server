@@ -17,7 +17,7 @@ typedef int sock_descriptor;
 class WorkerFacade
 {
 public:
-    WorkerFacade(sock_descriptor sockfd, string file_name);
+    WorkerFacade(sock_descriptor sockfd);
 
     void StartWorking();
 
@@ -25,7 +25,7 @@ public:
 
     ~WorkerFacade();
 private:
-    WorkerSocket socket;
+    WorkerSocket worker_socket;
     FileFragmenter fragmenter;
     bool is_working;
 };

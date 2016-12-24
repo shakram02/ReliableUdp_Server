@@ -3,6 +3,7 @@
 //
 
 #include "ClientObserver.h"
+#include "WorkerClasses/WorkerFacade.h"
 
 ClientObserver::ClientObserver(const string &serverIp, const unsigned short &portNumber) : welcome_socket(serverIp,
         portNumber)
@@ -35,7 +36,12 @@ void ClientObserver::NotifyForClient(int sock_fd)
              << now->tm_hour << ":"
              << now->tm_min << ":"
              << now->tm_sec << endl;
-        WorkerSocket ws(sock_fd);
+
+        // TODO Spawn a worker subsystem
+        WorkerFacade worker_subsystem(sock_fd);
+        worker_subsystem.StartWorking();
+        //WorkerSocket ws(sock_fd);
+        //ws.GetRequestedFile();
     });
 
     th.detach();

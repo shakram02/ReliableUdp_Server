@@ -14,7 +14,13 @@ using namespace std;
 class FileFragmenter
 {
 public:
-    FileFragmenter(std::string file_path, int fragment_size);
+    FileFragmenter(std::string file_path, int frag_size);
+
+    FileFragmenter();
+
+    bool SetFragmentSize(int frag_size);
+
+    bool SetFilePath(string file_path);
 
     void NextFragment(char **buffer);
 
@@ -24,11 +30,14 @@ public:
 
 private:
     ifstream file;
-    int file_fragments;
-    int fragment_size;
-    int file_size;
-    bool has_bytes;
+    int file_fragments = 0;
+    int fragment_size = 0;
+    int file_size = 0;
+    bool has_bytes = false;
     int current_fragment_idx = -1;
+
+    bool ValidateFile(string file_path);
+
 };
 
 

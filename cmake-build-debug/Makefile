@@ -150,33 +150,6 @@ ClientObserver.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.s
 .PHONY : ClientObserver.cpp.s
 
-FileFragmenter.o: FileFragmenter.cpp.o
-
-.PHONY : FileFragmenter.o
-
-# target to build an object file
-FileFragmenter.cpp.o:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.o
-.PHONY : FileFragmenter.cpp.o
-
-FileFragmenter.i: FileFragmenter.cpp.i
-
-.PHONY : FileFragmenter.i
-
-# target to preprocess a source file
-FileFragmenter.cpp.i:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.i
-.PHONY : FileFragmenter.cpp.i
-
-FileFragmenter.s: FileFragmenter.cpp.s
-
-.PHONY : FileFragmenter.s
-
-# target to generate assembly for a file
-FileFragmenter.cpp.s:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.s
-.PHONY : FileFragmenter.cpp.s
-
 NetworkOperationResult.o: NetworkOperationResult.cpp.o
 
 .PHONY : NetworkOperationResult.o
@@ -231,59 +204,86 @@ WelcomingSocket.cpp.s:
 	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.s
 .PHONY : WelcomingSocket.cpp.s
 
-WorkerFacade.o: WorkerFacade.cpp.o
+WorkerClasses/FileFragmenter.o: WorkerClasses/FileFragmenter.cpp.o
 
-.PHONY : WorkerFacade.o
-
-# target to build an object file
-WorkerFacade.cpp.o:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.o
-.PHONY : WorkerFacade.cpp.o
-
-WorkerFacade.i: WorkerFacade.cpp.i
-
-.PHONY : WorkerFacade.i
-
-# target to preprocess a source file
-WorkerFacade.cpp.i:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.i
-.PHONY : WorkerFacade.cpp.i
-
-WorkerFacade.s: WorkerFacade.cpp.s
-
-.PHONY : WorkerFacade.s
-
-# target to generate assembly for a file
-WorkerFacade.cpp.s:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.s
-.PHONY : WorkerFacade.cpp.s
-
-WorkerSocket.o: WorkerSocket.cpp.o
-
-.PHONY : WorkerSocket.o
+.PHONY : WorkerClasses/FileFragmenter.o
 
 # target to build an object file
-WorkerSocket.cpp.o:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.o
-.PHONY : WorkerSocket.cpp.o
+WorkerClasses/FileFragmenter.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o
+.PHONY : WorkerClasses/FileFragmenter.cpp.o
 
-WorkerSocket.i: WorkerSocket.cpp.i
+WorkerClasses/FileFragmenter.i: WorkerClasses/FileFragmenter.cpp.i
 
-.PHONY : WorkerSocket.i
+.PHONY : WorkerClasses/FileFragmenter.i
 
 # target to preprocess a source file
-WorkerSocket.cpp.i:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.i
-.PHONY : WorkerSocket.cpp.i
+WorkerClasses/FileFragmenter.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.i
+.PHONY : WorkerClasses/FileFragmenter.cpp.i
 
-WorkerSocket.s: WorkerSocket.cpp.s
+WorkerClasses/FileFragmenter.s: WorkerClasses/FileFragmenter.cpp.s
 
-.PHONY : WorkerSocket.s
+.PHONY : WorkerClasses/FileFragmenter.s
 
 # target to generate assembly for a file
-WorkerSocket.cpp.s:
-	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.s
-.PHONY : WorkerSocket.cpp.s
+WorkerClasses/FileFragmenter.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.s
+.PHONY : WorkerClasses/FileFragmenter.cpp.s
+
+WorkerClasses/WorkerFacade.o: WorkerClasses/WorkerFacade.cpp.o
+
+.PHONY : WorkerClasses/WorkerFacade.o
+
+# target to build an object file
+WorkerClasses/WorkerFacade.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o
+.PHONY : WorkerClasses/WorkerFacade.cpp.o
+
+WorkerClasses/WorkerFacade.i: WorkerClasses/WorkerFacade.cpp.i
+
+.PHONY : WorkerClasses/WorkerFacade.i
+
+# target to preprocess a source file
+WorkerClasses/WorkerFacade.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.i
+.PHONY : WorkerClasses/WorkerFacade.cpp.i
+
+WorkerClasses/WorkerFacade.s: WorkerClasses/WorkerFacade.cpp.s
+
+.PHONY : WorkerClasses/WorkerFacade.s
+
+# target to generate assembly for a file
+WorkerClasses/WorkerFacade.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.s
+.PHONY : WorkerClasses/WorkerFacade.cpp.s
+
+WorkerClasses/WorkerSocket.o: WorkerClasses/WorkerSocket.cpp.o
+
+.PHONY : WorkerClasses/WorkerSocket.o
+
+# target to build an object file
+WorkerClasses/WorkerSocket.cpp.o:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerSocket.cpp.o
+.PHONY : WorkerClasses/WorkerSocket.cpp.o
+
+WorkerClasses/WorkerSocket.i: WorkerClasses/WorkerSocket.cpp.i
+
+.PHONY : WorkerClasses/WorkerSocket.i
+
+# target to preprocess a source file
+WorkerClasses/WorkerSocket.cpp.i:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerSocket.cpp.i
+.PHONY : WorkerClasses/WorkerSocket.cpp.i
+
+WorkerClasses/WorkerSocket.s: WorkerClasses/WorkerSocket.cpp.s
+
+.PHONY : WorkerClasses/WorkerSocket.s
+
+# target to generate assembly for a file
+WorkerClasses/WorkerSocket.cpp.s:
+	$(MAKE) -f CMakeFiles/enhancedUdpServer.dir/build.make CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerSocket.cpp.s
+.PHONY : WorkerClasses/WorkerSocket.cpp.s
 
 home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o: home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o
 
@@ -351,21 +351,21 @@ help:
 	@echo "... ClientObserver.o"
 	@echo "... ClientObserver.i"
 	@echo "... ClientObserver.s"
-	@echo "... FileFragmenter.o"
-	@echo "... FileFragmenter.i"
-	@echo "... FileFragmenter.s"
 	@echo "... NetworkOperationResult.o"
 	@echo "... NetworkOperationResult.i"
 	@echo "... NetworkOperationResult.s"
 	@echo "... WelcomingSocket.o"
 	@echo "... WelcomingSocket.i"
 	@echo "... WelcomingSocket.s"
-	@echo "... WorkerFacade.o"
-	@echo "... WorkerFacade.i"
-	@echo "... WorkerFacade.s"
-	@echo "... WorkerSocket.o"
-	@echo "... WorkerSocket.i"
-	@echo "... WorkerSocket.s"
+	@echo "... WorkerClasses/FileFragmenter.o"
+	@echo "... WorkerClasses/FileFragmenter.i"
+	@echo "... WorkerClasses/FileFragmenter.s"
+	@echo "... WorkerClasses/WorkerFacade.o"
+	@echo "... WorkerClasses/WorkerFacade.i"
+	@echo "... WorkerClasses/WorkerFacade.s"
+	@echo "... WorkerClasses/WorkerSocket.o"
+	@echo "... WorkerClasses/WorkerSocket.i"
+	@echo "... WorkerClasses/WorkerSocket.s"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.o"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.i"
 	@echo "... home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.s"

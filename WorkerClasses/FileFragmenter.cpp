@@ -51,9 +51,32 @@ FileFragmenter::FileFragmenter(std::string file_path, int fragment_size)
 {
     if (fragment_size < 1) {
         cerr << "Invalid fragment size" << endl;
+        return;
     }
 
     this->fragment_size = fragment_size;
+    if (!ValidateFile(file_path)) {
+        cerr << "File fragmenter won't work, file isn't valid" << endl;
+    }
+}
+
+FileFragmenter::FileFragmenter()
+{
+}
+
+bool FileFragmenter::SetFragmentSize(int frag_size)
+{
+    if (fragment_size < 1) {
+        cerr << "Invalid fragment size" << endl;
+        return false;
+    }
+    this->fragment_size = frag_size;
+    return true;
+}
+
+
+bool FileFragmenter::ValidateFile(string file_path)
+{
     this->file.open(file_path.c_str(), ios::in | ios::binary);
 
     if (this->file.is_open()) {
@@ -66,7 +89,7 @@ FileFragmenter::FileFragmenter(std::string file_path, int fragment_size)
             if (file_stat.st_size < 1) {
                 cerr << "File is empty" << endl;
                 this->has_bytes = false;
-                return;
+                return false;
             }
             this->has_bytes = true;
             this->file_size = ((int) file_stat.st_size);
@@ -77,8 +100,20 @@ FileFragmenter::FileFragmenter(std::string file_path, int fragment_size)
                  << endl;
         } else {
             cout << "Failed to get file stats" << endl;
+            return false;
         }
     } else {
         cout << "Failed to open file" << endl;
+        return false;
     }
+    return true;
+}
+
+bool FileFragmenter::SetFilePath(string file_path)
+{
+    if (!ValidateFile(file_path)) {
+        cerr << "File fragmenter won't work, file isn't valid" << endl;
+        return false;
+    }
+    return true;
 }

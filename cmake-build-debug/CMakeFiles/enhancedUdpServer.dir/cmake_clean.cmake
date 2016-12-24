@@ -3,10 +3,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.c.o"
   "CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o"
-  "CMakeFiles/enhancedUdpServer.dir/WorkerSocket.cpp.o"
+  "CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerSocket.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o"
-  "CMakeFiles/enhancedUdpServer.dir/WorkerFacade.cpp.o"
-  "CMakeFiles/enhancedUdpServer.dir/FileFragmenter.cpp.o"
+  "CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o"
+  "CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o"
   "enhancedUdpServer.pdb"
   "enhancedUdpServer"
 )

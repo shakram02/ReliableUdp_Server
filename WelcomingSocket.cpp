@@ -34,7 +34,7 @@ WelcomingSocket::WelcomingSocket(const string serverIp, unsigned const short por
     inet_pton(AF_INET, serverIp.c_str(), &server.sin_addr.s_addr);
 
     if ((this->socket_fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        log_error("socket()");
+        log_error("worker_socket()");
         exit(1);
     }
 
@@ -115,7 +115,7 @@ int WelcomingSocket::CreateClientSocket(unsigned short &redirect_port, sockaddr_
     inet_pton(AF_INET, this->server_ip.c_str(), &redirect_address.sin_addr.s_addr);
 
     if ((redirect_socket_descriptor = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        log_error("socket()");
+        log_error("worker_socket()");
         exit(1);
     }
 

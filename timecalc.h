@@ -7,6 +7,7 @@
 
 #include <time.h>
 #include <malloc.h>
+
 /**
  * Prints the current time
  * @return String containing the current time
@@ -16,7 +17,7 @@ char *get_time()
     time_t rawtime;
     struct tm *timeinfo;
     int time_length = 20;
-    char *buffer = (char *) calloc(time_length, sizeof(char));
+    char *buffer = (char *) calloc((size_t) time_length, sizeof(char));
 
     // TODO use calloc everywhere
 

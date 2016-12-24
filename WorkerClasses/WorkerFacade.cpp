@@ -9,19 +9,21 @@
 
 void WorkerFacade::StartWorking()
 {
+    // TODO incoomplete
+
     int fail_count = 0;
 
     cout << "void WorkerFacade::StartWorking()" << endl;
 
-    while (!fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
+    while (false && !fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
         // Generate the packet * window_size
         char **buff = {0};
 
-//        fragmenter.NextFragment(buff);
-        // Send it to the socket, wait for the socket response for the whole window
+        //fragmenter.NextFragment(buff);
+        // Send it to the worker_socket, wait for the worker_socket response for the whole window
         // -use Select/Non blocking IO?-
 
-        // Read the socket response(s)
+        // Read the worker_socket response(s)
         // ACK -> WillAdvance = true
         // NACK -> WillAdvance = false
 
@@ -30,9 +32,10 @@ void WorkerFacade::StartWorking()
 
 }
 
-WorkerFacade::WorkerFacade(sock_descriptor sockfd, string file_name) :
-        socket(sockfd), fragmenter(file_name, FRAGMENT_SIZE)
+WorkerFacade::WorkerFacade(sock_descriptor sockfd) :
+        worker_socket(sockfd)
 {
+    //this->worker_socket.
     this->is_working = true;
 }
 

@@ -30,6 +30,8 @@ public:
      */
     ~WorkerSocket();
 
+    string GetRequestedFile();
+
 private:
     /**
      * Client socket file descriptor
@@ -47,6 +49,8 @@ private:
      * @return Whether the client redirected or not
      */
     bool AssertRedirection();
+
+
 };
 
 
