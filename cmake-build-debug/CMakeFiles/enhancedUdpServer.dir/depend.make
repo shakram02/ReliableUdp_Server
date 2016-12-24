@@ -7,6 +7,8 @@ CMakeFiles/enhancedUdpServer.dir/home/ahmed/code/c/ReliableUdpTransfer/libs/netu
 CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: ../ClientObserver.cpp
 CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: ../ClientObserver.h
 CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: ../WelcomingSocket.h
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: ../WorkerClasses/FileFragmenter.h
+CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: ../WorkerClasses/WorkerFacade.h
 CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: ../WorkerClasses/WorkerSocket.h
 CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o: /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 

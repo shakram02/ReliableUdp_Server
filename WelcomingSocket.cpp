@@ -17,7 +17,7 @@
 // TODO remove this later
 void log_error(const char *func_name)
 {
-    printf("%s:%s\n", func_name, strerror(errno));
+    fprintf(stderr, "%s:%s\n", func_name, strerror(errno));
 }
 
 WelcomingSocket::WelcomingSocket(const string serverIp, unsigned const short portNumber)

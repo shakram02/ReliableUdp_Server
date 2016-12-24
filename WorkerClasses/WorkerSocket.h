@@ -32,6 +32,8 @@ public:
 
     string GetRequestedFile();
 
+    bool SendPacket(basic_string<char> data);
+
 private:
     /**
      * Client socket file descriptor

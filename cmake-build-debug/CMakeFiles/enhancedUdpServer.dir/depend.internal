@@ -8,6 +8,8 @@ CMakeFiles/enhancedUdpServer.dir/ClientObserver.cpp.o
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.h
+ /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
  /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 CMakeFiles/enhancedUdpServer.dir/NetworkOperationResult.cpp.o

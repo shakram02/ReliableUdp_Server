@@ -40,8 +40,6 @@ void ClientObserver::NotifyForClient(int sock_fd)
         // TODO Spawn a worker subsystem
         WorkerFacade worker_subsystem(sock_fd);
         worker_subsystem.StartWorking();
-        //WorkerSocket ws(sock_fd);
-        //ws.GetRequestedFile();
     });
 
     th.detach();

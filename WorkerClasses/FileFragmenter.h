@@ -26,6 +26,7 @@ public:
 
     bool EndOfFile();
 
+    int GetFragmentCount();
     ~FileFragmenter();
 
 private:

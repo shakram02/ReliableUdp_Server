@@ -9,7 +9,8 @@
 #include "ClientObserver.h"
 #include "WorkerClasses/FileFragmenter.h"
 
-#define SERVER_IP "192.168.1.7"
+//#define SERVER_IP "192.168.1.7"
+#define SERVER_IP "127.0.0.1"
 #define PORT_NUM 62135
 
 void log_error(const char *);

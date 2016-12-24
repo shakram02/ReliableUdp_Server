@@ -42,6 +42,7 @@ WorkerSocket::WorkerSocket(int client_sockfd)
          << endl;
 }
 
+
 bool WorkerSocket::AssertRedirection()
 {
 
@@ -74,10 +75,18 @@ string WorkerSocket::GetRequestedFile()
 
     if (client_request.compare(0, prefix.size(), prefix)) {
         cerr << "Invalid file request packet" << endl;
+        return string(buf);
     } else {
         string file_name = client_request.substr(client_request.find("-") + 1, client_request.size() - 1);
         cout << "Requested file name:" << file_name << endl;
+        return file_name;
     }
+}
 
-    return string(buf);
+bool WorkerSocket::SendPacket(basic_string<char> data)
+{
+    sendto(this->socket_fd, data.c_str(),
+            data.size(), 0,
+            (sockaddr *) &(this->client_addr), (socklen_t) (sizeof(this->client_addr)));
+    return false;
 }

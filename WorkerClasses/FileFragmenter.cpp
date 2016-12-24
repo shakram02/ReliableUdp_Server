@@ -27,7 +27,7 @@ void FileFragmenter::NextFragment(char **buffer)
             this->has_bytes = false;
         }
 
-        cout << "Fragment size:" << current_frag_size << endl;
+        //cout << "Fragment size:" << current_frag_size << endl;
         (*buffer) = (char *) calloc((size_t) current_frag_size, sizeof(char));
         this->file.read((*buffer), current_frag_size);
 
@@ -66,8 +66,8 @@ FileFragmenter::FileFragmenter()
 
 bool FileFragmenter::SetFragmentSize(int frag_size)
 {
-    if (fragment_size < 1) {
-        cerr << "Invalid fragment size" << endl;
+    if (frag_size < 1) {
+        cerr << "Fragmenter#Invalid fragment size" << endl;
         return false;
     }
     this->fragment_size = frag_size;
@@ -116,4 +116,9 @@ bool FileFragmenter::SetFilePath(string file_path)
         return false;
     }
     return true;
+}
+
+int FileFragmenter::GetFragmentCount()
+{
+    return this->file_fragments;
 }

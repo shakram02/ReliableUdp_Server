@@ -9,6 +9,8 @@
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
+WorkerClasses/WorkerFacade.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
 vector
