@@ -54,11 +54,10 @@ public:
 
     /**
      * Receives an ACK packet from the client
-     * @param data
-     * @param deserialized_pckt
-     * @return
+     * @param ack_packet_ptr Pointer to an ACK packet to be filled with data
+     * @return Whether the receive process was sucessful
      */
-    bool ReceiveAckPacket(AckPacket *deserialized_pckt);
+    bool ReceiveAckPacket(AckPacket *ack_packet_ptr);
 
 
     /**

@@ -25,36 +25,12 @@ void WorkerFacade::StartWorking()
     worker_socket.SendPacket((void *) file_send_header.c_str(), (unsigned int) file_send_header.length());
 
     // Send dummy test data
-    string d("Dummyy");
+    string d("Dummies");
     unsigned int pck_seq = 6;
     DataPacket dummy_packet((void *) d.c_str(), (unsigned short) d.size(), pck_seq);
 
-//    void *dummy_raw_pckt_ptr;
-//
-//    BinarySerializer::SerializeDataPacket(&dummy_packet, &dummy_raw_pckt_ptr);
-//
-//
-//    // sizeof(DataPacket) will return a size with the full array of 128 chars,
-//    // on the receiver size, the size will be re-fit using the length field
-//    worker_socket.SendPacket(dummy_raw_pckt_ptr, sizeof(DataPacket));
 
     worker_socket.SendDataPacket(dummy_packet);
-
-
-//    void *ack_raw = calloc(1, sizeof(AckPacket));
-//    AckPacket *ack_pck;
-//    if (worker_socket.ReceiveAckPacket(&ack_raw, &ack_pck)) {
-//        cout << "ACK-> Num:" << ack_pck->ack_num
-//             << " Checksum:" << ack_pck->chksum
-//             << endl;
-//    } else {
-//        cerr << "Failed to be ACKed!!" << endl;
-//        cout << endl;
-//    }
-//
-//
-//    free(ack_raw);
-
 
     AckPacket ack_pck;
     if (worker_socket.ReceiveAckPacket(&ack_pck)) {

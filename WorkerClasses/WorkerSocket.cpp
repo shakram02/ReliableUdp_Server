@@ -113,11 +113,11 @@ bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void **data, int *rec
     return true;
 }
 
-bool WorkerSocket::ReceiveAckPacket(AckPacket *deserialized_pckt)
+bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
 {
     int size = 0;
     void *data = calloc(1, sizeof(AckPacket));
-    AckPacket **temp;
+    AckPacket *temp;
 
     bool result = ReceivePacket(sizeof(AckPacket), &data, &size);
 
@@ -131,11 +131,11 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *deserialized_pckt)
         return false;
     }
 
-    BinarySerializer::DeserializeAckPacket((data), temp);
+    BinarySerializer::DeserializeAckPacket((data), &temp);
 
-    deserialized_pckt->chksum = (*temp)->chksum;
-    deserialized_pckt->ack_num = (*temp)->ack_num;
-    deserialized_pckt->len = (*temp)->len;
+    ack_packet_ptr->chksum = temp->chksum;
+    ack_packet_ptr->ack_num = temp->ack_num;
+    ack_packet_ptr->len = temp->len;
 
     free(data);
 
