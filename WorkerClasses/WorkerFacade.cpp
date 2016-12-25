@@ -27,37 +27,67 @@ void WorkerFacade::StartWorking()
 
     // Send dummy test data
     string d("Dummyy");
-    int pck_seq = 6;
-    DataPacket packet((void *) d.c_str(), d.size(), pck_seq);
+    unsigned int pck_seq = 6;
+    DataPacket dummy_packet((void *) d.c_str(), (unsigned short) d.size(), pck_seq);
 
-    void *packed;
+    void *dummy_raw_pckt_ptr;
 
-    BinarySerializer::SerializeDataPacket(&packet, &packed);
+    BinarySerializer::SerializeDataPacket(&dummy_packet, &dummy_raw_pckt_ptr);
 
     // sizeof(DataPacket) will return a size with the full array of 128 chars,
     // on the receiver size, the size will be re-fit using the length field
-    worker_socket.SendPacket(packed, sizeof(DataPacket));
+    worker_socket.SendPacket(dummy_raw_pckt_ptr, sizeof(DataPacket));
 
-    AckPacket ack_pck;
-    if (worker_socket.ReceiveAckPacket(ack_pck) && ack_pck.ack_num == pck_seq) {
-        cout << "ACK Success:" << ack_pck.ack_num << endl;
-    } else {
-        cerr << "Failed to be ACKed!!" << endl;
+
+    void *ack_raw = calloc(1, sizeof(AckPacket));
+    int ack_size;
+    bool result = worker_socket.ReceivePacket(sizeof(AckPacket), ack_raw, &ack_size);
+
+    if (!result) {
+        cerr << "Nothing received" << endl;
+        cout << endl;
+        return;
     }
+    cout << "Received:" << ack_size << " bytes" << endl;
+    AckPacket *ack_pck;
+    BinarySerializer::DeserializeAckPacket(ack_raw, &ack_pck);
 
+    cout << "ACK-> Num:" << ack_pck->ack_num
+         << " Checksum:" << ack_pck->chksum
+         << endl;
+
+    free(ack_raw);
+
+//    if (worker_socket.ReceiveAckPacket(ack_pck)) {
+//        cout << "ACK-> Num:" << ack_pck.ack_num
+//             << " Checksum:" << ack_pck.chksum
+//             << " Length:" << ack_pck.len << endl;
+//
+//        if (ack_pck.ack_num == pck_seq) {
+//            cout << "ACK Success:" << ack_pck.ack_num << endl;
+//        } else {
+//            cerr << "Bad seq number!!" << endl;
+//            cout << endl;
+//        }
+//
+//    } else {
+//        cerr << "Failed to be ACKed!!" << endl;
+//        cout << endl;
+//    }
+//
 
     int i = 0;
     while (false && !fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
-//        // Generate the packet * window_size
+//        // Generate the dummy_packet * window_size
 //
 //        void *buff =0;
 //        int frag_size = fragmenter.NextFragment(&buff);
 //        // Send it to the worker_socket, wait for the worker_socket response for the whole window
 //        // -use Select/Non blocking IO?-
 //
-//        DataPacket packet();
+//        DataPacket dummy_packet();
 //
-//        BinarySerializer::SerializeDataPacket(packet, &buff);
+//        BinarySerializer::SerializeDataPacket(dummy_packet, &buff);
 //        worker_socket.SendPacket(buff, (unsigned int) frag_size);
 //        cout << "Fragmenter#Fragment size:" << frag_size << " bytes, #" << i++ << endl;
 //

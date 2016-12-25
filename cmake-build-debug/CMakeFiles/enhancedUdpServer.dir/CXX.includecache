@@ -61,8 +61,6 @@ WorkerClasses/WorkerSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.cpp
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WelcomingSocket.h
-../libs/data_packet.h
-/home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
 

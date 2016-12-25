@@ -41,17 +41,17 @@ public:
 
     bool SendPacket(void *data, unsigned int length);
 
-    bool ReceiveAckPacket(AckPacket &derserialized_pckt);
+    bool ReceiveAckPacket(AckPacket **derserialized_pckt);
 
 
     /**
-     * Receives raw data, and places them in (*data) if nothing is received the (*data) is freed
+     * Receives raw data, and places them in (*data)
      * @param data received data, this is always allocated
      * @param buffer_length excpected length of the incoming data
      * @param received_size Actual size of received data
      * @return false if nothing is received
      */
-    bool ReceivePacket(unsigned int buffer_length, void **data, int *received_size);
+    bool ReceivePacket(unsigned int buffer_length, void *data, int *received_size);
 
 private:
     /**

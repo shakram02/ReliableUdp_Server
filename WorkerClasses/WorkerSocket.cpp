@@ -88,13 +88,19 @@ bool WorkerSocket::SendPacket(void *data, unsigned int length)
     return false;
 }
 
-bool WorkerSocket::ReceiveAckPacket(AckPacket &deserialized_pckt)
+bool WorkerSocket::ReceiveAckPacket(AckPacket **deserialized_pckt)
 {
     void *data = calloc(sizeof(AckPacket), sizeof(char));
     socklen_t len = sizeof(struct sockaddr_in);
 
     int received = (int) recvfrom(this->socket_fd, (data),
             sizeof(AckPacket), 0, (sockaddr *) &(this->client_addr), &len);
+
+    if (received == 0) {
+        log_error("client closed connection");
+    } else if (received == -1) {
+        log_error("recvfrom");
+    }
 
 
     if (received < 1) {
@@ -103,27 +109,22 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket &deserialized_pckt)
         return false;
     } else {
 
-        deserialized_pckt = BinarySerializer::DeserializeAckPacket(data);
+        // FIXME fix this
+        //BinarySerializer::DeserializeAckPacket(data, deserialized_pckt);
         free(data);
         return true;
     }
 }
 
-bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void **data, int *received_size)
+bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void *data, int *received_size)
 {
-    (*data) = calloc(buffer_size, sizeof(char));
-
     socklen_t len = sizeof(struct sockaddr_in);
 
-    *received_size = (int) recvfrom(this->socket_fd, (data),
-            buffer_size, 0, (sockaddr *) &(this->client_addr), &len);
+    (*received_size) = (int) recvfrom(this->socket_fd,
+            data, buffer_size,
+            0, (sockaddr *) &(this->client_addr), &len);
 
     // TODO realloc the data* to avoid memory waste
 
-    if ((*received_size) < 1) {
-        // Client closed, timeout
-        free(data);
-        return false;
-    }
-    return true;
+    return *received_size >= 1;
 }
