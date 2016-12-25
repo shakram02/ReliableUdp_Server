@@ -6,6 +6,38 @@
 
 #IncludeRegexTransform: 
 
+../../../UdpSocketLib/include/AckPacket.h
+
+../../../UdpSocketLib/include/BinarySerializer.h
+AckPacket.h
+../../../UdpSocketLib/include/AckPacket.h
+
+../../../UdpSocketLib/include/Checksum.h
+DataPacket.h
+../../../UdpSocketLib/include/DataPacket.h
+cstdint
+-
+
+../../../UdpSocketLib/include/DataPacket.h
+
+../../../UdpSocketLib/include/netutils.h
+stdio.h
+-
+sys/socket.h
+-
+unistd.h
+-
+netdb.h
+-
+memory.h
+-
+arpa/inet.h
+-
+errno.h
+-
+stdlib.h
+-
+
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.cpp
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/ClientObserver.h
@@ -88,11 +120,29 @@ string
 fstream
 -
 
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.cpp
+DataPacket.h
+-
+BinarySerializer.h
+-
+GbnSender.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.h
+vector
+-
+queue
+-
+WorkerSocket.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
+
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.cpp
 cstring
 -
 WorkerFacade.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
+BinarySerializer.h
+/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/BinarySerializer.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
 WorkerSocket.h
@@ -103,12 +153,8 @@ FileFragmenter.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.cpp
 arpa/inet.h
 -
-cstring
--
 WorkerSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
-../../libs/netutils.h
-/home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
 string
@@ -116,6 +162,18 @@ string
 iostream
 -
 netinet/in.h
+-
+cstring
+-
+DataPacket.h
+-
+Checksum.h
+-
+AckPacket.h
+-
+BinarySerializer.h
+-
+netutils.h
 -
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/main.cpp

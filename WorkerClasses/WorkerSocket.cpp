@@ -3,9 +3,7 @@
 //
 
 #include <arpa/inet.h>
-#include <cstring>
 #include "WorkerSocket.h"
-#include "../../libs/netutils.h"
 
 /**
  * Redirection message, this is a constant message on the client and server side
@@ -90,8 +88,43 @@ bool WorkerSocket::SendPacket(void *data, unsigned int length)
     return false;
 }
 
-long WorkerSocket::ReceivePacket(void **data, unsigned int buffer_size)
+bool WorkerSocket::ReceivePacket(AckPacket &deserialized_pckt, unsigned int buffer_size, unsigned int expected_seqno)
 {
+    void *data = calloc(buffer_size, sizeof(char));
+
     socklen_t len = sizeof(struct sockaddr_in);
-    return recvfrom(this->socket_fd, (*data), buffer_size, 0, (sockaddr *) &(this->client_addr), &len);
+
+    int received = (int) recvfrom(this->socket_fd, (data),
+            buffer_size, 0, (sockaddr *) &(this->client_addr), &len);
+
+
+    if (received < 1) {
+        // Client closed, timeout
+        free(data);
+        return false;
+    }
+
+    deserialized_pckt = BinarySerializer::DeserializeAckPacket(data);
+    free(data);
+
+    return true;
+}
+
+bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void **data, int *received_size)
+{
+    (*data) = calloc(buffer_size, sizeof(char));
+
+    socklen_t len = sizeof(struct sockaddr_in);
+
+    *received_size = (int) recvfrom(this->socket_fd, (data),
+            buffer_size, 0, (sockaddr *) &(this->client_addr), &len);
+
+    // TODO realloc the data* to avoid memory waste
+
+    if ((*received_size) < 1) {
+        // Client closed, timeout
+        //free(data);
+        return false;
+    }
+    return true;
 }
