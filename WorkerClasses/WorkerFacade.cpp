@@ -41,19 +41,31 @@ void WorkerFacade::StartWorking()
     worker_socket.SendDataPacket(dummy_packet);
 
 
-    void *ack_raw = calloc(1, sizeof(AckPacket));
-    AckPacket *ack_pck;
-    if (worker_socket.ReceiveAckPacket(&ack_raw, &ack_pck)) {
-        cout << "ACK-> Num:" << ack_pck->ack_num
-             << " Checksum:" << ack_pck->chksum
+//    void *ack_raw = calloc(1, sizeof(AckPacket));
+//    AckPacket *ack_pck;
+//    if (worker_socket.ReceiveAckPacket(&ack_raw, &ack_pck)) {
+//        cout << "ACK-> Num:" << ack_pck->ack_num
+//             << " Checksum:" << ack_pck->chksum
+//             << endl;
+//    } else {
+//        cerr << "Failed to be ACKed!!" << endl;
+//        cout << endl;
+//    }
+//
+//
+//    free(ack_raw);
+
+
+    AckPacket ack_pck;
+    if (worker_socket.ReceiveAckPacket(&ack_pck)) {
+        cout << "ACK-> Num:" << ack_pck.ack_num
+             << " Checksum:" << ack_pck.chksum
              << endl;
     } else {
         cerr << "Failed to be ACKed!!" << endl;
         cout << endl;
     }
 
-
-    free(ack_raw);
 
     int i = 0;
     while (false && !fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {

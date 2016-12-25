@@ -39,11 +39,26 @@ public:
 
     string GetRequestedFile();
 
+    /**
+     * Sends raw binary data to the UDP port
+     * @param data Raw binary data to be sent
+     * @param length Length of the binary data
+     */
     void SendPacket(void *data, unsigned int length);
 
+    /**
+     * Sends a wrapped data packet to the client
+     * @param packet Packet containing data to be sent to the client
+     */
     void SendDataPacket(DataPacket &packet);
 
-    bool ReceiveAckPacket(void **data, AckPacket **derserialized_pckt);
+    /**
+     * Receives an ACK packet from the client
+     * @param data
+     * @param deserialized_pckt
+     * @return
+     */
+    bool ReceiveAckPacket(AckPacket *deserialized_pckt);
 
 
     /**
