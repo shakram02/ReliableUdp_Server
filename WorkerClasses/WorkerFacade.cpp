@@ -4,7 +4,6 @@
 
 #include <cstring>
 #include "WorkerFacade.h"
-#include "BinarySerializer.h"
 
 #define FRAGMENT_SIZE 256   // MAX UDP transfer is 256 bytes
 #define MAX_FAIL_COUNT 10
@@ -41,17 +40,19 @@ void WorkerFacade::StartWorking()
 
     void *ack_raw = calloc(1, sizeof(AckPacket));
     int ack_size;
-    bool result = worker_socket.ReceivePacket(sizeof(AckPacket), ack_raw, &ack_size);
+//    bool result = worker_socket.ReceivePacket(sizeof(AckPacket), ack_raw, &ack_size);
+//
+//    if (!result) {
+//        cerr << "Nothing received" << endl;
+//        cout << endl;
+//        return;
+//    }
+//    cout << "Received:" << ack_size << " bytes" << endl;
+//    AckPacket *ack_pck;
+//    BinarySerializer::DeserializeAckPacket(ack_raw, &ack_pck);
 
-    if (!result) {
-        cerr << "Nothing received" << endl;
-        cout << endl;
-        return;
-    }
-    cout << "Received:" << ack_size << " bytes" << endl;
     AckPacket *ack_pck;
-    BinarySerializer::DeserializeAckPacket(ack_raw, &ack_pck);
-
+    worker_socket.ReceiveAckPacket(&ack_raw, &ack_pck);
     cout << "ACK-> Num:" << ack_pck->ack_num
          << " Checksum:" << ack_pck->chksum
          << endl;

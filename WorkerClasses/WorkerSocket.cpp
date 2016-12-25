@@ -88,32 +88,26 @@ bool WorkerSocket::SendPacket(void *data, unsigned int length)
     return false;
 }
 
-bool WorkerSocket::ReceiveAckPacket(AckPacket **deserialized_pckt)
+bool WorkerSocket::ReceiveAckPacket(void **data, AckPacket **deserialized_pckt)
 {
-    void *data = calloc(sizeof(AckPacket), sizeof(char));
+
     socklen_t len = sizeof(struct sockaddr_in);
 
-    int received = (int) recvfrom(this->socket_fd, (data),
-            sizeof(AckPacket), 0, (sockaddr *) &(this->client_addr), &len);
+    int received = (int) recvfrom(this->socket_fd,
+            (*data), sizeof(AckPacket),
+            0, (sockaddr *) &(this->client_addr), &len);
 
     if (received == 0) {
         log_error("client closed connection");
+        return false;
     } else if (received == -1) {
         log_error("recvfrom");
-    }
-
-
-    if (received < 1) {
-        // Client closed, timeout
-        free(data);
         return false;
-    } else {
-
-        // FIXME fix this
-        //BinarySerializer::DeserializeAckPacket(data, deserialized_pckt);
-        free(data);
-        return true;
     }
+
+    BinarySerializer::DeserializeAckPacket((*data), deserialized_pckt);
+    return true;
+
 }
 
 bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void *data, int *received_size)

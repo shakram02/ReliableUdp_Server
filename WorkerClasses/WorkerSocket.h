@@ -41,7 +41,7 @@ public:
 
     bool SendPacket(void *data, unsigned int length);
 
-    bool ReceiveAckPacket(AckPacket **derserialized_pckt);
+    bool ReceiveAckPacket(void **data, AckPacket **derserialized_pckt);
 
 
     /**
