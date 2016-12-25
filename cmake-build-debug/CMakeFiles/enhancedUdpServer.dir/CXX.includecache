@@ -143,6 +143,10 @@ queue
 -
 WorkerSocket.h
 /home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerSocket.h
+boost/thread/thread.hpp
+-
+boost/lockfree/queue.hpp
+-
 
 /home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.cpp
 cstring

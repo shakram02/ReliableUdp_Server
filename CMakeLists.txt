@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 #target_compile_options(-lpthread)
 find_package(Threads)
+find_package(Boost COMPONENTS system filesystem REQUIRED)
 
 set(PROJECT_LINK_LIBS libUdpSocketLib.so)
 link_directories(../../UdpSocketLib/cmake-build-debug)
@@ -17,4 +18,4 @@ include_directories(../../UdpSocketLib/include)
 add_executable(enhancedUdpServer ${SOURCE_FILES} WorkerClasses/GbnSender.cpp WorkerClasses/GbnSender.h globaldef.h)
 
 target_link_libraries(enhancedUdpServer ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(enhancedUdpServer ${PROJECT_LINK_LIBS})
+target_link_libraries(enhancedUdpServer ${PROJECT_LINK_LIBS} ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})

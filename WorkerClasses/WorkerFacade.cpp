@@ -10,8 +10,6 @@
 
 void WorkerFacade::StartWorking()
 {
-    // TODO incoomplete
-
     basic_string<char> file_send_header(SERV_FILESZ_HEADER);
     int fragment_count = this->fragmenter.GetFragmentCount();
     string num(to_string(fragment_count));
@@ -22,70 +20,39 @@ void WorkerFacade::StartWorking()
 
     GbnSender sender(WIN_SZ, worker_socket);
 
-    // TODO disable
-    //void **buff = (void **) calloc((size_t) fragment_count, sizeof(void *));
-
-
 
     int fail_count = 0;
-    int pack_num = 0;
-
+    int pack_seq_num = 0;
 
     for (int j = 0; j < fragment_count && is_working && (fail_count < MAX_FAIL_COUNT); j++) {
 
+        for (int i = 0; i < WIN_SZ; ++i) {
+            int frag_size = fragmenter.GetNextFragmentSize();
 
-//        for (int i = 0; i < WIN_SZ; ++i) {
-//            int frag_size = fragmenter.GetNextFragmentSize();
-//
-//            if (frag_size < 1) {
-//                cerr << "Invalid fragment size" << endl;
-//                return;
-//            }
-//
-//            buff[i] = calloc(frag_size, sizeof(char));
-//            fragmenter.NextFragment(&(buff[i]));
-//
-//            //cout << "Sending:" << (char *) buff[i] << endl;
-//
-//            DataPacket fragment_packet(buff[i], (unsigned short) frag_size, (unsigned int) (pack_num + i));
+            if (frag_size < 1) {
+                cerr << "Invalid fragment size" << endl;
+                break;
+            }
+
+            void *buf = calloc((size_t) frag_size, sizeof(char));
+            fragmenter.NextFragment(&buf);
+
+            cout << "Frag size:" << frag_size << endl;
+            cout << "Data:" << (char *) buf << endl;
+
+            DataPacket fragment_packet(buf, (unsigned short) frag_size, (unsigned int) (pack_seq_num + i));
+
+            cout << "Create packet seq # " << (pack_seq_num + i) << endl;
+            worker_socket.SendDataPacket(fragment_packet);
 //            sender.AddToSendQueue(fragment_packet);
-//            cout << "Create packet seq#" << pack_num++ << endl;
-//
-//            //if (!frag_size)recv_success = false;
-//        }
+//            sender.SendWindow();
+//            pack_seq_num += WIN_SZ;
+//            sender.ReceiveWindow();
 
-        int frag_size = fragmenter.GetNextFragmentSize();
-
-        if (frag_size < 1) {
-            cerr << "Invalid fragment size" << endl;
-            return;
+            free(buf);
         }
-        void *baf = calloc((size_t) frag_size, sizeof(char));
-        cout << "Frag size:" << fragmenter.NextFragment(&(baf)) << endl;
-
-        //cout << "Sending:" << (char *) buff[i] << endl;
-
-        cout << "Allocating << " << (unsigned short) frag_size << " bytes" << endl;
-
-        DataPacket fragment_packet(baf, (unsigned short) frag_size,
-                (unsigned int) (pack_num++));
-
-        sender.AddToSendQueue(fragment_packet);
-        sender.SendWindow();
-
-        free(baf);
-
-//        pack_num += WIN_SZ;
-//        sender.SendWindow();
-//        for (int i = 0; i < WIN_SZ; i++) {
-//            free(buff[i]);
-//        }
-
-        //cout << "Fragmenter#Fragment size:" << frag_size << " bytes,
 
 
-        sender.ReceiveWindow();
-        //cout << "ACK:" << ack_packet.ack_num << endl;
     }
 }
 

@@ -126,13 +126,15 @@ unsigned int FileFragmenter::GetNextFragmentSize()
 
     unsigned int frag_size = 0;
 
-    if (file_fragments - current_fragment_idx != 1) {
+    if (file_fragments - current_fragment_idx > 1) {
         frag_size = this->fragment_size;
-    } else {
+    } else if (file_fragments - current_fragment_idx == 1) {
 
         // TODO last fragment, don't read frag size, read the rest of the file
         unsigned int bytes_left = this->file_size - this->file.tellg();
         frag_size = bytes_left;
+    } else {
+        this->has_bytes = false;
     }
 
 

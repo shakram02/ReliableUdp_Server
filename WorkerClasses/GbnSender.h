@@ -9,6 +9,8 @@
 #include <vector>
 #include <queue>
 #include "WorkerSocket.h"
+#include <boost/thread/thread.hpp>
+#include <boost/lockfree/queue.hpp>
 
 class GbnSender
 {

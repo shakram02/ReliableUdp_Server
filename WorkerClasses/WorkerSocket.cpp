@@ -118,30 +118,25 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
 
     bool result = ReceiveRawPacket(sizeof(AckPacket), &data, &size);
 
-    if (!result) {
-        free(data);
-        return false;
-    }
     if (size != sizeof(AckPacket)) {
         cerr << "Illegal state, received corrupt ACK packet" << endl;
-        free(data);
-        return false;
     }
 
-    BinarySerializer::DeserializeAckPacket((data), &temp);
+    if (result && size == sizeof(AckPacket)) {
+        BinarySerializer::DeserializeAckPacket((data), &temp);
 
-    ack_packet_ptr->chksum = temp->chksum;
-    ack_packet_ptr->ack_num = temp->ack_num;
-    ack_packet_ptr->len = temp->len;
-
+        ack_packet_ptr->chksum = temp->chksum;
+        ack_packet_ptr->ack_num = temp->ack_num;
+        ack_packet_ptr->len = temp->len;
+    }
     free(data);
 
-    return true;
+    return result;
 }
 
 void WorkerSocket::SendDataPacket(DataPacket &packet)
 {
-    void *data;
+    ProjectionPointer data;
     BinarySerializer::SerializeDataPacket(&packet, &data);
 
     // sizeof(DataPacket) will return a size with the full array of 128 chars,

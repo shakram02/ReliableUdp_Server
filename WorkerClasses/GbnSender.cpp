@@ -8,6 +8,7 @@
 #include <chrono>
 #include <thread>
 
+
 #include "../globaldef.h"
 
 typedef std::pair<void *, unsigned short> PacketInfo;
@@ -31,7 +32,7 @@ bool GbnSender::AddToSendQueue(DataPacket &packet)
         return false;
     }
 
-    void *raw;
+    ProjectionPointer raw;
 
     /*
      * Unlike a pointer, once a reference is bound to an object, it can not be "reseated" to another object.
@@ -64,7 +65,9 @@ void GbnSender::SendWindow()
 
 bool GbnSender::ReceiveWindow()
 {
-
+    /**
+     * Needs to run on separate thread with the send
+     */
     for (PacketInfo i:this->send_vector) {
         AckPacket ack;
 
@@ -75,7 +78,7 @@ bool GbnSender::ReceiveWindow()
 
         cout << "Received Window ack:" << ack.ack_num << endl;
     }
-
+    //boost::this_thread::interruption_point();
     this->send_vector.clear();
 
     return false;
