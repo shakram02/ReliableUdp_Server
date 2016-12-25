@@ -12,13 +12,13 @@ GbnSender::GbnSender(uint32_t window_sz,
         WorkerSocket &send_sock, uint32_t sock_header_len) : worker_sock(send_sock)
 {
     this->window_size = window_sz;
-    this->confirmed = 0;
+    this->base_seq_num = 0;
     this->sock_header_length = sock_header_len;
 }
 
 bool GbnSender::AddToSendQueue(DataPacket &packet)
 {
-    if (packet.seqno > (this->confirmed + this->window_size)) {
+    if (packet.seqno > (this->base_seq_num + this->window_size)) {
         // out of bound seq. num
     }
 
@@ -47,3 +47,11 @@ void GbnSender::SendWindow()
         this->worker_sock.SendPacket(i.first, sizeof(DataPacket));
     }
 }
+
+bool GbnSender::ReceiveWindow()
+{
+
+    return false;
+}
+
+

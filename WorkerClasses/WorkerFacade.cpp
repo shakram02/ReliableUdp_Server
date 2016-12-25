@@ -27,7 +27,8 @@ void WorkerFacade::StartWorking()
 
     // Send dummy test data
     string d("Dummyy");
-    DataPacket packet((void *) d.c_str(), d.size(), 0);
+    int pck_seq = 6;
+    DataPacket packet((void *) d.c_str(), d.size(), pck_seq);
 
     void *packed;
 
@@ -36,6 +37,14 @@ void WorkerFacade::StartWorking()
     // sizeof(DataPacket) will return a size with the full array of 128 chars,
     // on the receiver size, the size will be re-fit using the length field
     worker_socket.SendPacket(packed, sizeof(DataPacket));
+
+    AckPacket ack_pck;
+    if (worker_socket.ReceiveAckPacket(ack_pck) && ack_pck.ack_num == pck_seq) {
+        cout << "ACK Success:" << ack_pck.ack_num << endl;
+    } else {
+        cerr << "Failed to be ACKed!!" << endl;
+    }
+
 
     int i = 0;
     while (false && !fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
@@ -55,7 +64,7 @@ void WorkerFacade::StartWorking()
 //
 //        void *rcv_buff;
 //        int recv_size;
-//        worker_socket.ReceivePacket(FRAGMENT_SIZE, &rcv_buff, &recv_size);
+//        worker_socket.ReceiveAckPacket(FRAGMENT_SIZE, &rcv_buff, &recv_size);
 //
 //        cout << "ACK:" << string((char *) rcv_buff) << endl;
 //

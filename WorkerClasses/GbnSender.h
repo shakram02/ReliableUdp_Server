@@ -12,8 +12,9 @@
 
 class GbnSender
 {
+
     int window_size;
-    int confirmed;
+    int base_seq_num;
     WorkerSocket &worker_sock;
     int sock_header_length;
 
@@ -32,8 +33,15 @@ public:
 
     void SendWindow();
 
+    /**
+     * Receives a sequence of packets and checks their sequence numbers
+     * if all the sequence numbers correspond to packets in the current window
+     * the current window is released and the base seq. number is advanced
+     *
+     * This function should be called on a separate thread as it's a blocking function
+     * @return
+     */
     bool ReceiveWindow();
-
 
 };
 
