@@ -139,8 +139,6 @@ cstring
 -
 WorkerFacade.h
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
-BinarySerializer.h
-/home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/BinarySerializer.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
 WorkerSocket.h

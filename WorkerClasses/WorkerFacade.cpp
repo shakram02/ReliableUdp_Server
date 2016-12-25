@@ -29,53 +29,31 @@ void WorkerFacade::StartWorking()
     unsigned int pck_seq = 6;
     DataPacket dummy_packet((void *) d.c_str(), (unsigned short) d.size(), pck_seq);
 
-    void *dummy_raw_pckt_ptr;
+//    void *dummy_raw_pckt_ptr;
+//
+//    BinarySerializer::SerializeDataPacket(&dummy_packet, &dummy_raw_pckt_ptr);
+//
+//
+//    // sizeof(DataPacket) will return a size with the full array of 128 chars,
+//    // on the receiver size, the size will be re-fit using the length field
+//    worker_socket.SendPacket(dummy_raw_pckt_ptr, sizeof(DataPacket));
 
-    BinarySerializer::SerializeDataPacket(&dummy_packet, &dummy_raw_pckt_ptr);
-
-    // sizeof(DataPacket) will return a size with the full array of 128 chars,
-    // on the receiver size, the size will be re-fit using the length field
-    worker_socket.SendPacket(dummy_raw_pckt_ptr, sizeof(DataPacket));
+    worker_socket.SendDataPacket(dummy_packet);
 
 
     void *ack_raw = calloc(1, sizeof(AckPacket));
-    int ack_size;
-//    bool result = worker_socket.ReceivePacket(sizeof(AckPacket), ack_raw, &ack_size);
-//
-//    if (!result) {
-//        cerr << "Nothing received" << endl;
-//        cout << endl;
-//        return;
-//    }
-//    cout << "Received:" << ack_size << " bytes" << endl;
-//    AckPacket *ack_pck;
-//    BinarySerializer::DeserializeAckPacket(ack_raw, &ack_pck);
-
     AckPacket *ack_pck;
-    worker_socket.ReceiveAckPacket(&ack_raw, &ack_pck);
-    cout << "ACK-> Num:" << ack_pck->ack_num
-         << " Checksum:" << ack_pck->chksum
-         << endl;
+    if (worker_socket.ReceiveAckPacket(&ack_raw, &ack_pck)) {
+        cout << "ACK-> Num:" << ack_pck->ack_num
+             << " Checksum:" << ack_pck->chksum
+             << endl;
+    } else {
+        cerr << "Failed to be ACKed!!" << endl;
+        cout << endl;
+    }
+
 
     free(ack_raw);
-
-//    if (worker_socket.ReceiveAckPacket(ack_pck)) {
-//        cout << "ACK-> Num:" << ack_pck.ack_num
-//             << " Checksum:" << ack_pck.chksum
-//             << " Length:" << ack_pck.len << endl;
-//
-//        if (ack_pck.ack_num == pck_seq) {
-//            cout << "ACK Success:" << ack_pck.ack_num << endl;
-//        } else {
-//            cerr << "Bad seq number!!" << endl;
-//            cout << endl;
-//        }
-//
-//    } else {
-//        cerr << "Failed to be ACKed!!" << endl;
-//        cout << endl;
-//    }
-//
 
     int i = 0;
     while (false && !fragmenter.EndOfFile() && is_working && fail_count < MAX_FAIL_COUNT) {
@@ -108,6 +86,7 @@ void WorkerFacade::StartWorking()
     }
 
 }
+
 
 WorkerFacade::WorkerFacade(sock_descriptor sockfd) :
         worker_socket(sockfd)

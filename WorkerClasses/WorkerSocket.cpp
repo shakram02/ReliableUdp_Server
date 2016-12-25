@@ -22,6 +22,7 @@ WorkerSocket::WorkerSocket(int client_sockfd)
 
         int len = sizeof((this->client_addr));
 
+        // TODO refactor
         sendto(this->socket_fd, confirmation_msg.c_str(),
                 confirmation_msg.size(), 0,
                 (sockaddr *) &(this->client_addr), (socklen_t) len);
@@ -66,6 +67,7 @@ string WorkerSocket::GetRequestedFile()
     char buf[MAX_FILE_PATH_LENGTH + 1] = {0};
     socklen_t len = sizeof(struct sockaddr_in);
 
+    // TODO refactor
     recvfrom(this->socket_fd, buf, sizeof(buf), 0, (sockaddr *) &(this->client_addr), &len);
 
     string prefix("FILE-");
@@ -81,44 +83,58 @@ string WorkerSocket::GetRequestedFile()
     }
 }
 
-bool WorkerSocket::SendPacket(void *data, unsigned int length)
+void WorkerSocket::SendPacket(void *data, unsigned int length)
 {
-    sendto(this->socket_fd, data, length, 0,
+    long int num_bytes = sendto(this->socket_fd, data, length, 0,
             (sockaddr *) &(this->client_addr), (socklen_t) (sizeof(this->client_addr)));
-    return false;
+
+    // Udp sendto fails when no space to allocate the buffer is avialable
+    if (num_bytes < 1) {
+        cerr << "Failed to send UDP packet" << endl;
+        cout << endl;
+    }
+}
+
+bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void **data, int *received_size)
+{
+    socklen_t len = sizeof(struct sockaddr_in);
+
+    (*received_size) = (int) recvfrom(this->socket_fd,
+            (*data), buffer_size,
+            0, (sockaddr *) &(this->client_addr), &len);
+
+    if ((*received_size) == 0) {
+        log_error("client closed connection");
+        return false;
+    } else if ((*received_size) == -1) {
+        log_error("recvfrom");
+        return false;
+    }
+    return true;
 }
 
 bool WorkerSocket::ReceiveAckPacket(void **data, AckPacket **deserialized_pckt)
 {
+    int size = 0;
+    bool result = ReceivePacket(sizeof(AckPacket), data, &size);
 
-    socklen_t len = sizeof(struct sockaddr_in);
-
-    int received = (int) recvfrom(this->socket_fd,
-            (*data), sizeof(AckPacket),
-            0, (sockaddr *) &(this->client_addr), &len);
-
-    if (received == 0) {
-        log_error("client closed connection");
-        return false;
-    } else if (received == -1) {
-        log_error("recvfrom");
+    if (!result)return false;
+    if (size != sizeof(AckPacket)) {
+        cerr << "Illegal state, received corrupt ACK packet" << endl;
         return false;
     }
 
     BinarySerializer::DeserializeAckPacket((*data), deserialized_pckt);
     return true;
-
 }
 
-bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void *data, int *received_size)
+void WorkerSocket::SendDataPacket(DataPacket &packet)
 {
-    socklen_t len = sizeof(struct sockaddr_in);
+    void *data;
+    BinarySerializer::SerializeDataPacket(&packet, &data);
 
-    (*received_size) = (int) recvfrom(this->socket_fd,
-            data, buffer_size,
-            0, (sockaddr *) &(this->client_addr), &len);
-
-    // TODO realloc the data* to avoid memory waste
-
-    return *received_size >= 1;
+    // sizeof(DataPacket) will return a size with the full array of 128 chars,
+    // on the receiver size, the size will be re-fit using the length field
+    SendPacket(data, sizeof(DataPacket));
 }
+

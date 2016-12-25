@@ -39,7 +39,9 @@ public:
 
     string GetRequestedFile();
 
-    bool SendPacket(void *data, unsigned int length);
+    void SendPacket(void *data, unsigned int length);
+
+    void SendDataPacket(DataPacket &packet);
 
     bool ReceiveAckPacket(void **data, AckPacket **derserialized_pckt);
 
@@ -51,7 +53,7 @@ public:
      * @param received_size Actual size of received data
      * @return false if nothing is received
      */
-    bool ReceivePacket(unsigned int buffer_length, void *data, int *received_size);
+    bool ReceivePacket(unsigned int buffer_length, void **data, int *received_size);
 
 private:
     /**
