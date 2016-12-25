@@ -5,6 +5,10 @@
 #include <DataPacket.h>
 #include <BinarySerializer.h>
 #include "GbnSender.h"
+#include <chrono>
+#include <thread>
+
+#include "../globaldef.h"
 
 typedef std::pair<void *, unsigned short> PacketInfo;
 
@@ -22,7 +26,10 @@ bool GbnSender::AddToSendQueue(DataPacket &packet)
     }
 
     // Trying to send out of window size
-    if (send_vector.size() >= this->window_size)return false;
+    if (send_vector.size() >= this->window_size) {
+        cerr << "Send queue is now bigger than window size, call receive" << endl;
+        return false;
+    }
 
     void *raw;
 
@@ -51,6 +58,7 @@ void GbnSender::SendWindow()
 
     for (PacketInfo i:this->send_vector) {
         this->worker_sock.SendPacket(i.first, sizeof(DataPacket));
+        this_thread::sleep_for(chrono::milliseconds(SLEEP_MILLIS));
     }
 }
 
@@ -59,9 +67,16 @@ bool GbnSender::ReceiveWindow()
 
     for (PacketInfo i:this->send_vector) {
         AckPacket ack;
-        worker_sock.ReceiveAckPacket(&ack);
+
+        if (!worker_sock.ReceiveAckPacket(&ack)) {
+            // TODO alert
+            return false;
+        }
+
         cout << "Received Window ack:" << ack.ack_num << endl;
     }
+
+    this->send_vector.clear();
 
     return false;
 }

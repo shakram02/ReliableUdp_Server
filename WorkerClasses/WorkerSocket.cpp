@@ -4,13 +4,8 @@
 
 #include <arpa/inet.h>
 #include "WorkerSocket.h"
+#include "../globaldef.h"
 
-/**
- * Redirection message, this is a constant message on the client and server side
- */
-#define REDIRECT_SUCCESS "REDIRECT SUCCESSFUL"
-#define SERV_REDIRECT_OK "OK"
-#define MAX_FILE_PATH_LENGTH 256
 
 WorkerSocket::WorkerSocket(int client_sockfd)
 {
@@ -97,7 +92,7 @@ void WorkerSocket::SendPacket(void *data, unsigned int length)
     }
 }
 
-bool WorkerSocket::ReceivePacket(unsigned int buffer_size, void **data, int *received_size)
+bool WorkerSocket::ReceiveRawPacket(unsigned int buffer_size, void **data, int *received_size)
 {
     socklen_t len = sizeof(struct sockaddr_in);
 
@@ -121,7 +116,7 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
     void *data = calloc(1, sizeof(AckPacket));
     AckPacket *temp;
 
-    bool result = ReceivePacket(sizeof(AckPacket), &data, &size);
+    bool result = ReceiveRawPacket(sizeof(AckPacket), &data, &size);
 
     if (!result) {
         free(data);

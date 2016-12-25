@@ -16,17 +16,7 @@ unsigned int FileFragmenter::NextFragment(void **buffer)
     // Read fragment size from file
     if (this->current_fragment_idx < this->file_fragments) {
 
-        int current_frag_size;
-        if (file_fragments - current_fragment_idx != 1) {
-            current_frag_size = this->fragment_size;
-        } else {
-
-            // TODO last fragment, don't read frag size, read the rest of the file
-            int bytes_left = this->file_size - (int) this->file.tellg();
-            current_frag_size = bytes_left;
-            this->has_bytes = false;
-        }
-
+        unsigned int current_frag_size = GetNextFragmentSize();
 
         //cout << "Fragment size:" << current_frag_size << endl;
         (*buffer) = (char *) calloc((size_t) current_frag_size, sizeof(char));
@@ -34,7 +24,12 @@ unsigned int FileFragmenter::NextFragment(void **buffer)
 
         this->current_fragment_idx++;
         return current_frag_size;
+    } else {
+        this->has_bytes = false;
+        cout << "Fragments ended" << endl;
+        return 0;
     }
+
 }
 
 FileFragmenter::~FileFragmenter()
@@ -46,10 +41,10 @@ FileFragmenter::~FileFragmenter()
 
 bool FileFragmenter::EndOfFile()
 {
-    return !this->has_bytes;
+    return GetNextFragmentSize() == 0;
 }
 
-FileFragmenter::FileFragmenter(std::string file_path, int fragment_size)
+FileFragmenter::FileFragmenter(std::string file_path, unsigned int fragment_size)
 {
     if (fragment_size < 1) {
         cerr << "Invalid fragment size" << endl;
@@ -66,7 +61,7 @@ FileFragmenter::FileFragmenter()
 {
 }
 
-bool FileFragmenter::SetFragmentSize(int frag_size)
+bool FileFragmenter::SetFragmentSize(unsigned int frag_size)
 {
     if (frag_size < 1) {
         cerr << "Fragmenter#Invalid fragment size" << endl;
@@ -94,7 +89,7 @@ bool FileFragmenter::ValidateFile(string file_path)
                 return false;
             }
             this->has_bytes = true;
-            this->file_size = ((int) file_stat.st_size);
+            this->file_size = (unsigned int) (file_stat.st_size);
             this->current_fragment_idx++;   // Move to fragment 0
 
             cout << "File fragments:" << this->file_fragments
@@ -123,4 +118,25 @@ bool FileFragmenter::SetFilePath(string file_path)
 int FileFragmenter::GetFragmentCount()
 {
     return this->file_fragments;
+}
+
+unsigned int FileFragmenter::GetNextFragmentSize()
+{
+    // TODO optimization, if the current frag idx didn't move, return the last value
+
+    unsigned int frag_size = 0;
+
+    if (file_fragments - current_fragment_idx != 1) {
+        frag_size = this->fragment_size;
+    } else {
+
+        // TODO last fragment, don't read frag size, read the rest of the file
+        unsigned int bytes_left = this->file_size - this->file.tellg();
+        frag_size = bytes_left;
+    }
+
+
+    //last_requested_frag_size_idx = this->current_fragment_idx;
+
+    return frag_size;
 }

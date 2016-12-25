@@ -3,8 +3,6 @@
 #include "timecalc.h"
 #include "../libs/data_packet.h"
 
-#define BUFF_LEN 50
-
 #include "WelcomingSocket.h"
 #include "ClientObserver.h"
 #include "WorkerClasses/FileFragmenter.h"
@@ -24,7 +22,7 @@ void TestFileFragmenter()
 
     while (!ff.EndOfFile()) {
         ff.NextFragment(&fragm);
-        cout << "frag: " << fragm << endl;
+        cout << "frag: " << (char *) fragm << endl;
     }
 
     free(fragm);
@@ -41,6 +39,6 @@ int main()
 
     obs.StopListening();
 
-    //TestFileFragmenter();
+//    TestFileFragmenter();
     return 0;
 }

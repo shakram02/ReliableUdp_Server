@@ -39,10 +39,12 @@ void ClientObserver::NotifyForClient(int sock_fd)
 
         // TODO Spawn a worker subsystem
         WorkerFacade worker_subsystem(sock_fd);
+        //pthread_attr_setstacksize()
         worker_subsystem.StartWorking();
     });
 
     th.detach();
+    //th.join();
     //client_threads.push_back(th);
 }
 

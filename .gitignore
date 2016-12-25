@@ -105,7 +105,6 @@ Mkfile.old
 dkms.conf
 
 # Data Files
-*.txt
 *.jpg
 *.mp3
 *.zip

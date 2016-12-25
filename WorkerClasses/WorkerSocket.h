@@ -67,13 +67,15 @@ public:
      * @param received_size Actual size of received data
      * @return false if nothing is received
      */
-    bool ReceivePacket(unsigned int buffer_length, void **data, int *received_size);
+    bool ReceiveRawPacket(unsigned int buffer_length, void **data, int *received_size);
 
-private:
     /**
      * Client socket file descriptor
      */
     int socket_fd;
+
+private:
+
     /**
      * The IP address information of the connected client
      */
