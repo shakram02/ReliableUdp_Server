@@ -16,13 +16,13 @@ class GbnSender
     int window_size;
     int base_seq_num;
     WorkerSocket &worker_sock;
-    int sock_header_length;
+    //int sock_header_length;   // The header of the socket and the socket are of constant size
 
     std::vector<std::pair<void *, unsigned short>> send_vector;
 
 public:
     // TODO move the socket header in its own struct?
-    GbnSender(unsigned int window_sz, WorkerSocket &send_sock, unsigned int socket_header_len);
+    GbnSender(unsigned int window_sz, WorkerSocket &send_sock);
 
     /**
      * Adds a data packet to this window ( the length of the data is in the packet )

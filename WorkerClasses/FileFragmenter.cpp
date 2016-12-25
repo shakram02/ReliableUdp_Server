@@ -11,7 +11,7 @@ unsigned int FileFragmenter::NextFragment(void **buffer)
 
     if (!this->has_bytes) {
         (*buffer) = nullptr;
-        return -1;
+        return 0;
     }
     // Read fragment size from file
     if (this->current_fragment_idx < this->file_fragments) {

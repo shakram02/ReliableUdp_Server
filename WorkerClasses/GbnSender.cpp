@@ -9,11 +9,10 @@
 typedef std::pair<void *, unsigned short> PacketInfo;
 
 GbnSender::GbnSender(uint32_t window_sz,
-        WorkerSocket &send_sock, uint32_t sock_header_len) : worker_sock(send_sock)
+        WorkerSocket &send_sock) : worker_sock(send_sock)
 {
     this->window_size = window_sz;
     this->base_seq_num = 0;
-    this->sock_header_length = sock_header_len;
 }
 
 bool GbnSender::AddToSendQueue(DataPacket &packet)
@@ -43,6 +42,13 @@ bool GbnSender::AddToSendQueue(DataPacket &packet)
 
 void GbnSender::SendWindow()
 {
+    // Send it to the worker_socket, wait for the worker_socket response for the whole window
+    // -use Select/Non blocking IO?-
+
+    // Read the worker_socket response(s)
+    // ACK -> WillAdvance = true
+    // NACK -> WillAdvance = false
+
     for (PacketInfo i:this->send_vector) {
         this->worker_sock.SendPacket(i.first, sizeof(DataPacket));
     }
@@ -50,6 +56,12 @@ void GbnSender::SendWindow()
 
 bool GbnSender::ReceiveWindow()
 {
+
+    for (PacketInfo i:this->send_vector) {
+        AckPacket ack;
+        worker_sock.ReceiveAckPacket(&ack);
+        cout << "Received Window ack:" << ack.ack_num << endl;
+    }
 
     return false;
 }

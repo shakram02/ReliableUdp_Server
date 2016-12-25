@@ -56,8 +56,9 @@ bool WorkerSocket::AssertRedirection()
 
 WorkerSocket::~WorkerSocket()
 {
-    cout << "WorkerFacade disposed" << endl;
     if (this->is_serving) {
+        cout << "WorkerFacade disposed" << endl;
+        this->is_serving = false;
         close(this->socket_fd);
     }
 }
@@ -85,8 +86,9 @@ string WorkerSocket::GetRequestedFile()
 
 void WorkerSocket::SendPacket(void *data, unsigned int length)
 {
-    long int num_bytes = sendto(this->socket_fd, data, length, 0,
-            (sockaddr *) &(this->client_addr), (socklen_t) (sizeof(this->client_addr)));
+    long int num_bytes = sendto(this->socket_fd,
+            data, length,
+            0, (sockaddr *) &(this->client_addr), (socklen_t) (sizeof(this->client_addr)));
 
     // Udp sendto fails when no space to allocate the buffer is avialable
     if (num_bytes < 1) {
