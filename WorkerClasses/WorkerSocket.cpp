@@ -121,9 +121,13 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *deserialized_pckt)
 
     bool result = ReceivePacket(sizeof(AckPacket), &data, &size);
 
-    if (!result)return false;
+    if (!result) {
+        free(data);
+        return false;
+    }
     if (size != sizeof(AckPacket)) {
         cerr << "Illegal state, received corrupt ACK packet" << endl;
+        free(data);
         return false;
     }
 
