@@ -60,31 +60,31 @@ void WorkerFacade::StartWorking()
             pck_arr[wind_frg] = new DataPacket(
                     (buf_array[wind_frg]),
                     (unsigned short) frag_size,
-                    (unsigned int) (pack_seq_num + wind_frg)
+                    (unsigned int) (pack_seq_num++ + wind_frg)
             );
             free((buf_array[wind_frg]));
 
-            cout << "Frag data:" << (pck_arr[wind_frg])->data << endl;
+//            cout << "Frag data:" << (pck_arr[wind_frg])->data << endl;
         }
 
         // Send all fragments
         for (int k = 0; k < wind_frg; ++k) {
-            cout << "Create packet seq # " << k << ", Data:" << pck_arr[k]->data << endl;
+            cout << "Create packet seq # " << pck_arr[k]->seqno
+                 //<< ", Data:" << pck_arr[k]->data
+                 << endl;
 
             worker_socket.SendDataPacket(pck_arr[k]);
             delete pck_arr[k];
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(20)); // Wait for packet to be sent
+            std::this_thread::sleep_for(std::chrono::milliseconds(5)); // Wait for packet to be sent
         }
 
-        // Receive all ACKs
+        // Receive all wind ACKs
         for (int l = 0; l < wind_frg; ++l) {
             AckPacket ack;
             worker_socket.ReceiveAckPacket(&ack);
             cout << "Ack:" << ack.ack_num << endl;
         }
-
-        pack_seq_num += WIN_SZ;
 
         free(buf_array);
     }
