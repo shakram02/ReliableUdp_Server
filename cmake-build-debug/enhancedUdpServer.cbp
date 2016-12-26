@@ -107,9 +107,6 @@
 		<Unit filename="/home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/FileFragmenter.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.cpp">
-			<Option target="enhancedUdpServer"/>
-		</Unit>
 		<Unit filename="/home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>

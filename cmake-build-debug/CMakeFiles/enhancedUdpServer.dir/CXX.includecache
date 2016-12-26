@@ -122,10 +122,6 @@ string
 fstream
 -
 
-/home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.cpp
-
-/home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.h
-
 /home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.cpp
 cstring
 -
@@ -133,8 +129,6 @@ thread
 -
 WorkerFacade.h
 /home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/WorkerFacade.h
-GbnSender.h
-/home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/WorkerClasses/GbnSender.h
 ../globaldef.h
 /home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/globaldef.h
 

@@ -23,6 +23,8 @@ public:
 
     void StopWorking();
 
+    bool EndTransmission(int total_frag_count);
+
     ~WorkerFacade();
 
 private:

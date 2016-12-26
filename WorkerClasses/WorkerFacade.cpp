@@ -5,7 +5,7 @@
 #include <cstring>
 #include <thread>
 #include "WorkerFacade.h"
-#include "GbnSender.h"
+
 #include "../globaldef.h"
 
 struct free_delete
@@ -51,7 +51,6 @@ void WorkerFacade::StartWorking()
 
             if (frag_size < 1) {
                 cerr << "Invalid fragment size" << endl;
-                // Send an ACK to terminate transmission
                 break;
             }
 
@@ -63,8 +62,6 @@ void WorkerFacade::StartWorking()
                     (unsigned int) (pack_seq_num++ + wind_frg)
             );
             free((buf_array[wind_frg]));
-
-//            cout << "Frag data:" << (pck_arr[wind_frg])->data << endl;
         }
 
         // Send all fragments
@@ -85,19 +82,15 @@ void WorkerFacade::StartWorking()
             worker_socket.ReceiveAckPacket(&ack);
             cout << "Ack:" << ack.ack_num << endl;
         }
-
         free(buf_array);
     }
-    DataPacket trans_end(NULL, 0, fragment_count);
-    worker_socket.SendDataPacket(&trans_end);
 
-    AckPacket final_ack;
-    worker_socket.ReceiveAckPacket(&final_ack);
-    if (final_ack.ack_num != fragment_count) {
+    if (!EndTransmission(fragment_count)) {
         cerr << "Err in receiving final ack" << endl;
     }
     cout << "Transmission completed." << endl;
 }
+
 
 
 WorkerFacade::WorkerFacade(sock_descriptor sockfd) : worker_socket(sockfd)
@@ -123,4 +116,15 @@ WorkerFacade::~WorkerFacade()
 {
     // TODO release resources
     worker_socket.~WorkerSocket();
+}
+
+bool WorkerFacade::EndTransmission(int total_frag_count)
+{
+    // End transmission
+    DataPacket trans_end(NULL, 0, (unsigned int) total_frag_count);
+    worker_socket.SendDataPacket(&trans_end);
+
+    AckPacket final_ack;
+    worker_socket.ReceiveAckPacket(&final_ack);
+    return final_ack.ack_num == total_frag_count;
 }
