@@ -34,7 +34,7 @@ void WorkerFacade::StartWorking()
 
     cout << "Fragment count:" << fragment_count << endl;
 
-    for (int frg_num = 0; frg_num < fragment_count && is_working && (fail_count < MAX_FAIL_COUNT); frg_num++) {
+    for (int frg_num = 0; pack_seq_num < fragment_count && is_working && (fail_count < MAX_FAIL_COUNT); frg_num++) {
 
         void **buf_array = (void **) calloc((size_t) WIN_SZ, sizeof(void *));
         DataPacket *pck_arr[WIN_SZ];
@@ -56,16 +56,22 @@ void WorkerFacade::StartWorking()
 
             fragmenter.NextFragment(&(buf_array[wind_frg]));
 
+            cout << "Frag create #" << (pack_seq_num) << endl;
             pck_arr[wind_frg] = new DataPacket(
                     (buf_array[wind_frg]),
                     (unsigned short) frag_size,
-                    (unsigned int) (pack_seq_num++ + wind_frg)
+                    (unsigned int) (pack_seq_num++)
             );
             free((buf_array[wind_frg]));
         }
 
-        GoBackN(wind_frg, 0, pck_arr);
-
+        if (!GoBackN(wind_frg, pck_arr)) {
+            cout << "GBN failed" << endl;
+            free(buf_array);
+            return;
+        }
+        // TODO FIX ME extra loops occur, loop condition is ill
+        //cout << "FRG CNT:" << wind_frg << endl;
         free(buf_array);
     }
 
@@ -122,33 +128,98 @@ bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
              << endl;
 
         worker_socket.SendDataPacket(pck_arr_ptr[k]);
-        delete pck_arr_ptr[k];
+        //delete pck_arr_ptr[k];  // FIXME this should be deleted after the window was successfully sent
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
     }
     return false;
 }
 
-bool WorkerFacade::GoBackN(int frg_count, int wind_base, DataPacket **pck_arr_ptr)
+void WorkerFacade::DeleteWindow(DataPacket *pck_arr_ptr[], int frg_count)
 {
-    int wind_end = wind_base + frg_count;
-    int awaited_ack = wind_base;
+    for (int k = 0; k < frg_count; ++k) {
+        delete pck_arr_ptr[k];  // FIXME this should be deleted after the window was successfully sent
+    }
+}
 
+bool WorkerFacade::GoBackN(int frg_count, DataPacket **pck_arr_ptr)
+{
+    // NORMAL MODE
+//    SendWindow(pck_arr_ptr, frg_count);
 //    for (int l = 0; l < frg_count; ++l) {
 //        AckPacket ack;
 //        worker_socket.ReceiveAckPacket(&ack);
 //        cout << "Ack:" << ack.ack_num << endl;
 //    }
 
-    SendWindow(pck_arr_ptr, frg_count);
-
-    // Receive window acks
-    for (int l = 0; l < frg_count; ++l) {
-        AckPacket ack;
-        worker_socket.ReceiveAckPacket(&ack);
-        cout << "Ack:" << ack.ack_num << endl;
+    if (frg_count < 1) {
+        cout << "Empty window" << endl;
+        return true;
     }
 
+    int wind_base = this->last_acked_pkt + 1;
+    int wind_end = this->last_acked_pkt + 1 + frg_count;
+
+    int acknum = 0;
+    int fail = 0;
+
+    // GBN
+    cout << endl
+         << "Startimg GBN, Wind Base: " << wind_base
+         << " Fragments in window: " << frg_count
+         << endl;
+
+
+    SendWindow(pck_arr_ptr, frg_count);
+    int i = 0;
+    do {
+        cout << "Start ACK receive" << endl;
+
+        AckPacket ack;
+        if (!worker_socket.ReceiveAckPacket(&ack)) {
+            // Failed to receive
+            if (fail++ == MAX_FAIL_COUNT) {
+                cerr << "Client died?" << endl;
+                return false;
+            }
+            cout << "ACK receive failed, retransmitting window" << endl;
+            SendWindow(pck_arr_ptr, frg_count);
+            continue;
+        }
+
+        acknum = ack.ack_num;
+        cout << "ACK received #" << acknum << endl;
+
+        if (acknum == (this->last_acked_pkt + 1)) {
+
+            // Slide the window
+            cout << "ACK correct, slide the window ,received ACK#" << acknum << endl;
+            this->last_acked_pkt++;
+
+        } else if (acknum <= this->last_acked_pkt) {
+
+            cout << "ACK Before window base #" << acknum << endl;
+            SendWindow(pck_arr_ptr, frg_count);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
+
+        } else {
+
+            cout << "ACK Invalid Received #" << acknum
+                 << " Expected #" << (this->last_acked_pkt + 1)
+                 << endl;
+        }
+        cout << "End of single GBN loop "
+             << ", Awaited " << (this->last_acked_pkt + 1)
+             << " Window end: " << wind_end
+             << endl;
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));  // Take it easy
+    } while (this->last_acked_pkt < wind_end && i++ < frg_count);
+
+    /// IMPORTANT Delete the sent window
+    DeleteWindow(pck_arr_ptr, frg_count);
+    cout << "Window released" << endl << endl;
+    return true;
 
 //    int last_ack = -1;
 //    while (awaited_ack < wind_end) {

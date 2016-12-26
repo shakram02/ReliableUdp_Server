@@ -118,7 +118,11 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
 
     bool result = ReceiveRawPacket(sizeof(AckPacket), &data, &size);
 
-    if (size != sizeof(AckPacket)) {
+    if (!result) {
+        cerr << "Failed to receive the data packet" << endl;
+    }
+
+    if (result && size != sizeof(AckPacket)) {
         cerr << "Illegal state, received corrupt ACK packet" << endl;
     }
 

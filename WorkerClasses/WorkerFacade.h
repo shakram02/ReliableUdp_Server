@@ -27,7 +27,7 @@ public:
 
     bool SendWindow(DataPacket *pck_arr_ptr[], int frg_count);
 
-    bool GoBackN(int frg_count, int wind_base, DataPacket **pck_arr_ptr);
+    bool GoBackN(int frg_count, DataPacket **pck_arr_ptr);
 
     ~WorkerFacade();
 
@@ -35,6 +35,9 @@ private:
     WorkerSocket worker_socket;
     FileFragmenter fragmenter;
     bool is_working;
+    int last_acked_pkt=0;
+
+    void DeleteWindow(DataPacket **pck_arr_ptr, int frg_count);
 };
 
 
