@@ -14,7 +14,7 @@
 
 #define MAX_FAIL_COUNT 2
 #define SERV_FILESZ_HEADER "FILESIZE-"
-#define WIN_SZ 2
+#define WIN_SZ 16
 /**
  * Redirection message, this is a constant message on the client and server side
  */

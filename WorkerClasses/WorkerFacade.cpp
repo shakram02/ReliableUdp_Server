@@ -76,7 +76,7 @@ void WorkerFacade::StartWorking()
             worker_socket.SendDataPacket(pck_arr[k]);
             delete pck_arr[k];
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(5)); // Wait for packet to be sent
+            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
         }
 
         // Receive all wind ACKs
@@ -88,6 +88,15 @@ void WorkerFacade::StartWorking()
 
         free(buf_array);
     }
+    DataPacket trans_end(NULL, 0, fragment_count);
+    worker_socket.SendDataPacket(&trans_end);
+
+    AckPacket final_ack;
+    worker_socket.ReceiveAckPacket(&final_ack);
+    if (final_ack.ack_num != fragment_count) {
+        cerr << "Err in receiving final ack" << endl;
+    }
+    cout << "Transmission completed." << endl;
 }
 
 
