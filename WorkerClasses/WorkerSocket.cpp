@@ -134,10 +134,10 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
     return result;
 }
 
-void WorkerSocket::SendDataPacket(DataPacket &packet)
+void WorkerSocket::SendDataPacket(DataPacket *packet)
 {
     ProjectionPointer data;
-    BinarySerializer::SerializeDataPacket(&packet, &data);
+    BinarySerializer::SerializeDataPacket(packet, &data);
 
     // sizeof(DataPacket) will return a size with the full array of 128 chars,
     // on the receiver size, the size will be re-fit using the length field

@@ -50,7 +50,7 @@ public:
      * Sends a wrapped data packet to the client
      * @param packet Packet containing data to be sent to the client
      */
-    void SendDataPacket(DataPacket &packet);
+    void SendDataPacket(DataPacket *packet);
 
     /**
      * Receives an ACK packet from the client

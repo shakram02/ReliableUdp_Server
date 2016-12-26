@@ -3,6 +3,7 @@
 //
 
 #include <cstring>
+#include <thread>
 #include "WorkerFacade.h"
 #include "GbnSender.h"
 #include "../globaldef.h"
@@ -23,29 +24,35 @@ void WorkerFacade::StartWorking()
     cout << "WorkerFacade#Sending number of fragments:" << num << endl;
     worker_socket.SendPacket((void *) file_send_header.c_str(), (unsigned int) file_send_header.length());
 
-    GbnSender sender(WIN_SZ, worker_socket);
-
-
     int fail_count = 0;
     int pack_seq_num = 0;
 
     //void ***p = new(std::nothrow) void **(fragment_count);
     //unique_ptr<void **, free_delete> sp((void **) calloc(fragment_count, sizeof(char)));
 
-    //vector<shared_ptr
-    void **buf_array = (void **) calloc((size_t) WIN_SZ, sizeof(void *));
+
 
     cout << "Fragment count:" << fragment_count << endl;
 
-    for (int j = 0; j < fragment_count && is_working && (fail_count < MAX_FAIL_COUNT); j++) {
+    for (int current_frag_num = 0;
+         current_frag_num < fragment_count
+         && is_working && (fail_count < MAX_FAIL_COUNT); current_frag_num++) {
+
+        void **buf_array = (void **) calloc((size_t) WIN_SZ, sizeof(void *));
+
+        //DataPacket **data_packets_ptrs = (DataPacket **) calloc(WIN_SZ, sizeof(DataPacket *));
+
+        DataPacket *pck_arr[WIN_SZ];
 
         int window_pckt_count = 0;
+
+        // Create fragments and load them in the data packets array
         for (; window_pckt_count < WIN_SZ; ++window_pckt_count) {
 
             int frag_size = fragmenter.GetNextFragmentSize();
             if (fragmenter.EndOfFile())break;
 
-            (buf_array[j]) = calloc((size_t) frag_size, sizeof(char));
+            (buf_array[window_pckt_count]) = calloc((size_t) frag_size, sizeof(char));
 
             if (frag_size < 1) {
                 cerr << "Invalid fragment size" << endl;
@@ -53,48 +60,44 @@ void WorkerFacade::StartWorking()
                 break;
             }
 
-            //void *buf = calloc((size_t) frag_size, sizeof(char));
-            //fragmenter.NextFragment(&buf);
+            fragmenter.NextFragment(&(buf_array[window_pckt_count]));
 
-            fragmenter.NextFragment(&buf_array[j]);
+            pck_arr[window_pckt_count] = new DataPacket(
+                    (buf_array[window_pckt_count]),
+                    (unsigned short) frag_size,
+                    (unsigned int) (pack_seq_num + window_pckt_count)
+            );
+            free((buf_array[window_pckt_count]));
 
-            cout << "Frag size:" << frag_size << endl;
+            cout << "Frag data:" << (pck_arr[window_pckt_count])->data << endl;
+        }
 
-            //DataPacket fragment_packet(buf, (unsigned short) frag_size, (unsigned int) (pack_seq_num + window_pckt_count));
-            DataPacket fragment_packet(buf_array[j], (unsigned short) frag_size,
-                    (unsigned int) (pack_seq_num + window_pckt_count));
+        // Send all fragments
+        for (int k = 0; k < window_pckt_count; ++k) {
+            cout << "Create packet seq # " << k << ", Data:" << pck_arr[k]->data << endl;
+            worker_socket.SendDataPacket(pck_arr[k]);
 
-            cout << "Create packet seq # " << (pack_seq_num + window_pckt_count) << endl;
-            worker_socket.SendDataPacket((fragment_packet));
+            std::this_thread::sleep_for(std::chrono::milliseconds(20)); // Wait for packet to be sent
+        }
 
+        // Receive all ACKs
+        for (int l = 0; l < window_pckt_count; ++l) {
             AckPacket ack;
             worker_socket.ReceiveAckPacket(&ack);
             cout << "Ack:" << ack.ack_num << endl;
-
-            //sender.AddToSendQueue(fragment_packet);
-            //sender.SendWindow();
-            //bool acked = sender.ReceiveWindow();
-
-//            if (!acked) {
-//                fail_count++;
-//
-//                // TODO remove this
-//                // TODO remove this
-//                // TODO remove this
-//                // TODO remove this
-//                return;
-//            }
-
-            free(buf_array[window_pckt_count]);
-            //free(fragment_packet);
         }
 
-        pack_seq_num += WIN_SZ;
-//        for (int k = 0; k < window_pckt_count; ++k) {
-//            free(buf_array[k]);
+        // Used after sending data
+//        for (int i = 0; i < window_pckt_count; ++i) {
+//            free((buf_array[i]));
+//            //delete (data_packets_ptrs[i]);       // TODO delete this ? or it's freed below
 //        }
+
+        pack_seq_num += WIN_SZ;
+
+        free(buf_array);
+        //free(data_packets_ptrs);
     }
-    free(buf_array);
 }
 
 
