@@ -34,25 +34,20 @@ void WorkerFacade::StartWorking()
 
     cout << "Fragment count:" << fragment_count << endl;
 
-    for (int current_frag_num = 0;
-         current_frag_num < fragment_count
-         && is_working && (fail_count < MAX_FAIL_COUNT); current_frag_num++) {
+    for (int frg_num = 0; frg_num < fragment_count && is_working && (fail_count < MAX_FAIL_COUNT); frg_num++) {
 
         void **buf_array = (void **) calloc((size_t) WIN_SZ, sizeof(void *));
-
-        //DataPacket **data_packets_ptrs = (DataPacket **) calloc(WIN_SZ, sizeof(DataPacket *));
-
         DataPacket *pck_arr[WIN_SZ];
 
-        int window_pckt_count = 0;
+        int wind_frg = 0;
 
         // Create fragments and load them in the data packets array
-        for (; window_pckt_count < WIN_SZ; ++window_pckt_count) {
+        for (; wind_frg < WIN_SZ; ++wind_frg) {
 
             int frag_size = fragmenter.GetNextFragmentSize();
             if (fragmenter.EndOfFile())break;
 
-            (buf_array[window_pckt_count]) = calloc((size_t) frag_size, sizeof(char));
+            (buf_array[wind_frg]) = calloc((size_t) frag_size, sizeof(char));
 
             if (frag_size < 1) {
                 cerr << "Invalid fragment size" << endl;
@@ -60,49 +55,43 @@ void WorkerFacade::StartWorking()
                 break;
             }
 
-            fragmenter.NextFragment(&(buf_array[window_pckt_count]));
+            fragmenter.NextFragment(&(buf_array[wind_frg]));
 
-            pck_arr[window_pckt_count] = new DataPacket(
-                    (buf_array[window_pckt_count]),
+            pck_arr[wind_frg] = new DataPacket(
+                    (buf_array[wind_frg]),
                     (unsigned short) frag_size,
-                    (unsigned int) (pack_seq_num + window_pckt_count)
+                    (unsigned int) (pack_seq_num + wind_frg)
             );
-            free((buf_array[window_pckt_count]));
+            free((buf_array[wind_frg]));
 
-            cout << "Frag data:" << (pck_arr[window_pckt_count])->data << endl;
+            cout << "Frag data:" << (pck_arr[wind_frg])->data << endl;
         }
 
         // Send all fragments
-        for (int k = 0; k < window_pckt_count; ++k) {
+        for (int k = 0; k < wind_frg; ++k) {
             cout << "Create packet seq # " << k << ", Data:" << pck_arr[k]->data << endl;
+
             worker_socket.SendDataPacket(pck_arr[k]);
+            delete pck_arr[k];
 
             std::this_thread::sleep_for(std::chrono::milliseconds(20)); // Wait for packet to be sent
         }
 
         // Receive all ACKs
-        for (int l = 0; l < window_pckt_count; ++l) {
+        for (int l = 0; l < wind_frg; ++l) {
             AckPacket ack;
             worker_socket.ReceiveAckPacket(&ack);
             cout << "Ack:" << ack.ack_num << endl;
         }
 
-        // Used after sending data
-//        for (int i = 0; i < window_pckt_count; ++i) {
-//            free((buf_array[i]));
-//            //delete (data_packets_ptrs[i]);       // TODO delete this ? or it's freed below
-//        }
-
         pack_seq_num += WIN_SZ;
 
         free(buf_array);
-        //free(data_packets_ptrs);
     }
 }
 
 
-WorkerFacade::WorkerFacade(sock_descriptor sockfd) :
-        worker_socket(sockfd)
+WorkerFacade::WorkerFacade(sock_descriptor sockfd) : worker_socket(sockfd)
 {
     string file_name = this->worker_socket.GetRequestedFile();
 

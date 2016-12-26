@@ -32,16 +32,7 @@ CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: /home/ahmed/code/c/Backu
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o: ../WorkerClasses/FileFragmenter.cpp
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o: ../WorkerClasses/FileFragmenter.h
 
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../UdpSocketLib/include/AckPacket.h
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../UdpSocketLib/include/BinarySerializer.h
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../UdpSocketLib/include/Checksum.h
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../UdpSocketLib/include/DataPacket.h
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../UdpSocketLib/include/globaldefs.h
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../UdpSocketLib/include/netutils.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../WorkerClasses/GbnSender.cpp
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../WorkerClasses/GbnSender.h
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../WorkerClasses/WorkerSocket.h
-CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../globaldef.h
 
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../../../UdpSocketLib/include/AckPacket.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../../../UdpSocketLib/include/BinarySerializer.h
