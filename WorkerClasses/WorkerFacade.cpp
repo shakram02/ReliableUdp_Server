@@ -29,8 +29,11 @@ void WorkerFacade::StartWorking()
         for (int i = 0; i < WIN_SZ; ++i) {
             int frag_size = fragmenter.GetNextFragmentSize();
 
+            if (fragmenter.EndOfFile())break;
+
             if (frag_size < 1) {
                 cerr << "Invalid fragment size" << endl;
+                // Send an ACK to terminate transmission
                 break;
             }
 
@@ -38,12 +41,17 @@ void WorkerFacade::StartWorking()
             fragmenter.NextFragment(&buf);
 
             cout << "Frag size:" << frag_size << endl;
-            cout << "Data:" << (char *) buf << endl;
+            //cout << "Data:" << (char *) buf << endl;
 
             DataPacket fragment_packet(buf, (unsigned short) frag_size, (unsigned int) (pack_seq_num + i));
 
             cout << "Create packet seq # " << (pack_seq_num + i) << endl;
             worker_socket.SendDataPacket(fragment_packet);
+
+            AckPacket ack;
+            worker_socket.ReceiveAckPacket(&ack);
+
+            cout << "Ack:" << ack.ack_num << endl;
 //            sender.AddToSendQueue(fragment_packet);
 //            sender.SendWindow();
 //            pack_seq_num += WIN_SZ;
@@ -51,7 +59,7 @@ void WorkerFacade::StartWorking()
 
             free(buf);
         }
-
+        pack_seq_num += WIN_SZ;
 
     }
 }
