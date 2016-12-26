@@ -64,25 +64,8 @@ void WorkerFacade::StartWorking()
             free((buf_array[wind_frg]));
         }
 
-        SendWindow(pck_arr, wind_frg);
-        // Send all fragments
-//        for (int k = 0; k < wind_frg; ++k) {
-//            cout << "Create packet seq # " << pck_arr[k]->seqno
-//                 //<< ", Data:" << pck_arr[k]->data
-//                 << endl;
-//
-//            worker_socket.SendDataPacket(pck_arr[k]);
-//            delete pck_arr[k];
-//
-//            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
-//        }
+        GoBackN(wind_frg, 0, pck_arr);
 
-        // Receive all wind ACKs
-        for (int l = 0; l < wind_frg; ++l) {
-            AckPacket ack;
-            worker_socket.ReceiveAckPacket(&ack);
-            cout << "Ack:" << ack.ack_num << endl;
-        }
         free(buf_array);
     }
 
@@ -143,5 +126,49 @@ bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
     }
+    return false;
+}
+
+bool WorkerFacade::GoBackN(int frg_count, int wind_base, DataPacket **pck_arr_ptr)
+{
+    int wind_end = wind_base + frg_count;
+    int awaited_ack = wind_base;
+
+//    for (int l = 0; l < frg_count; ++l) {
+//        AckPacket ack;
+//        worker_socket.ReceiveAckPacket(&ack);
+//        cout << "Ack:" << ack.ack_num << endl;
+//    }
+
+    SendWindow(pck_arr_ptr, frg_count);
+
+    // Receive window acks
+    for (int l = 0; l < frg_count; ++l) {
+        AckPacket ack;
+        worker_socket.ReceiveAckPacket(&ack);
+        cout << "Ack:" << ack.ack_num << endl;
+    }
+
+
+//    int last_ack = -1;
+//    while (awaited_ack < wind_end) {
+//
+//        while (last_ack != awaited_ack) {
+//            AckPacket ack;
+//            bool ontime = worker_socket.ReceiveAckPacket(&ack);
+//
+//            if (ontime) {
+//                last_ack = ack.ack_num;
+//            }
+//
+//            if (last_ack == awaited_ack && ontime) {
+//                awaited_ack++;
+//            } else {
+//                // Send window
+//                std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
+//            }
+//        }
+//
+//    }
     return false;
 }
