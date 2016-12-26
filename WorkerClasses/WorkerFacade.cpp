@@ -64,17 +64,18 @@ void WorkerFacade::StartWorking()
             free((buf_array[wind_frg]));
         }
 
+        SendWindow(pck_arr, wind_frg);
         // Send all fragments
-        for (int k = 0; k < wind_frg; ++k) {
-            cout << "Create packet seq # " << pck_arr[k]->seqno
-                 //<< ", Data:" << pck_arr[k]->data
-                 << endl;
-
-            worker_socket.SendDataPacket(pck_arr[k]);
-            delete pck_arr[k];
-
-            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
-        }
+//        for (int k = 0; k < wind_frg; ++k) {
+//            cout << "Create packet seq # " << pck_arr[k]->seqno
+//                 //<< ", Data:" << pck_arr[k]->data
+//                 << endl;
+//
+//            worker_socket.SendDataPacket(pck_arr[k]);
+//            delete pck_arr[k];
+//
+//            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
+//        }
 
         // Receive all wind ACKs
         for (int l = 0; l < wind_frg; ++l) {
@@ -90,7 +91,6 @@ void WorkerFacade::StartWorking()
     }
     cout << "Transmission completed." << endl;
 }
-
 
 
 WorkerFacade::WorkerFacade(sock_descriptor sockfd) : worker_socket(sockfd)
@@ -127,4 +127,21 @@ bool WorkerFacade::EndTransmission(int total_frag_count)
     AckPacket final_ack;
     worker_socket.ReceiveAckPacket(&final_ack);
     return final_ack.ack_num == total_frag_count;
+}
+
+bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
+{
+
+    // Send all fragments
+    for (int k = 0; k < frg_count; ++k) {
+        cout << "Create packet seq # " << pck_arr_ptr[k]->seqno
+             //<< ", Data:" << pck_arr[k]->data
+             << endl;
+
+        worker_socket.SendDataPacket(pck_arr_ptr[k]);
+        delete pck_arr_ptr[k];
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
+    }
+    return false;
 }

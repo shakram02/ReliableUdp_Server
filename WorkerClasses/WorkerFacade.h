@@ -25,6 +25,8 @@ public:
 
     bool EndTransmission(int total_frag_count);
 
+    bool SendWindow(DataPacket* pck_arr_ptr[],int frg_count);
+
     ~WorkerFacade();
 
 private:
