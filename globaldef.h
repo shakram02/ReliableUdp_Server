@@ -12,7 +12,7 @@
 #define FRAGMENT_SIZE 64
 //#define PCKT_DATA_SZ 128
 
-#define MAX_FAIL_COUNT 10
+#define MAX_FAIL_COUNT 2
 #define SERV_FILESZ_HEADER "FILESIZE-"
 #define WIN_SZ 5
 /**
