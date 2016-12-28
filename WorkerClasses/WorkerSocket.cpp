@@ -140,7 +140,7 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
 
 void WorkerSocket::SendDataPacket(DataPacket *packet)
 {
-    ProjectionPointer data;
+    void *data;
     BinarySerializer::SerializeDataPacket(packet, &data);
 
     // sizeof(DataPacket) will return a size with the full array of 128 chars,

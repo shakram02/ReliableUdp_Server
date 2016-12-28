@@ -35,7 +35,7 @@ private:
     WorkerSocket worker_socket;
     FileFragmenter fragmenter;
     bool is_working;
-    int last_acked_pkt=0;
+    int last_acked_pkt=-1;
 
     void DeleteWindow(DataPacket **pck_arr_ptr, int frg_count);
 };

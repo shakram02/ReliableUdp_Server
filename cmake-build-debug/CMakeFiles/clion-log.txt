@@ -1,8 +1,8 @@
-/opt/clion-2016.3/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer
+/opt/clion-2016.3/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server
 -- Boost version: 1.58.0
 -- Found the following Boost libraries:
 --   system
 --   filesystem
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/ahmed/code/c/Backup-UDP/restore0/ReliableUdpTransfer/enhancedUdpServer/cmake-build-debug
+-- Build files have been written to: /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/cmake-build-debug

@@ -16,6 +16,8 @@ struct free_delete
 
 void WorkerFacade::StartWorking()
 {
+    // TODO reply with not found
+    // TODO 2D fragments array from the fragmenter
     basic_string<char> file_send_header(SERV_FILESZ_HEADER);
     int fragment_count = this->fragmenter.GetFragmentCount();
     string num(to_string(fragment_count));
