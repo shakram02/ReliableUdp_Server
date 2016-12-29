@@ -10,7 +10,6 @@
 // MAX UDP transfer is 256 bytes,
 // don't allocate lots of memory, stack size runs out
 #define FRAGMENT_SIZE 64
-//#define PCKT_DATA_SZ 128
 
 #define MAX_FAIL_COUNT 2
 #define SERV_FILESZ_HEADER "FILESIZE-"

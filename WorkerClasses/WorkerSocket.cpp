@@ -133,8 +133,6 @@ bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
         ack_packet_ptr->chksum = temp->chksum;
         ack_packet_ptr->ack_num = temp->ack_num;
         ack_packet_ptr->len = temp->len;
-
-        cout << "ACK [" << ack_packet_ptr->ack_num << "]" << endl;
     }
     free(data);
 

@@ -24,6 +24,8 @@ void WorkerFacade::StartWorking()
 {
     // TODO reply with not found
     // TODO 2D fragments array from the fragmenter
+    // TODO Allocate data packets in memory and serialize from memory
+    // TODO Checksum
     basic_string<char> file_send_header(SERV_FILESZ_HEADER);
     int total_frg_count = this->fragmenter.GetFragmentCount();
     string num(to_string(total_frg_count));
@@ -130,15 +132,12 @@ bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
 
     // Send all fragments
     for (int k = 0; k < frg_count; ++k) {
-        cout << "Send packet [" << pck_arr_ptr[k]->seqno << "]"
-             //<< ", Data:" << pck_arr[k]->data
-             << endl;
 
         // PLP Path loss probability
         if (will_be_sent()) {
             worker_socket.SendDataPacket(pck_arr_ptr[k]);
         } else {
-            cout << "Dropped packet #" << pck_arr_ptr[k]->seqno << endl;
+            cout << "Dropped packet [" << pck_arr_ptr[k]->seqno << "]" << endl;
         }
 
 //        worker_socket.SendDataPacket(pck_arr_ptr[k]);
@@ -201,13 +200,12 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file
                 cerr << "Client died?" << endl;
                 return false;
             }
-            cout << "Fail ACK Receive, Resend window" << endl;
+            cout << "Fail ACK receive timeout, Resend window" << endl;
             SendWindow(pck_arr_ptr, wnd_frg_count);
             continue;
         }
 
         acknum = ack.ack_num;
-        cout << "Receive ACK [" << acknum << "]" << endl;
 
         if (acknum == (this->last_acked_pkt_id + 1)) {
 
@@ -217,16 +215,11 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file
 
         } else {
 
-            cout << "ACK Invalid Received #" << acknum
-                 << " Expected #" << (this->last_acked_pkt_id + 1)
+            cout << "ACK Invalid Received [" << acknum << "]"
+                 << " Expected [" << (this->last_acked_pkt_id + 1) << "]"
                  << endl;
         }
-        cout << "End of single GBN loop "
-             << ", Awaited " << (this->last_acked_pkt_id + 1)
-             << " Window end: " << wind_last_pck_id
-             << endl;
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));  // Take it easy
+        std::this_thread::sleep_for(std::chrono::microseconds(200));  // Take it easy
     }
 
     /// IMPORTANT Delete the sent window
