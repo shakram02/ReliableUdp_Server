@@ -39,13 +39,13 @@ void WorkerFacade::StartWorking()
 
     for (int frg_num = 0; pack_seq_num < total_frg_count && is_working && (fail_count < MAX_FAIL_COUNT); frg_num++) {
 
-        void **buf_array = (void **) calloc((size_t) WIN_SZ, sizeof(void *));
-        DataPacket *wnd_pckts[WIN_SZ];
+        void **buf_array = (void **) calloc((size_t) WND_SZ, sizeof(void *));
+        DataPacket *wnd_pckts[WND_SZ];
 
         int wnd_frg_count = 0;
 
         // Create fragments and load them in the data packets array
-        for (; wnd_frg_count < WIN_SZ; ++wnd_frg_count) {
+        for (; wnd_frg_count < WND_SZ; ++wnd_frg_count) {
 
             int frag_size = fragmenter.GetNextFragmentSize();
             if (fragmenter.EndOfFile())break;
@@ -135,13 +135,13 @@ bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
              << endl;
 
         // PLP Path loss probability
-//        if (!will_be_lost()) {
-//            worker_socket.SendDataPacket(pck_arr_ptr[k]);
-//        } else {
-//            cout << "Dropped packet #" << pck_arr_ptr[k]->seqno << endl;
-//        }
+        if (will_be_sent()) {
+            worker_socket.SendDataPacket(pck_arr_ptr[k]);
+        } else {
+            cout << "Dropped packet #" << pck_arr_ptr[k]->seqno << endl;
+        }
 
-        worker_socket.SendDataPacket(pck_arr_ptr[k]);
+//        worker_socket.SendDataPacket(pck_arr_ptr[k]);
 
 
         std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
@@ -195,10 +195,9 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file
 
         AckPacket ack;
 
-
         if (!worker_socket.ReceiveAckPacket(&ack)) {
             // Failed to receive
-            if (fail++ == MAX_FAIL_COUNT) {
+            if (fail++ == WND_SZ * MAX_FAIL_COUNT) {
                 cerr << "Client died?" << endl;
                 return false;
             }

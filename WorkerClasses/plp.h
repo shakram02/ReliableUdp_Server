@@ -6,14 +6,14 @@
 #define ENHANCEDUDPSERVER_PLP_H
 
 #include <stdlib.h>
+#include "globaldefs.h"
 
-#define LOSS_THRESH 0.8
 
 /**
  * Calculates the probability that will determine if a packet will be lost
  * @return whether a packet will be lost
  */
-int will_be_lost()
+int will_be_sent()
 {
     return ((float) rand() / (float) (RAND_MAX)) < LOSS_THRESH;
 }
