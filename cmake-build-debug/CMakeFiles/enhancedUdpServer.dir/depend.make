@@ -27,6 +27,7 @@ CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: ../ClientObserver.h
 CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: ../WelcomingSocket.cpp
 CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: ../WelcomingSocket.h
 CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: ../WorkerClasses/WorkerSocket.h
+CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: ../globaldef.h
 CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o: /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o: ../WorkerClasses/FileFragmenter.cpp
@@ -42,6 +43,7 @@ CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../WorkerClas
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../WorkerClasses/WorkerFacade.cpp
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../WorkerClasses/WorkerFacade.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../WorkerClasses/WorkerSocket.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../WorkerClasses/plp.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../globaldef.h
 
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerSocket.cpp.o: ../../../UdpSocketLib/include/AckPacket.h

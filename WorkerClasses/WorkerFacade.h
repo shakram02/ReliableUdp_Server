@@ -27,7 +27,7 @@ public:
 
     bool SendWindow(DataPacket *pck_arr_ptr[], int frg_count);
 
-    bool GoBackN(int frg_count, DataPacket **pck_arr_ptr);
+    bool GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file_frg_count);
 
     ~WorkerFacade();
 
@@ -35,7 +35,10 @@ private:
     WorkerSocket worker_socket;
     FileFragmenter fragmenter;
     bool is_working;
-    int last_acked_pkt=-1;
+
+    // Starting for -1 makes the ACK process logically straight to think of
+    // as it prevents causing an off by one error
+    int last_acked_pkt_id = -1;
 
     void DeleteWindow(DataPacket **pck_arr_ptr, int frg_count);
 };

@@ -6,6 +6,7 @@
 
 #include "WelcomingSocket.h"
 #include "ClientObserver.h"
+#include "globaldef.h"
 
 
 #define BUFF_LEN 256
@@ -133,10 +134,12 @@ int WelcomingSocket::CreateClientSocket(unsigned short &redirect_port, sockaddr_
     redirect_port = ntohs(redirect_address.sin_port);
     printf("Client redirect port is %d\n", redirect_port);
 
+
     timeval timeout;
     // Removing memset causes unidentified behaviour as the values are originally garbage
     memset(&timeout, 0, sizeof(timeout));
-    timeout.tv_sec = 3;
+    timeout.tv_sec = TIMEO_SEC;
+    timeout.tv_usec = TIMEO_MICRO_SEC;
 
     if (setsockopt(redirect_socket_descriptor, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeval))) {
         log_error("set receive timeout");

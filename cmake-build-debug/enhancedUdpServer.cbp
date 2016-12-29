@@ -119,6 +119,9 @@
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>

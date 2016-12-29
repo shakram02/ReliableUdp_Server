@@ -14,7 +14,7 @@
 
 #define MAX_FAIL_COUNT 2
 #define SERV_FILESZ_HEADER "FILESIZE-"
-#define WIN_SZ 16
+#define WIN_SZ 8
 /**
  * Redirection message, this is a constant message on the client and server side
  */
@@ -22,4 +22,7 @@
 #define SERV_REDIRECT_OK "OK"
 #define MAX_FILE_PATH_LENGTH 256
 
+
+#define TIMEO_SEC 5
+#define TIMEO_MICRO_SEC 0
 #endif //ENHANCEDUDPSERVER_GLOBALDEF_H
