@@ -79,6 +79,9 @@ void WorkerFacade::StartWorking()
         }
         // TODO FIX ME extra loops occur, loop condition is ill
         //cout << "FRG CNT:" << wnd_frg_count << endl;
+
+
+
         free(buf_array);
     }
 
@@ -87,7 +90,6 @@ void WorkerFacade::StartWorking()
     } else {
         cout << "Transmission completed." << endl;
     }
-
 }
 
 
@@ -120,7 +122,9 @@ bool WorkerFacade::EndTransmission(int total_frag_count)
 {
     // End transmission
     DataPacket trans_end(NULL, 0, (unsigned int) total_frag_count);
+
     worker_socket.SendDataPacket(&trans_end);
+    std::this_thread::sleep_for(std::chrono::milliseconds(5)); // Wait for packet to be sent
 
     AckPacket final_ack;
     if (worker_socket.ReceiveAckPacket(&final_ack)) {
