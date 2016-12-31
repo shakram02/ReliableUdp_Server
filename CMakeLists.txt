@@ -7,14 +7,16 @@ set(CMAKE_CXX_STANDARD 11)
 find_package(Threads)
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 
+# NOTE change to the directory that matches the file directory
+set(Udp_Lib_Directory ../../clg_ReliableUdp_Lib)
 set(PROJECT_LINK_LIBS libUdpSocketLib.so)
-link_directories(../../UdpSocketLib/cmake-build-debug)
 
+link_directories(${Udp_Lib_Directory}/cmake-build-debug)
 
 #set(SOURCE_FILES main.cpp WelcomingSocket.cpp WelcomingSocket.h timecalc.h NetworkOperationResult.cpp WorkerClasses/WorkerSocket.cpp WorkerClasses/WorkerSocket.h ClientObserver.cpp ClientObserver.h WorkerClasses/WorkerFacade.cpp WorkerClasses/WorkerFacade.h WorkerClasses/FileFragmenter.cpp WorkerClasses/FileFragmenter.h PathLossProbability.h)
 file(GLOB SOURCE_FILES "*.cpp" "WorkerClasses/*.cpp")
 
-include_directories(../../UdpSocketLib/include)
+include_directories(${Udp_Lib_Directory}/include)
 add_executable(enhancedUdpServer ${SOURCE_FILES} globaldef.h WorkerClasses/plp.h)
 
 target_link_libraries(enhancedUdpServer ${CMAKE_THREAD_LIBS_INIT})

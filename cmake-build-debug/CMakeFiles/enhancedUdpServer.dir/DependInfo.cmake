@@ -16,7 +16,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "../../../UdpSocketLib/include"
+  "../../../clg_ReliableUdp_Lib/include"
   )
 
 # Targets to which this target links.

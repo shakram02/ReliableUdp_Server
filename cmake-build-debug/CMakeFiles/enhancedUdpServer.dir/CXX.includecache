@@ -6,25 +6,25 @@
 
 #IncludeRegexTransform: 
 
-../../../UdpSocketLib/include/AckPacket.h
+../../../clg_ReliableUdp_Lib/include/AckPacket.h
 
-../../../UdpSocketLib/include/BinarySerializer.h
+../../../clg_ReliableUdp_Lib/include/BinarySerializer.h
 AckPacket.h
-../../../UdpSocketLib/include/AckPacket.h
+../../../clg_ReliableUdp_Lib/include/AckPacket.h
 
-../../../UdpSocketLib/include/Checksum.h
+../../../clg_ReliableUdp_Lib/include/Checksum.h
 DataPacket.h
-../../../UdpSocketLib/include/DataPacket.h
+../../../clg_ReliableUdp_Lib/include/DataPacket.h
 cstdint
 -
 
-../../../UdpSocketLib/include/DataPacket.h
+../../../clg_ReliableUdp_Lib/include/DataPacket.h
 globaldefs.h
-../../../UdpSocketLib/include/globaldefs.h
+../../../clg_ReliableUdp_Lib/include/globaldefs.h
 
-../../../UdpSocketLib/include/globaldefs.h
+../../../clg_ReliableUdp_Lib/include/globaldefs.h
 
-../../../UdpSocketLib/include/netutils.h
+../../../clg_ReliableUdp_Lib/include/netutils.h
 stdio.h
 -
 sys/socket.h

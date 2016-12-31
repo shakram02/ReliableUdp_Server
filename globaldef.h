@@ -11,9 +11,9 @@
 // don't allocate lots of memory, stack size runs out
 #define FRAGMENT_SIZE 64
 
-#define MAX_FAIL_COUNT 2
+#define MAX_FAIL_COUNT 8
 #define SERV_FILESZ_HEADER "FILESIZE-"
-#define WND_SZ 8
+#define WND_SZ 4
 /**
  * Redirection message, this is a constant message on the client and server side
  */

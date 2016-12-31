@@ -62,6 +62,8 @@ void WorkerFacade::StartWorking()
             fragmenter.NextFragment(&(buf_array[wnd_frg_count]));
 
             cout << "Frag create #" << (pack_seq_num) << endl;
+
+            // TODO watch for pack_seq_num overflow
             wnd_pckts[wnd_frg_count] = new DataPacket(
                     (buf_array[wnd_frg_count]),
                     (unsigned short) frag_size,
@@ -82,8 +84,10 @@ void WorkerFacade::StartWorking()
 
     if (!EndTransmission(total_frg_count)) {
         cerr << "Err in receiving final ack" << endl;
+    } else {
+        cout << "Transmission completed." << endl;
     }
-    cout << "Transmission completed." << endl;
+
 }
 
 
@@ -143,7 +147,7 @@ bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
 //        worker_socket.SendDataPacket(pck_arr_ptr[k]);
 
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Wait for packet to be sent
+        std::this_thread::sleep_for(std::chrono::milliseconds(3)); // Wait for packet to be sent
     }
     return false;
 }
