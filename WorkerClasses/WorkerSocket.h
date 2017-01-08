@@ -9,10 +9,8 @@
 #include <iostream>
 #include <netinet/in.h>
 #include <cstring>
-#include <DataPacket.h>
+#include <Packet.h>
 #include <Checksum.h>
-#include <AckPacket.h>
-#include <BinarySerializer.h>
 #include <netutils.h>
 
 
@@ -44,20 +42,20 @@ public:
      * @param data Raw binary data to be sent
      * @param length Length of the binary data
      */
-    void SendPacket(void *data, unsigned int length);
+    void SendPacket(const byte *data, unsigned int length); // TODO make private
 
     /**
      * Sends a wrapped data packet to the client
      * @param packet Packet containing data to be sent to the client
      */
-    void SendDataPacket(DataPacket *packet);
+    void SendPacket(Packet &packet);
 
     /**
      * Receives an ACK packet from the client
      * @param ack_packet_ptr Pointer to an ACK packet to be filled with data
      * @return Whether the receive process was sucessful
      */
-    bool ReceiveAckPacket(AckPacket *ack_packet_ptr);
+    bool ReceiveAckPacket(unique_ptr<Packet> &ack_packet_ptr);
 
 
     /**
@@ -67,7 +65,7 @@ public:
      * @param received_size Actual size of received data
      * @return false if nothing is received
      */
-    bool ReceiveRawPacket(unsigned int buffer_length, void **data, int *received_size);
+    bool ReceiveRawPacket(unsigned int buffer_length, byte **data, int *received_size);
 
     /**
      * Client socket file descriptor

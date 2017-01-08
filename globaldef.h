@@ -9,7 +9,7 @@
 
 // MAX UDP transfer is 256 bytes,
 // don't allocate lots of memory, stack size runs out
-#define FRAGMENT_SIZE 64
+//#define FRAGMENT_SIZE 64
 
 #define MAX_FAIL_COUNT 8
 #define SERV_FILESZ_HEADER "FILESIZE-"
@@ -26,5 +26,5 @@
 #define TIMEO_SEC 0
 #define TIMEO_MICRO_SEC TO_MILLISEC * 2
 
-#define LOSS_THRESH 0.7
+#define LOSS_THRESH 1
 #endif //ENHANCEDUDPSERVER_GLOBALDEF_H

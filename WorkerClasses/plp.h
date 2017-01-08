@@ -6,7 +6,7 @@
 #define ENHANCEDUDPSERVER_PLP_H
 
 #include <stdlib.h>
-#include "globaldefs.h"
+#include <UdpLibGlobaldefs.h>
 
 
 /**

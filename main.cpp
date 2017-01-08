@@ -17,15 +17,15 @@ void *get_in_addr(struct sockaddr *);
 
 void TestFileFragmenter()
 {
-    FileFragmenter ff("mizo.txt", 5);
-    void *fragm;
-
-    while (!ff.EndOfFile()) {
-        ff.NextFragment(&fragm);
-        cout << "frag: " << (char *) fragm << endl;
-    }
-
-    free(fragm);
+//    FileFragmenter ff("mizo.txt", 5);
+//    void *fragm;
+//
+//    while (!ff.EndOfFile()) {
+//        ff.NextFragment(&fragm);
+//        cout << "frag: " << (char *) fragm << endl;
+//    }
+//
+//    free(fragm);
 }
 
 int main()

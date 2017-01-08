@@ -4,23 +4,31 @@
 
 #include <vector>
 #include <sys/stat.h>
+#include <UdpLibGlobaldefs.h>
 #include "FileFragmenter.h"
 
-unsigned int FileFragmenter::NextFragment(void **buffer)
+unsigned int FileFragmenter::NextFragment(ByteVector &buffer)
 {
-
     if (!this->has_bytes) {
-        (*buffer) = nullptr;
         return 0;
     }
+
     // Read fragment size from file
     if (this->current_fragment_idx < this->file_fragments) {
 
         unsigned int current_frag_size = GetNextFragmentSize();
 
         //cout << "Fragment size:" << current_frag_size << endl;
-        (*buffer) = (char *) calloc((size_t) current_frag_size, sizeof(char));
-        this->file.read((char *) (*buffer), current_frag_size);
+        char *tempConatiner = (char *) calloc((size_t) current_frag_size, sizeof(char));
+        this->file.read((tempConatiner), current_frag_size);
+
+        // C --> C++ TODO remove the copy
+        // FIXME USE FILE STREAM
+        buffer.reserve(current_frag_size);
+        for (int i = 0; i < current_frag_size; ++i) {
+            buffer.push_back(std::move((byte) tempConatiner[i]));
+        }
+        free(tempConatiner);
 
         this->current_fragment_idx++;
         return current_frag_size;
@@ -128,6 +136,7 @@ unsigned int FileFragmenter::GetNextFragmentSize()
 
     if (file_fragments - current_fragment_idx > 1) {
         frag_size = this->fragment_size;
+
     } else if (file_fragments - current_fragment_idx == 1) {
 
         // TODO last fragment, don't read frag size, read the rest of the file

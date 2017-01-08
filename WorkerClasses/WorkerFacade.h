@@ -7,6 +7,7 @@
 
 #include "WorkerSocket.h"
 #include "FileFragmenter.h"
+#include <Packet.h>
 
 typedef int sock_descriptor;
 
@@ -25,9 +26,9 @@ public:
 
     bool EndTransmission(int total_frag_count);
 
-    bool SendWindow(DataPacket *pck_arr_ptr[], int frg_count);
+    bool SendWindow(Packet *pck_arr_ptr[], int frg_count);
 
-    bool GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file_frg_count);
+    bool GoBackN(int wnd_frg_count, Packet **pck_arr_ptr, int file_frg_count);
 
     ~WorkerFacade();
 
@@ -40,7 +41,7 @@ private:
     // as it prevents causing an off by one error
     int last_acked_pkt_id = -1;
 
-    void DeleteWindow(DataPacket **pck_arr_ptr, int frg_count);
+    void DeleteWindow(Packet **pck_arr_ptr, int frg_count);
 };
 
 

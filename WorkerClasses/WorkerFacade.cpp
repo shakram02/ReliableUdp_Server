@@ -32,17 +32,18 @@ void WorkerFacade::StartWorking()
     file_send_header.append(num);
 
     cout << "WorkerFacade#Sending number of fragments:" << num << endl;
-    worker_socket.SendPacket((void *) file_send_header.c_str(), (unsigned int) file_send_header.length());
+    worker_socket.SendPacket((byte *) file_send_header.c_str(), (unsigned int) file_send_header.length());
 
     int fail_count = 0;
     int pack_seq_num = 0;
 
     cout << "Fragment count:" << total_frg_count << endl;
 
+    unique_ptr<ByteVector> buf_array[total_frg_count];
+
     for (int frg_num = 0; pack_seq_num < total_frg_count && is_working && (fail_count < MAX_FAIL_COUNT); frg_num++) {
 
-        void **buf_array = (void **) calloc((size_t) WND_SZ, sizeof(void *));
-        DataPacket *wnd_pckts[WND_SZ];
+        Packet *wnd_pckts[WND_SZ];
 
         int wnd_frg_count = 0;
 
@@ -52,37 +53,33 @@ void WorkerFacade::StartWorking()
             int frag_size = fragmenter.GetNextFragmentSize();
             if (fragmenter.EndOfFile())break;
 
-            (buf_array[wnd_frg_count]) = calloc((size_t) frag_size, sizeof(char));
+            //(buf_array[wnd_frg_count]) = calloc((size_t) frag_size, sizeof(char));
+            cout << "Frag size:" << frag_size << endl;
+            buf_array[wnd_frg_count] = unique_ptr<ByteVector>(new ByteVector());
 
             if (frag_size < 1) {
                 cerr << "Invalid fragment size" << endl;
                 break;
             }
 
-            fragmenter.NextFragment(&(buf_array[wnd_frg_count]));
+            //fragmenter.NextFragment(&(buf_array[wnd_frg_count]));
+            fragmenter.NextFragment(*buf_array[wnd_frg_count]);
 
-            cout << "Frag create #" << (pack_seq_num) << endl;
+            cout << "Frag create #" << (pack_seq_num) << " Size:" << buf_array[wnd_frg_count]->size() << endl;
 
             // TODO watch for pack_seq_num overflow
-            wnd_pckts[wnd_frg_count] = new DataPacket(
-                    (buf_array[wnd_frg_count]),
-                    (unsigned short) frag_size,
+            wnd_pckts[wnd_frg_count] = new Packet(
+                    buf_array[wnd_frg_count],
                     (unsigned int) (pack_seq_num++)
             );
-            free((buf_array[wnd_frg_count]));
         }
 
         if (!GoBackN(wnd_frg_count, wnd_pckts, total_frg_count)) {
             cout << "GBN failed" << endl;
-            free(buf_array);
             return;
         }
         // TODO FIX ME extra loops occur, loop condition is ill
         //cout << "FRG CNT:" << wnd_frg_count << endl;
-
-
-
-        free(buf_array);
     }
 
     if (!EndTransmission(total_frg_count)) {
@@ -99,7 +96,7 @@ WorkerFacade::WorkerFacade(sock_descriptor sockfd) : worker_socket(sockfd)
 
     cout << "WorkerFacade#Requested filename:" << file_name << endl;
 
-    this->fragmenter.SetFragmentSize(FRAGMENT_SIZE);
+    this->fragmenter.SetFragmentSize(DATA_FRAGMENT_SIZE);
 
     if (!this->fragmenter.SetFilePath(file_name)) {
         cerr << "Worker#Failed to set the file path" << endl;
@@ -121,21 +118,22 @@ WorkerFacade::~WorkerFacade()
 bool WorkerFacade::EndTransmission(int total_frag_count)
 {
     // End transmission
-    DataPacket trans_end(NULL, 0, (unsigned int) total_frag_count);
+    unique_ptr<ByteVector> placeholder = nullptr;
+    Packet trans_end(placeholder, (unsigned int) total_frag_count);
 
-    worker_socket.SendDataPacket(&trans_end);
+    worker_socket.SendPacket(trans_end);
     std::this_thread::sleep_for(std::chrono::milliseconds(5)); // Wait for packet to be sent
 
-    AckPacket final_ack;
-    if (worker_socket.ReceiveAckPacket(&final_ack)) {
-        cout << "Final ack num [" << final_ack.ack_num << "] total frag count " << total_frag_count << endl;
+    unique_ptr<Packet> final_ack;
+    if (worker_socket.ReceiveAckPacket(final_ack)) {
+        cout << "Final ack num [" << final_ack->header->seqno << "] total frag count " << total_frag_count << endl;
     } else {
         cerr << "Failed to receive final ack" << endl;
     }
-    return final_ack.ack_num == total_frag_count;
+    return final_ack->header->seqno == total_frag_count;
 }
 
-bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
+bool WorkerFacade::SendWindow(Packet *pck_arr_ptr[], int frg_count)
 {
 
     // Send all fragments
@@ -143,9 +141,9 @@ bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
 
         // PLP Path loss probability
         if (will_be_sent()) {
-            worker_socket.SendDataPacket(pck_arr_ptr[k]);
+            worker_socket.SendPacket(*(pck_arr_ptr[k]));
         } else {
-            cout << "Dropped packet [" << pck_arr_ptr[k]->seqno << "]" << endl;
+            cout << "Dropped packet [" << pck_arr_ptr[k]->header->seqno << "]" << endl;
         }
 
 //        worker_socket.SendDataPacket(pck_arr_ptr[k]);
@@ -156,14 +154,14 @@ bool WorkerFacade::SendWindow(DataPacket *pck_arr_ptr[], int frg_count)
     return false;
 }
 
-void WorkerFacade::DeleteWindow(DataPacket *pck_arr_ptr[], int frg_count)
+void WorkerFacade::DeleteWindow(Packet *pck_arr_ptr[], int frg_count)
 {
     for (int k = 0; k < frg_count; ++k) {
         delete pck_arr_ptr[k];  // FIXME this should be deleted after the window was successfully sent
     }
 }
 
-bool WorkerFacade::GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file_frg_count)
+bool WorkerFacade::GoBackN(int wnd_frg_count, Packet **pck_arr_ptr, int file_frg_count)
 {
     // NORMAL MODE
 //    SendWindow(pck_arr_ptr, wnd_frg_count);
@@ -200,9 +198,9 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file
            && this->last_acked_pkt_id < (file_frg_count - 1)) {
 
 
-        AckPacket ack;
+        unique_ptr<Packet> ack;
 
-        if (!worker_socket.ReceiveAckPacket(&ack)) {
+        if (!worker_socket.ReceiveAckPacket(ack)) {
             // Failed to receive
             if (fail++ == WND_SZ * MAX_FAIL_COUNT) {
                 cerr << "Client died?" << endl;
@@ -213,7 +211,7 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file
             continue;
         }
 
-        acknum = ack.ack_num;
+        acknum = ack->header->seqno;
 
         if (acknum == (this->last_acked_pkt_id + 1)) {
 

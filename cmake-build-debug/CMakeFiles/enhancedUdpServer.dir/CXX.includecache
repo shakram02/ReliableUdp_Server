@@ -6,23 +6,35 @@
 
 #IncludeRegexTransform: 
 
-../../../clg_ReliableUdp_Lib/include/AckPacket.h
-
-../../../clg_ReliableUdp_Lib/include/BinarySerializer.h
-AckPacket.h
-../../../clg_ReliableUdp_Lib/include/AckPacket.h
-
 ../../../clg_ReliableUdp_Lib/include/Checksum.h
-DataPacket.h
-../../../clg_ReliableUdp_Lib/include/DataPacket.h
+Packet.h
+../../../clg_ReliableUdp_Lib/include/Packet.h
 cstdint
 -
 
-../../../clg_ReliableUdp_Lib/include/DataPacket.h
-globaldefs.h
-../../../clg_ReliableUdp_Lib/include/globaldefs.h
+../../../clg_ReliableUdp_Lib/include/Packet.h
+UdpLibGlobaldefs.h
+../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
+vector
+-
+memory
+-
+sstream
+-
+PacketHeader.h
+-
 
-../../../clg_ReliableUdp_Lib/include/globaldefs.h
+../../../clg_ReliableUdp_Lib/include/PacketHeader.h
+UdpLibGlobaldefs.h
+../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
+memory
+-
+
+../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
+vector
+-
+memory
+-
 
 ../../../clg_ReliableUdp_Lib/include/netutils.h
 stdio.h
@@ -113,6 +125,8 @@ vector
 -
 sys/stat.h
 -
+UdpLibGlobaldefs.h
+-
 FileFragmenter.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
 
@@ -141,6 +155,8 @@ WorkerSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
 FileFragmenter.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
+Packet.h
+-
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.cpp
 arpa/inet.h
@@ -159,13 +175,9 @@ netinet/in.h
 -
 cstring
 -
-DataPacket.h
+Packet.h
 -
 Checksum.h
--
-AckPacket.h
--
-BinarySerializer.h
 -
 netutils.h
 -
@@ -173,8 +185,8 @@ netutils.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h
 stdlib.h
 -
-globaldefs.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/globaldefs.h
+UdpLibGlobaldefs.h
+-
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
 

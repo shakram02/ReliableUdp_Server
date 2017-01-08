@@ -13,14 +13,14 @@ WorkerSocket::WorkerSocket(int client_sockfd)
 
     if (AssertRedirection()) {
         cout << "Client redirected successfully" << endl;
-        string confirmation_msg(SERV_REDIRECT_OK);
+        string confirmation_msg_str(SERV_REDIRECT_OK);
 
         int len = sizeof((this->client_addr));
 
-        // TODO refactor
-        sendto(this->socket_fd, confirmation_msg.c_str(),
-                confirmation_msg.size(), 0,
-                (sockaddr *) &(this->client_addr), (socklen_t) len);
+        // TODO use packets for all communication
+        // TODO send packet headers only in case of ACKS
+        ByteVector confirmation_msg(confirmation_msg_str.begin(), confirmation_msg_str.end());
+        SendPacket(confirmation_msg.data(), (unsigned int) confirmation_msg.size());
 
         this->is_serving = true;
 
@@ -79,7 +79,7 @@ string WorkerSocket::GetRequestedFile()
     }
 }
 
-void WorkerSocket::SendPacket(void *data, unsigned int length)
+void WorkerSocket::SendPacket(const byte *data, unsigned int length)
 {
     long int num_bytes = sendto(this->socket_fd,
             data, length,
@@ -92,7 +92,7 @@ void WorkerSocket::SendPacket(void *data, unsigned int length)
     }
 }
 
-bool WorkerSocket::ReceiveRawPacket(unsigned int buffer_size, void **data, int *received_size)
+bool WorkerSocket::ReceiveRawPacket(unsigned int buffer_size, byte **data, int *received_size)
 {
     socklen_t len = sizeof(struct sockaddr_in);
 
@@ -110,42 +110,42 @@ bool WorkerSocket::ReceiveRawPacket(unsigned int buffer_size, void **data, int *
     return true;
 }
 
-bool WorkerSocket::ReceiveAckPacket(AckPacket *ack_packet_ptr)
+bool WorkerSocket::ReceiveAckPacket(unique_ptr<Packet> &ack_packet_ptr)
 {
     int size = 0;
-    void *data = calloc(1, sizeof(AckPacket));
-    AckPacket *temp;
+    int packetHeaderSize = PacketHeader::Size();
 
-    bool result = ReceiveRawPacket(sizeof(AckPacket), &data, &size);
+    // C++ --> C
+    byte *data = (byte *) calloc(1, (size_t) packetHeaderSize);
+
+    bool result = ReceiveRawPacket((unsigned int) packetHeaderSize, &data, &size);
 
     if (!result) {
         cerr << "Failed to receive the data packet" << endl;
     }
 
-    if (result && size != sizeof(AckPacket)) {
+    if (result && size != packetHeaderSize) {
         cerr << "Illegal state, received corrupt ACK packet" << endl;
     }
 
-    if (result && size == sizeof(AckPacket)) {
+    if (result && size == packetHeaderSize) {
 
-        BinarySerializer::DeserializeAckPacket((data), &temp);
-
-        ack_packet_ptr->chksum = temp->chksum;
-        ack_packet_ptr->ack_num = temp->ack_num;
-        ack_packet_ptr->len = temp->len;
+        // TODO investigate
+        ack_packet_ptr = unique_ptr<Packet>(Packet::Create(data, (unsigned short) size));
     }
     free(data);
 
     return result;
 }
 
-void WorkerSocket::SendDataPacket(DataPacket *packet)
+// FIXME
+void WorkerSocket::SendPacket(Packet &packet)
 {
-    void *data;
-    BinarySerializer::SerializeDataPacket(packet, &data);
+    // FIXME C++ to C transition
+    unique_ptr<ByteVector> bytes = packet.Serialize();
 
     // sizeof(DataPacket) will return a size with the full array of 128 chars,
     // on the receiver size, the size will be re-fit using the length field
-    SendPacket(data, sizeof(DataPacket));
+    SendPacket(bytes->data(), (unsigned int) bytes->size());
 }
 
