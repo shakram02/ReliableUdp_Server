@@ -19,7 +19,7 @@ unsigned int FileFragmenter::NextFragment(ByteVector &buffer)
         unsigned int current_frag_size = GetNextFragmentSize();
 
         //cout << "Fragment size:" << current_frag_size << endl;
-        char *tempConatiner = (char *) calloc((size_t) current_frag_size, sizeof(char));
+        char tempConatiner[current_frag_size];
         this->file.read((tempConatiner), current_frag_size);
 
         // C --> C++ TODO remove the copy
@@ -28,7 +28,6 @@ unsigned int FileFragmenter::NextFragment(ByteVector &buffer)
         for (int i = 0; i < current_frag_size; ++i) {
             buffer.push_back(std::move((byte) tempConatiner[i]));
         }
-        free(tempConatiner);
 
         this->current_fragment_idx++;
         return current_frag_size;

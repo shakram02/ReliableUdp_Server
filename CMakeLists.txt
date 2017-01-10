@@ -17,7 +17,7 @@ link_directories(${Udp_Lib_Directory}/cmake-build-debug)
 file(GLOB SOURCE_FILES "*.cpp" "WorkerClasses/*.cpp")
 
 include_directories(${Udp_Lib_Directory}/include)
-add_executable(enhancedUdpServer ${SOURCE_FILES} globaldef.h WorkerClasses/plp.h)
+add_executable(enhancedUdpServer ${SOURCE_FILES} server_config.h WorkerClasses/plp.h)
 
 target_link_libraries(enhancedUdpServer ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(enhancedUdpServer ${PROJECT_LINK_LIBS} ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})

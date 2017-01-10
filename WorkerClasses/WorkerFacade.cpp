@@ -6,7 +6,7 @@
 #include <thread>
 #include "WorkerFacade.h"
 
-#include "../globaldef.h"
+#include "../server_config.h"
 
 
 extern "C"
@@ -14,11 +14,6 @@ extern "C"
 #include "plp.h"
 };
 
-struct free_delete
-{
-    void operator()(void *x)
-    { free(x); }
-};
 
 void WorkerFacade::StartWorking()
 {
@@ -43,7 +38,7 @@ void WorkerFacade::StartWorking()
 
     for (int frg_num = 0; pack_seq_num < total_frg_count && is_working && (fail_count < MAX_FAIL_COUNT); frg_num++) {
 
-        Packet *wnd_pckts[WND_SZ];
+        unique_ptr<Packet> wnd_pckts[WND_SZ];
 
         int wnd_frg_count = 0;
 
@@ -68,10 +63,10 @@ void WorkerFacade::StartWorking()
             cout << "Frag create #" << (pack_seq_num) << " Size:" << buf_array[wnd_frg_count]->size() << endl;
 
             // TODO watch for pack_seq_num overflow
-            wnd_pckts[wnd_frg_count] = new Packet(
+            wnd_pckts[wnd_frg_count] = unique_ptr<Packet>(new Packet(
                     buf_array[wnd_frg_count],
                     (unsigned int) (pack_seq_num++)
-            );
+            ));
         }
 
         if (!GoBackN(wnd_frg_count, wnd_pckts, total_frg_count)) {
@@ -122,20 +117,20 @@ bool WorkerFacade::EndTransmission(int total_frag_count)
     Packet trans_end(placeholder, (unsigned int) total_frag_count);
 
     worker_socket.SendPacket(trans_end);
-    std::this_thread::sleep_for(std::chrono::milliseconds(5)); // Wait for packet to be sent
+    std::this_thread::sleep_for(std::chrono::microseconds(20)); // Wait for packet to be sent
 
     unique_ptr<Packet> final_ack;
     if (worker_socket.ReceiveAckPacket(final_ack)) {
         cout << "Final ack num [" << final_ack->header->seqno << "] total frag count " << total_frag_count << endl;
+        return final_ack->header->seqno == total_frag_count;
     } else {
         cerr << "Failed to receive final ack" << endl;
+        return false;
     }
-    return final_ack->header->seqno == total_frag_count;
 }
 
-bool WorkerFacade::SendWindow(Packet *pck_arr_ptr[], int frg_count)
+void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
 {
-
     // Send all fragments
     for (int k = 0; k < frg_count; ++k) {
 
@@ -146,38 +141,18 @@ bool WorkerFacade::SendWindow(Packet *pck_arr_ptr[], int frg_count)
             cout << "Dropped packet [" << pck_arr_ptr[k]->header->seqno << "]" << endl;
         }
 
-//        worker_socket.SendDataPacket(pck_arr_ptr[k]);
-
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(3)); // Wait for packet to be sent
-    }
-    return false;
-}
-
-void WorkerFacade::DeleteWindow(Packet *pck_arr_ptr[], int frg_count)
-{
-    for (int k = 0; k < frg_count; ++k) {
-        delete pck_arr_ptr[k];  // FIXME this should be deleted after the window was successfully sent
+        std::this_thread::sleep_for(std::chrono::microseconds(5)); // Wait for packet to be sent
     }
 }
 
-bool WorkerFacade::GoBackN(int wnd_frg_count, Packet **pck_arr_ptr, int file_frg_count)
+bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], int file_frg_count)
 {
-    // NORMAL MODE
-//    SendWindow(pck_arr_ptr, wnd_frg_count);
-//    for (int l = 0; l < wnd_frg_count; ++l) {
-//        AckPacket ack;
-//        worker_socket.ReceiveAckPacket(&ack);
-//        cout << "Ack:" << ack.ack_num << endl;
-//    }
-
     if (wnd_frg_count < 1) {
         cout << "Empty window" << endl;
         return true;
     }
 
     int wind_base_id = this->last_acked_pkt_id + 1;
-    // las acked + 1 + count - 1
     int wind_last_pck_id = this->last_acked_pkt_id + wnd_frg_count;
 
     int acknum = 0;
@@ -225,11 +200,11 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, Packet **pck_arr_ptr, int file_frg
                  << " Expected [" << (this->last_acked_pkt_id + 1) << "]"
                  << endl;
         }
-        std::this_thread::sleep_for(std::chrono::microseconds(200));  // Take it easy
+        std::this_thread::sleep_for(std::chrono::microseconds(1));  // Take it easy
     }
 
     /// IMPORTANT Delete the sent window
-    DeleteWindow(pck_arr_ptr, wnd_frg_count);
+    //DeleteWindow(pck_arr_ptr, wnd_frg_count);
     cout << "Window released" << endl << endl;
     return true;
 }

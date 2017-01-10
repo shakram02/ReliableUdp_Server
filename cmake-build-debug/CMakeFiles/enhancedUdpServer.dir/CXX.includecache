@@ -79,8 +79,8 @@ WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
-globaldef.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
+server_config.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
 stdio.h
@@ -145,8 +145,8 @@ thread
 -
 WorkerFacade.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.h
-../globaldef.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
+../server_config.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 plp.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h
 
@@ -163,8 +163,8 @@ arpa/inet.h
 -
 WorkerSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
-../globaldef.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
+../server_config.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
 string
@@ -188,8 +188,6 @@ stdlib.h
 UdpLibGlobaldefs.h
 -
 
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
-
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/main.cpp
 sys/socket.h
 -
@@ -203,6 +201,10 @@ ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
 WorkerClasses/FileFragmenter.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
+server_config.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/timecalc.h
 time.h

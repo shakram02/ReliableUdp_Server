@@ -4,7 +4,7 @@
 
 #include <arpa/inet.h>
 #include "WorkerSocket.h"
-#include "../globaldef.h"
+#include "../server_config.h"
 
 
 WorkerSocket::WorkerSocket(int client_sockfd)

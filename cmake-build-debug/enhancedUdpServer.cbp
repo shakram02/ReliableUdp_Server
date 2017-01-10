@@ -122,10 +122,10 @@
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/main.cpp">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/main.cpp">
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/CMakeLists.txt">

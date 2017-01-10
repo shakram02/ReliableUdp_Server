@@ -6,7 +6,7 @@
 
 #include "WelcomingSocket.h"
 #include "ClientObserver.h"
-#include "globaldef.h"
+#include "server_config.h"
 
 
 #define BUFF_LEN 256

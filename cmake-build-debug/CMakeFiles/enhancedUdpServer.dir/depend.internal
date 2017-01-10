@@ -26,7 +26,7 @@ CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.cpp
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
- /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
+ /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o
  ../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
@@ -43,7 +43,7 @@ CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.h
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h
- /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
+ /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerSocket.cpp.o
  ../../../clg_ReliableUdp_Lib/include/Checksum.h
  ../../../clg_ReliableUdp_Lib/include/Packet.h
@@ -52,7 +52,7 @@ CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerSocket.cpp.o
  ../../../clg_ReliableUdp_Lib/include/netutils.h
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.cpp
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
- /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/globaldef.h
+ /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 CMakeFiles/enhancedUdpServer.dir/main.cpp.o
  ../../../clg_ReliableUdp_Lib/include/Checksum.h
  ../../../clg_ReliableUdp_Lib/include/Packet.h
@@ -64,6 +64,7 @@ CMakeFiles/enhancedUdpServer.dir/main.cpp.o
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/main.cpp
+ /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
  /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/timecalc.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
  /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
