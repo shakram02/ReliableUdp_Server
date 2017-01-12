@@ -43,7 +43,11 @@ bool WorkerSocket::AssertRedirection()
     char buf[(int) strlen(REDIRECT_SUCCESS) + 1] = {0};
     socklen_t len = sizeof(struct sockaddr_in);
 
-    recvfrom(this->socket_fd, buf, sizeof(buf), 0, (sockaddr *) &(this->client_addr), &len);
+    ssize_t num_rcv = recvfrom(this->socket_fd, buf, sizeof(buf), 0, (sockaddr *) &(this->client_addr), &len);
+    if (num_rcv < 0) {
+        cout << "Error receiveing redirection" << endl;
+        return false;
+    }
     cout << "WorkerFacade#Redirect Message:" << buf << endl;
 
     return string(buf) == string(REDIRECT_SUCCESS);
