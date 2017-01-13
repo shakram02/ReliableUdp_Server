@@ -5,7 +5,6 @@
 #ifndef ENHANCEDUDPSERVER_GLOBALDEF_H
 #define ENHANCEDUDPSERVER_GLOBALDEF_H
 
-#define SLEEP_MILLIS 10    // Avoid packet corruption in the OS
 
 // MAX UDP transfer is 256 bytes,
 // don't allocate lots of memory, stack size runs out
@@ -29,6 +28,8 @@
 #define TO_MILLISEC 1000
 #define TIMEO_SEC 0
 #define TIMEO_MICRO_SEC TO_MILLISEC * 5
+
+#define PCKT_SLEEP 5
 
 #define LOSS_THRESH 1
 #endif //ENHANCEDUDPSERVER_GLOBALDEF_H

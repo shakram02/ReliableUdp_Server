@@ -29,52 +29,43 @@ void WorkerFacade::StartWorking()
     cout << "WorkerFacade#Sending number of fragments:" << num << endl;
     worker_socket.SendPacket((byte *) file_send_header.c_str(), (unsigned int) file_send_header.length());
 
-    int fail_count = 0;
-    int pack_seq_num = 0;
+    int pack_seq_num = 0, wnd_arr_idx = 0;
 
     cout << "Fragment count:" << total_frg_count << endl;
 
     unique_ptr<ByteVector> buf_array[total_frg_count];
 
-    for (int frg_num = 0; pack_seq_num < total_frg_count && is_working && (fail_count < MAX_FAIL_COUNT); frg_num++) {
+    // TODO this loop is huge
+    // TODO separate the GBN sender
+    while (pack_seq_num < total_frg_count) {
 
-        unique_ptr<Packet> wnd_pckts[WND_SZ];
-
-        int wnd_frg_count = 0;
+        unique_ptr<Packet> wnd_pckts[WND_SZ];   // TODO move window size to lib config
 
         // Create fragments and load them in the data packets array
-        for (; wnd_frg_count < WND_SZ; ++wnd_frg_count) {
+        for (wnd_arr_idx = 0; wnd_arr_idx < WND_SZ; ++wnd_arr_idx) {
 
             int frag_size = fragmenter.GetNextFragmentSize();
             if (fragmenter.EndOfFile())break;
 
-            //(buf_array[wnd_frg_count]) = calloc((size_t) frag_size, sizeof(char));
-            cout << "Frag size:" << frag_size << endl;
-            buf_array[wnd_frg_count] = unique_ptr<ByteVector>(new ByteVector());
 
             if (frag_size < 1) {
                 cerr << "Invalid fragment size" << endl;
                 break;
             }
 
-            //fragmenter.NextFragment(&(buf_array[wnd_frg_count]));
-            fragmenter.NextFragment(*buf_array[wnd_frg_count]);
-
-            cout << "Frag create #" << (pack_seq_num) << " Size:" << buf_array[wnd_frg_count]->size() << endl;
+            buf_array[wnd_arr_idx] = fragmenter.NextFragment();
 
             // TODO watch for pack_seq_num overflow
-            wnd_pckts[wnd_frg_count] = unique_ptr<Packet>(new Packet(
-                    buf_array[wnd_frg_count],
+            wnd_pckts[wnd_arr_idx] = unique_ptr<Packet>(new Packet(
+                    buf_array[wnd_arr_idx],
                     (unsigned int) (pack_seq_num++)
             ));
         }
 
-        if (!GoBackN(wnd_frg_count, wnd_pckts, total_frg_count)) {
+        if (!GoBackN(wnd_arr_idx, wnd_pckts, total_frg_count)) {
             cout << "GBN failed" << endl;
             return;
         }
-        // TODO FIX ME extra loops occur, loop condition is ill
-        //cout << "FRG CNT:" << wnd_frg_count << endl;
     }
 
     if (!EndTransmission(total_frg_count)) {
@@ -117,7 +108,7 @@ bool WorkerFacade::EndTransmission(int total_frag_count)
     Packet trans_end(placeholder, (unsigned int) total_frag_count);
 
     worker_socket.SendPacket(trans_end);
-    std::this_thread::sleep_for(std::chrono::microseconds(20)); // Wait for packet to be sent
+    std::this_thread::sleep_for(std::chrono::microseconds(PCKT_SLEEP)); // Wait for packet to be sent
 
     unique_ptr<Packet> final_ack;
     if (worker_socket.ReceiveAckPacket(final_ack)) {
@@ -141,8 +132,8 @@ void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
             cout << "Dropped packet [" << pck_arr_ptr[k]->header->seqno << "]" << endl;
         }
 
-        std::this_thread::sleep_for(std::chrono::microseconds(5)); // Wait for packet to be sent
     }
+    std::this_thread::sleep_for(std::chrono::microseconds(PCKT_SLEEP)); // Wait for packet to be sent
 }
 
 bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], int file_frg_count)
@@ -159,11 +150,11 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], 
     int fail = 0;
 
     // GBN
-    cout << endl
-         << "Startimg GBN, Wind Base: " << wind_base_id
-         << " Fragments in window: " << wnd_frg_count
-         << " Window end:" << wind_last_pck_id
-         << endl;
+//    cout << endl
+//         << "Startimg GBN, Wind Base: " << wind_base_id
+//         << " Fragments in window: " << wnd_frg_count
+//         << " Window end:" << wind_last_pck_id
+//         << endl;
 
     SendWindow(pck_arr_ptr, wnd_frg_count);
 
@@ -200,11 +191,8 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], 
                  << " Expected [" << (this->last_acked_pkt_id + 1) << "]"
                  << endl;
         }
-        std::this_thread::sleep_for(std::chrono::microseconds(1));  // Take it easy
     }
 
-    /// IMPORTANT Delete the sent window
-    //DeleteWindow(pck_arr_ptr, wnd_frg_count);
-    cout << "Window released" << endl << endl;
+    //cout << "Window released" << endl << endl;
     return true;
 }

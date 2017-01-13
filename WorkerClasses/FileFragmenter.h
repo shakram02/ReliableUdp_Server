@@ -22,7 +22,7 @@ public:
 
     bool SetFilePath(string file_path);
 
-    unsigned int NextFragment(ByteVector &buffer);
+    unique_ptr<ByteVector> NextFragment();
 
     unsigned int GetNextFragmentSize();
 

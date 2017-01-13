@@ -7,36 +7,25 @@
 #include <UdpLibGlobaldefs.h>
 #include "FileFragmenter.h"
 
-unsigned int FileFragmenter::NextFragment(ByteVector &buffer)
+unique_ptr<ByteVector> FileFragmenter::NextFragment()
 {
-    if (!this->has_bytes) {
-        return 0;
-    }
-
     // Read fragment size from file
-    if (this->current_fragment_idx < this->file_fragments) {
+    if (this->current_fragment_idx >= this->file_fragments)return nullptr;
 
-        unsigned int current_frag_size = GetNextFragmentSize();
+    unsigned int current_frag_size = GetNextFragmentSize();
 
-        //cout << "Fragment size:" << current_frag_size << endl;
-        char tempConatiner[current_frag_size];
-        this->file.read((tempConatiner), current_frag_size);
+    char tempConatiner[current_frag_size];
+    this->file.read((tempConatiner), current_frag_size);
 
-        // C --> C++ TODO remove the copy
-        // FIXME USE FILE STREAM
-        buffer.reserve(current_frag_size);
-        for (int i = 0; i < current_frag_size; ++i) {
-            buffer.push_back(std::move((byte) tempConatiner[i]));
-        }
-
-        this->current_fragment_idx++;
-        return current_frag_size;
-    } else {
-        this->has_bytes = false;
-        cout << "Fragments ended" << endl;
-        return 0;
+    // C --> C++, unfortunately, copying can't be avoided
+    ByteVector *buffer = new ByteVector();
+    buffer->reserve(current_frag_size);
+    for (int i = 0; i < current_frag_size; ++i) {
+        buffer->push_back(std::move((byte) tempConatiner[i]));
     }
 
+    this->current_fragment_idx++;
+    return unique_ptr<ByteVector>(buffer);
 }
 
 FileFragmenter::~FileFragmenter()
@@ -138,15 +127,13 @@ unsigned int FileFragmenter::GetNextFragmentSize()
 
     } else if (file_fragments - current_fragment_idx == 1) {
 
-        // TODO last fragment, don't read frag size, read the rest of the file
+        // last fragment, don't read frag size, read the rest of the file
         unsigned int bytes_left = this->file_size - this->file.tellg();
         frag_size = bytes_left;
+
     } else {
         this->has_bytes = false;
     }
-
-
-    //last_requested_frag_size_idx = this->current_fragment_idx;
 
     return frag_size;
 }
