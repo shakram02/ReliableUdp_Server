@@ -42,9 +42,7 @@ private:
     // as it prevents causing an off by one error
     int last_acked_pkt_id = -1;
 
-    void CreateWindowFragments(int &wnd_idx, int &seq_num,
-            unique_ptr<ByteVector> buf_array[],
-            unique_ptr<Packet> wnd_pckts[]);
+    void CreateWindowFragments(int &wnd_idx, int &seq_num, unique_ptr<Packet> wnd_pckts[]);
 };
 
 

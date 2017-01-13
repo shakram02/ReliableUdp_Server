@@ -46,15 +46,13 @@ void WorkerFacade::StartWorking()
 
     cout << "Fragment count:" << total_frg_count << endl;
 
-    unique_ptr<ByteVector> buf_array[total_frg_count];
 
     // TODO this loop is huge
     // TODO separate the GBN sender
     while (pack_seq_num < total_frg_count) {
 
         unique_ptr<Packet> wnd_pckts[WND_SZ];   // TODO move window size to lib config
-
-        CreateWindowFragments(wnd_arr_idx, pack_seq_num, buf_array, wnd_pckts);
+        CreateWindowFragments(wnd_arr_idx, pack_seq_num, wnd_pckts);
 
         if (!GoBackN(wnd_arr_idx, wnd_pckts, total_frg_count)) {
             cout << "GBN failed" << endl;
@@ -69,11 +67,8 @@ void WorkerFacade::StartWorking()
     }
 }
 
-void WorkerFacade::CreateWindowFragments(int &wnd_idx, int &seq_num, unique_ptr<ByteVector> buf_array[],
-        unique_ptr<Packet> wnd_pckts[])
+void WorkerFacade::CreateWindowFragments(int &wnd_idx, int &seq_num, unique_ptr<Packet> wnd_pckts[])
 {
-
-
     for (wnd_idx = 0; wnd_idx < WND_SZ; ++wnd_idx) {
 
         int frag_size = fragmenter.GetNextFragmentSize();
@@ -85,13 +80,10 @@ void WorkerFacade::CreateWindowFragments(int &wnd_idx, int &seq_num, unique_ptr<
             break;
         }
 
-        buf_array[wnd_idx] = fragmenter.NextFragment();
+        unique_ptr<ByteVector> temp = fragmenter.NextFragment();
 
         // TODO watch for seq_num overflow
-        wnd_pckts[wnd_idx] = unique_ptr<Packet>(new Packet(
-                buf_array[wnd_idx],
-                (unsigned int) (seq_num++)
-        ));
+        wnd_pckts[wnd_idx] = unique_ptr<Packet>(new Packet(temp, (unsigned int) (seq_num++)));
     }
 }
 
