@@ -14,6 +14,19 @@ extern "C"
 #include "plp.h"
 };
 
+WorkerFacade::WorkerFacade(sock_descriptor sockfd) : worker_socket(sockfd)
+{
+    string file_name = this->worker_socket.GetRequestedFile();
+
+    cout << "WorkerFacade#Requested filename:" << file_name << endl;
+
+    this->fragmenter.SetFragmentSize(DATA_FRAGMENT_SIZE);
+
+    if (!this->fragmenter.SetFilePath(file_name)) {
+        cerr << "Worker#Failed to set the file path" << endl;
+    }
+    this->is_working = true;
+}
 
 void WorkerFacade::StartWorking()
 {
@@ -41,26 +54,7 @@ void WorkerFacade::StartWorking()
 
         unique_ptr<Packet> wnd_pckts[WND_SZ];   // TODO move window size to lib config
 
-        // Create fragments and load them in the data packets array
-        for (wnd_arr_idx = 0; wnd_arr_idx < WND_SZ; ++wnd_arr_idx) {
-
-            int frag_size = fragmenter.GetNextFragmentSize();
-            if (fragmenter.EndOfFile())break;
-
-
-            if (frag_size < 1) {
-                cerr << "Invalid fragment size" << endl;
-                break;
-            }
-
-            buf_array[wnd_arr_idx] = fragmenter.NextFragment();
-
-            // TODO watch for pack_seq_num overflow
-            wnd_pckts[wnd_arr_idx] = unique_ptr<Packet>(new Packet(
-                    buf_array[wnd_arr_idx],
-                    (unsigned int) (pack_seq_num++)
-            ));
-        }
+        CreateWindowFragments(wnd_arr_idx, pack_seq_num, buf_array, wnd_pckts);
 
         if (!GoBackN(wnd_arr_idx, wnd_pckts, total_frg_count)) {
             cout << "GBN failed" << endl;
@@ -75,19 +69,30 @@ void WorkerFacade::StartWorking()
     }
 }
 
-
-WorkerFacade::WorkerFacade(sock_descriptor sockfd) : worker_socket(sockfd)
+void WorkerFacade::CreateWindowFragments(int &wnd_idx, int &seq_num, unique_ptr<ByteVector> buf_array[],
+        unique_ptr<Packet> wnd_pckts[])
 {
-    string file_name = this->worker_socket.GetRequestedFile();
 
-    cout << "WorkerFacade#Requested filename:" << file_name << endl;
 
-    this->fragmenter.SetFragmentSize(DATA_FRAGMENT_SIZE);
+    for (wnd_idx = 0; wnd_idx < WND_SZ; ++wnd_idx) {
 
-    if (!this->fragmenter.SetFilePath(file_name)) {
-        cerr << "Worker#Failed to set the file path" << endl;
+        int frag_size = fragmenter.GetNextFragmentSize();
+        if (fragmenter.EndOfFile())break;
+
+
+        if (frag_size < 1) {
+            cerr << "Invalid fragment size" << endl;
+            break;
+        }
+
+        buf_array[wnd_idx] = fragmenter.NextFragment();
+
+        // TODO watch for seq_num overflow
+        wnd_pckts[wnd_idx] = unique_ptr<Packet>(new Packet(
+                buf_array[wnd_idx],
+                (unsigned int) (seq_num++)
+        ));
     }
-    this->is_working = true;
 }
 
 void WorkerFacade::StopWorking()

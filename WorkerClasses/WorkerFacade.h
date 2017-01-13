@@ -28,6 +28,7 @@ public:
 
     void inline SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count);
 
+
     bool GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], int file_frg_count);
 
     ~WorkerFacade();
@@ -40,6 +41,10 @@ private:
     // Starting for -1 makes the ACK process logically straight to think of
     // as it prevents causing an off by one error
     int last_acked_pkt_id = -1;
+
+    void CreateWindowFragments(int &wnd_idx, int &seq_num,
+            unique_ptr<ByteVector> buf_array[],
+            unique_ptr<Packet> wnd_pckts[]);
 };
 
 
