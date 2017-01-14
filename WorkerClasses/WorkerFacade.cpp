@@ -67,13 +67,7 @@ void WorkerFacade::StartWorking()
         // Create window packets
         for (wnd_arr_idx = 0; wnd_arr_idx < WND_SIZE; ++wnd_arr_idx) {
 
-            int frag_size = fragmenter.GetNextFragmentSize();
             if (fragmenter.EndOfFile())break;
-
-            if (frag_size < 1) {
-                cerr << "Invalid fragment size" << endl;
-                break;
-            }
 
             // TODO watch for pack_seq_num overflow
             unique_ptr<ByteVector> temp = fragmenter.NextFragment();
@@ -81,10 +75,15 @@ void WorkerFacade::StartWorking()
         }
 
         // TODO replace with generic sender function
-        if (!GoBackN(wnd_arr_idx, wnd_pckts, total_frg_count)) {
-            cout << "GBN failed" << endl;
-            return;
-        }
+        if (GoBackN(wnd_arr_idx, wnd_pckts, total_frg_count)) { continue; }
+
+        cout << "GBN failed" << endl;
+        this->is_working = false;
+        return;
+
+//        if (!this->is_working) {
+//            // TODO Pause / Stop sending packets
+//        }
     }
 
     // TODO move this to the generic sender class
@@ -104,9 +103,7 @@ void WorkerFacade::StopWorking()
 bool WorkerFacade::EndTransmission(int total_frag_count)
 {
 
-    unique_ptr<ByteVector> placeholder = nullptr;
-    unique_ptr<Packet> trans_end =
-            unique_ptr<Packet>(new Packet(placeholder, (unsigned int) total_frag_count));
+    unique_ptr<Packet> trans_end = unique_ptr<Packet>(new Packet((unsigned int) total_frag_count));
 
     worker_socket->SendPacket(*client_info, trans_end);
     unique_ptr<Packet> final_ack;
@@ -121,7 +118,6 @@ bool WorkerFacade::EndTransmission(int total_frag_count)
 
 void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
 {
-
     for (int k = 0; k < frg_count; ++k) {
 
         // PLP Path loss probability
@@ -132,7 +128,6 @@ void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
         }
         std::this_thread::sleep_for(std::chrono::microseconds(PCKT_SLEEP)); // Wait for packet to be sent
     }
-
 }
 
 bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], int file_frg_count)

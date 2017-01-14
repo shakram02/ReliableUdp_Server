@@ -17,7 +17,7 @@ using namespace std;
  * The top class that redirects clients from the welcome gate to the dedicated
  * socket
  */
-class ClientObserver
+class ClientMediator
 {
 public :
     /**
@@ -36,7 +36,7 @@ public :
      * @param portNumber The port number of the welcoming port,
      *          this number should be a constant and must be know for the clients
      */
-    ClientObserver(string &serverIp, const unsigned short &portNumber);
+    ClientMediator(string &serverIp, const unsigned short &portNumber);
 
     static void NotifyForClient(RawUdpSocket *redirect_socket, AddressInfo client_info);
 

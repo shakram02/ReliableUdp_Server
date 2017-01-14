@@ -25,7 +25,7 @@ public:
 
     unique_ptr<ByteVector> NextFragment();
 
-    unsigned int GetNextFragmentSize();
+    inline unsigned int GetNextFragmentSize();
 
     bool EndOfFile();
 
@@ -44,6 +44,7 @@ private:
 
     bool ValidateFile(string file_path);
 
+    inline ByteVector *CopyToVector(char container[], int length);
 };
 
 

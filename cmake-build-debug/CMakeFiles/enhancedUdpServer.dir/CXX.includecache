@@ -28,6 +28,8 @@ UdpLibGlobaldefs.h
 memory
 -
 
+../../../clg_ReliableUdp_Lib/include/ProtocolMsgId.h
+
 ../../../clg_ReliableUdp_Lib/include/RawUdpSocket.h
 arpa/inet.h
 -
@@ -48,13 +50,13 @@ vector
 memory
 -
 
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.cpp
-ClientObserver.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.cpp
+ClientMediator.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.h
 WorkerClasses/WorkerFacade.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.h
 
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.h
 vector
 -
 thread
@@ -64,15 +66,15 @@ netinet/in.h
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
 
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/NetworkOperationResult.cpp
-
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.cpp
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
-ClientObserver.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
+ClientMediator.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.h
 server_config.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
+ProtocolMsgId.h
+-
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
 stdio.h
@@ -163,8 +165,8 @@ UdpLibGlobaldefs.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/main.cpp
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
-ClientObserver.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
+ClientMediator.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.h
 server_config.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 

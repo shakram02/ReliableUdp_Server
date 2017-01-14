@@ -14,26 +14,18 @@ unique_ptr<ByteVector> FileFragmenter::NextFragment()
 
     unsigned int current_frag_size = GetNextFragmentSize();
 
-    // TODO check for partial reads
     char tempConatiner[current_frag_size];
     this->file.read((tempConatiner), current_frag_size);
 
-    // C --> C++, unfortunately, copying can't be avoided
-    ByteVector *buffer = new ByteVector();
-    buffer->reserve(current_frag_size);
-    for (int i = 0; i < current_frag_size; ++i) {
-        buffer->push_back(std::move((byte) tempConatiner[i]));
+    if (this->file.fail()) {
+        cerr << "Failed to read file" << endl;
+        return nullptr;
     }
+
+    ByteVector *buffer = CopyToVector(tempConatiner, current_frag_size);
 
     this->current_fragment_idx++;
     return unique_ptr<ByteVector>(buffer);
-}
-
-FileFragmenter::~FileFragmenter()
-{
-    if (this->file.is_open()) {
-        this->file.close();
-    }
 }
 
 bool FileFragmenter::EndOfFile()
@@ -73,33 +65,34 @@ bool FileFragmenter::ValidateFile(string file_path)
 {
     this->file.open(file_path.c_str(), ios::in | ios::binary);
 
-    if (this->file.is_open()) {
-        cout << "File open success" << endl;
-        struct stat file_stat;
-        if (stat(file_path.c_str(), &file_stat) == 0) {
-
-            this->file_fragments = ((int) file_stat.st_size / fragment_size) + 1;
-
-            if (file_stat.st_size < 1) {
-                cerr << "File is empty" << endl;
-                this->has_bytes = false;
-                return false;
-            }
-            this->has_bytes = true;
-            this->file_size = (unsigned int) (file_stat.st_size);
-            this->current_fragment_idx++;   // Move to fragment 0
-
-            cout << "File fragments:" << this->file_fragments
-                 << " File size in bytes:" << file_stat.st_size
-                 << endl;
-        } else {
-            cout << "Failed to get file stats" << endl;
-            return false;
-        }
-    } else {
-        cout << "Failed to open file" << endl;
+    if (this->file.fail()) {
+        cerr << "Failed to open file" << endl;
         return false;
     }
+
+    struct stat file_stat;
+
+    if (stat(file_path.c_str(), &file_stat) != 0) {
+        cerr << "Failed to get file stats" << endl;
+        return false;
+    }
+
+    this->file_fragments = ((int) file_stat.st_size / fragment_size) + 1;
+
+    if (file_stat.st_size < 1) {
+        cerr << "File is empty" << endl;
+        this->has_bytes = false;
+        return false;
+    }
+
+    this->has_bytes = true;
+    this->file_size = (unsigned int) (file_stat.st_size);
+    this->current_fragment_idx++;   // Move to fragment 0
+
+//    cout << "File fragments:" << this->file_fragments
+//         << " File size in bytes:" << file_stat.st_size
+//         << endl;
+
     return true;
 }
 
@@ -137,4 +130,23 @@ unsigned int FileFragmenter::GetNextFragmentSize()
     }
 
     return frag_size;
+}
+
+ByteVector *FileFragmenter::CopyToVector(char container[], int length)
+{
+    // C --> C++, unfortunately, copying can't be avoided
+    ByteVector *buffer = new ByteVector();
+    buffer->reserve((unsigned long) length); // Avoid re-allocations
+    for (int i = 0; i < length; ++i) {
+        buffer->push_back(std::move((byte) container[i]));
+    }
+    return buffer;
+}
+
+
+FileFragmenter::~FileFragmenter()
+{
+    if (this->file.is_open()) {
+        this->file.close();
+    }
 }
