@@ -38,9 +38,9 @@ public :
      * @param portNumber The port number of the welcoming port,
      *          this number should be a constant and must be know for the clients
      */
-    ClientObserver(const string &serverIp, const unsigned short &portNumber);
+    ClientObserver(string &serverIp, const unsigned short &portNumber);
 
-    static void NotifyForClient(int sock_fd);
+    static void NotifyForClient(RawUdpSocket *redirect_socket, AddressInfo client_info);
 
 private:
 

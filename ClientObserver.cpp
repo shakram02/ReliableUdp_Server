@@ -5,8 +5,8 @@
 #include "ClientObserver.h"
 #include "WorkerClasses/WorkerFacade.h"
 
-ClientObserver::ClientObserver(const string &serverIp, const unsigned short &portNumber) : welcome_socket(serverIp,
-        portNumber)
+ClientObserver::ClientObserver(string &serverIp, const unsigned short &portNumber) :
+        welcome_socket(serverIp, portNumber)
 {
 
 }
@@ -25,10 +25,11 @@ void ClientObserver::StartListening()
     this->welcome_socket.StartReceiving();
 }
 
-void ClientObserver::NotifyForClient(int sock_fd)
+void ClientObserver::NotifyForClient(RawUdpSocket *redirect_socket, AddressInfo client_info)
 {
 
-    std::thread th([=]() {
+
+    std::thread th([redirect_socket, client_info]() {
         time_t t = time(0);   // get time now
         struct tm *now = localtime(&t);
 
@@ -38,7 +39,7 @@ void ClientObserver::NotifyForClient(int sock_fd)
              << now->tm_sec << endl;
 
         // TODO Spawn a worker subsystem
-        WorkerFacade worker_subsystem(sock_fd);
+        WorkerFacade worker_subsystem(redirect_socket, client_info);
         //pthread_attr_setstacksize()
         worker_subsystem.StartWorking();
     });

@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../../../clg_ReliableUdp_Lib/include/AddressInfo.h
+string
+-
+
 ../../../clg_ReliableUdp_Lib/include/Checksum.h
 Packet.h
 ../../../clg_ReliableUdp_Lib/include/Packet.h
@@ -29,6 +33,20 @@ UdpLibGlobaldefs.h
 ../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
 memory
 -
+
+../../../clg_ReliableUdp_Lib/include/RawUdpSocket.h
+arpa/inet.h
+-
+string
+-
+vector
+-
+memory
+-
+AddressInfo.h
+../../../clg_ReliableUdp_Lib/include/AddressInfo.h
+Packet.h
+../../../clg_ReliableUdp_Lib/include/Packet.h
 
 ../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
 vector
@@ -119,6 +137,8 @@ functional
 -
 ../libs/netutils.h
 /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
+RawUdpSocket.h
+-
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.cpp
 vector
@@ -156,6 +176,8 @@ WorkerSocket.h
 FileFragmenter.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
 Packet.h
+-
+RawUdpSocket.h
 -
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.cpp

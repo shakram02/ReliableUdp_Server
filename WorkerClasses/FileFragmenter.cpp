@@ -14,6 +14,7 @@ unique_ptr<ByteVector> FileFragmenter::NextFragment()
 
     unsigned int current_frag_size = GetNextFragmentSize();
 
+    // TODO check for partial reads
     char tempConatiner[current_frag_size];
     this->file.read((tempConatiner), current_frag_size);
 

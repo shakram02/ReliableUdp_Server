@@ -16,8 +16,11 @@ void *get_in_addr(struct sockaddr *);
 
 int main()
 {
-    ClientObserver obs(SERVER_IP, PORT_NUM);
+    string serv_ip(SERVER_IP);
+    ClientObserver obs(serv_ip, PORT_NUM);
     obs.StartListening();
+
+    //WelcomingSocket sock(serv_ip, PORT_NUM);
 
     string d;
     cout << "Hit enter to terminate..." << endl;

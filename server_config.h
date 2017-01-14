@@ -16,7 +16,7 @@
 
 #define MAX_FAIL_COUNT 8
 #define SERV_FILESZ_HEADER "FILESIZE-"
-#define WND_SZ 4
+#define WND_SIZE 4
 /**
  * Redirection message, this is a constant message on the client and server side
  */
@@ -24,6 +24,7 @@
 #define SERV_REDIRECT_OK "OK"
 #define MAX_FILE_PATH_LENGTH 256
 
+#define TIMEO_REDIRECT_MILLIS 20
 
 #define TO_MILLISEC 1000
 #define TIMEO_SEC 0

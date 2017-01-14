@@ -14,77 +14,138 @@ extern "C"
 #include "plp.h"
 };
 
-WorkerFacade::WorkerFacade(sock_descriptor sockfd) : worker_socket(sockfd)
+WorkerFacade::WorkerFacade(RawUdpSocket *redirect_socket, AddressInfo client_info)
 {
-    string file_name = this->worker_socket.GetRequestedFile();
+    // Transfer ownership to the unique_ptr
+    this->worker_socket = unique_ptr<RawUdpSocket>(redirect_socket);
 
-    cout << "WorkerFacade#Requested filename:" << file_name << endl;
+    this->client_info = unique_ptr<AddressInfo>(new AddressInfo(client_info));
+
+    string buf = this->worker_socket->ReceiveString();
+    string file_name;
+    string prefix("FILE-");
+
+    if (buf.compare(0, prefix.size(), prefix)) {
+        cerr << "Invalid file request packet" << buf << endl;
+    } else {
+        file_name = buf.substr(buf.find("-") + 1, buf.size() - 1);
+        cout << "Requested file name:" << file_name << endl;
+    }
 
     this->fragmenter.SetFragmentSize(DATA_FRAGMENT_SIZE);
 
-    if (!this->fragmenter.SetFilePath(file_name)) {
+    if (this->fragmenter.SetFilePath(file_name)) {
+        this->is_working = true;
+    } else {
+        // TODO send fail to client
+
         cerr << "Worker#Failed to set the file path" << endl;
     }
-    this->is_working = true;
 }
 
 void WorkerFacade::StartWorking()
 {
-    // TODO reply with not found
-    // TODO 2D fragments array from the fragmenter
-    // TODO Allocate data packets in memory and serialize from memory
-    // TODO Checksum
+//    // TODO reply with not found
+//    // TODO use the RawUdpSocket wrapper
+//    // TODO 2D fragments array from the fragmenter
+//    // TODO Allocate data packets in memory and serialize from memory
+//    // TODO Checksum
+
     basic_string<char> file_send_header(SERV_FILESZ_HEADER);
     int total_frg_count = this->fragmenter.GetFragmentCount();
     string num(to_string(total_frg_count));
     file_send_header.append(num);
 
-    cout << "WorkerFacade#Sending number of fragments:" << num << endl;
-    worker_socket.SendPacket((byte *) file_send_header.c_str(), (unsigned int) file_send_header.length());
+    cout << "WorkerFacade#Sending number of fragments:" << file_send_header << endl;
+    worker_socket->SendString(*(this->client_info), file_send_header);
+
+    int df = 0;
 
     int pack_seq_num = 0, wnd_arr_idx = 0;
-
-    cout << "Fragment count:" << total_frg_count << endl;
-
-
     // TODO this loop is huge
     // TODO separate the GBN sender
     while (pack_seq_num < total_frg_count) {
 
-        unique_ptr<Packet> wnd_pckts[WND_SZ];   // TODO move window size to lib config
-        CreateWindowFragments(wnd_arr_idx, pack_seq_num, wnd_pckts);
+        unique_ptr<Packet> wnd_pckts[WND_SIZE];   // TODO move window size to lib config
 
+        // Create window packets
+        for (wnd_arr_idx = 0; wnd_arr_idx < WND_SIZE; ++wnd_arr_idx) {
+
+            int frag_size = fragmenter.GetNextFragmentSize();
+            if (fragmenter.EndOfFile())break;
+
+            if (frag_size < 1) {
+                cerr << "Invalid fragment size" << endl;
+                break;
+            }
+
+            // TODO watch for pack_seq_num overflow
+            unique_ptr<ByteVector> temp = fragmenter.NextFragment();
+            wnd_pckts[wnd_arr_idx] = unique_ptr<Packet>(new Packet(temp, (unsigned int) (pack_seq_num++)));
+        }
+
+        // TODO replace with generic sender function
         if (!GoBackN(wnd_arr_idx, wnd_pckts, total_frg_count)) {
             cout << "GBN failed" << endl;
             return;
         }
     }
 
+    // TODO move this to the generic sender class
     if (!EndTransmission(total_frg_count)) {
         cerr << "Err in receiving final ack" << endl;
     } else {
         cout << "Transmission completed." << endl;
     }
-}
 
-void WorkerFacade::CreateWindowFragments(int &wnd_idx, int &seq_num, unique_ptr<Packet> wnd_pckts[])
-{
-    for (wnd_idx = 0; wnd_idx < WND_SZ; ++wnd_idx) {
-
-        int frag_size = fragmenter.GetNextFragmentSize();
-        if (fragmenter.EndOfFile())break;
-
-
-        if (frag_size < 1) {
-            cerr << "Invalid fragment size" << endl;
-            break;
-        }
-
-        unique_ptr<ByteVector> temp = fragmenter.NextFragment();
-
-        // TODO watch for seq_num overflow
-        wnd_pckts[wnd_idx] = unique_ptr<Packet>(new Packet(temp, (unsigned int) (seq_num++)));
-    }
+//    basic_string<char> file_send_header(SERV_FILESZ_HEADER);
+//    int total_frg_count = this->fragmenter.GetFragmentCount();
+//    string num(to_string(total_frg_count));
+//    file_send_header.append(num);
+//
+//    cout << "WorkerFacade#Sending number of fragments:" << num << endl;
+//    worker_socket.SendPacket((byte *) file_send_header.c_str(), (unsigned int) file_send_header.length());
+//
+//    int pack_seq_num = 0, wnd_arr_idx = 0;
+//
+//    cout << "Fragment count:" << total_frg_count << endl;
+//
+//
+//    // TODO this loop is huge
+//    // TODO separate the GBN sender
+//    while (pack_seq_num < total_frg_count) {
+//
+//        unique_ptr<Packet> wnd_pckts[WND_SIZE];   // TODO move window size to lib config
+//
+//        // Create window packets
+//        for (wnd_arr_idx = 0; wnd_arr_idx < WND_SIZE; ++wnd_arr_idx) {
+//
+//            int frag_size = fragmenter.GetNextFragmentSize();
+//            if (fragmenter.EndOfFile())break;
+//
+//            if (frag_size < 1) {
+//                cerr << "Invalid fragment size" << endl;
+//                break;
+//            }
+//
+//            // TODO watch for pack_seq_num overflow
+//            unique_ptr<ByteVector> temp = fragmenter.NextFragment();
+//            wnd_pckts[wnd_arr_idx] = unique_ptr<Packet>(new Packet(temp, (unsigned int) (pack_seq_num++)));
+//        }
+//
+//        // TODO replace with generic sender function
+//        if (!GoBackN(wnd_arr_idx, wnd_pckts, total_frg_count)) {
+//            cout << "GBN failed" << endl;
+//            return;
+//        }
+//    }
+//
+//    // TODO move this to the generic sender class
+//    if (!EndTransmission(total_frg_count)) {
+//        cerr << "Err in receiving final ack" << endl;
+//    } else {
+//        cout << "Transmission completed." << endl;
+//    }
 }
 
 void WorkerFacade::StopWorking()
@@ -95,52 +156,74 @@ void WorkerFacade::StopWorking()
 WorkerFacade::~WorkerFacade()
 {
     // TODO release resources
-    worker_socket.~WorkerSocket();
+    //worker_socket.~WorkerSocket();
 }
 
 bool WorkerFacade::EndTransmission(int total_frag_count)
 {
-    // End transmission
+
     unique_ptr<ByteVector> placeholder = nullptr;
-    Packet trans_end(placeholder, (unsigned int) total_frag_count);
+    unique_ptr<Packet> trans_end =
+            unique_ptr<Packet>(new Packet(placeholder, (unsigned int) total_frag_count));
 
-    worker_socket.SendPacket(trans_end);
-    std::this_thread::sleep_for(std::chrono::microseconds(PCKT_SLEEP)); // Wait for packet to be sent
+    worker_socket->SendPacket(*client_info, trans_end);
 
-    unique_ptr<Packet> final_ack;
-    if (worker_socket.ReceiveAckPacket(final_ack)) {
-        cout << "Final ack num [" << final_ack->header->seqno << "] total frag count " << total_frag_count << endl;
-        return final_ack->header->seqno == total_frag_count;
-    } else {
-        cerr << "Failed to receive final ack" << endl;
-        return false;
-    }
+//    // End transmission
+//    unique_ptr<ByteVector> placeholder = nullptr;
+//    Packet trans_end(placeholder, (unsigned int) total_frag_count);
+//
+//    worker_socket.SendPacket(trans_end);
+//    std::this_thread::sleep_for(std::chrono::microseconds(PCKT_SLEEP)); // Wait for packet to be sent
+//
+//    unique_ptr<Packet> final_ack;
+//    if (worker_socket.ReceiveAckPacket(final_ack)) {
+//        cout << "Final ack num [" << final_ack->header->seqno << "] total frag count " << total_frag_count << endl;
+//        return final_ack->header->seqno == total_frag_count;
+//    } else {
+//        cerr << "Failed to receive final ack" << endl;
+//        return false;
+//    }
 }
 
 void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
 {
+
     // Send all fragments
     for (int k = 0; k < frg_count; ++k) {
 
         // PLP Path loss probability
         if (will_be_sent()) {
-            worker_socket.SendPacket(*(pck_arr_ptr[k]));
+            cout << __LINE__ << " Send to " << client_info->port_number << "  " << client_info->ip << endl;
+            worker_socket->SendPacket(*client_info, pck_arr_ptr[k]);
         } else {
             cout << "Dropped packet [" << pck_arr_ptr[k]->header->seqno << "]" << endl;
         }
 
     }
     std::this_thread::sleep_for(std::chrono::microseconds(PCKT_SLEEP)); // Wait for packet to be sent
+
+//    // Send all fragments
+//    for (int k = 0; k < frg_count; ++k) {
+//
+//        // PLP Path loss probability
+//        if (will_be_sent()) {
+//            worker_socket.SendPacket(*(pck_arr_ptr[k]));
+//        } else {
+//            cout << "Dropped packet [" << pck_arr_ptr[k]->header->seqno << "]" << endl;
+//        }
+//
+//    }
+//    std::this_thread::sleep_for(std::chrono::microseconds(PCKT_SLEEP)); // Wait for packet to be sent
 }
 
 bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], int file_frg_count)
 {
+
     if (wnd_frg_count < 1) {
         cout << "Empty window" << endl;
         return true;
     }
 
-    int wind_base_id = this->last_acked_pkt_id + 1;
     int wind_last_pck_id = this->last_acked_pkt_id + wnd_frg_count;
 
     int acknum = 0;
@@ -148,13 +231,12 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], 
 
     // GBN
 //    cout << endl
-//         << "Startimg GBN, Wind Base: " << wind_base_id
+
 //         << " Fragments in window: " << wnd_frg_count
 //         << " Window end:" << wind_last_pck_id
 //         << endl;
 
     SendWindow(pck_arr_ptr, wnd_frg_count);
-
 
     // Collect the sent window ACKs
     while (this->last_acked_pkt_id < wind_last_pck_id
@@ -163,9 +245,9 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], 
 
         unique_ptr<Packet> ack;
 
-        if (!worker_socket.ReceiveAckPacket(ack)) {
+        if (!worker_socket->ReceivePacket(ack)) {
             // Failed to receive
-            if (fail++ == WND_SZ * MAX_FAIL_COUNT) {
+            if (fail++ == WND_SIZE * MAX_FAIL_COUNT) {
                 cerr << "Client died?" << endl;
                 return false;
             }
@@ -190,6 +272,57 @@ bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], 
         }
     }
 
-    //cout << "Window released" << endl << endl;
+//    if (wnd_frg_count < 1) {
+//        cout << "Empty window" << endl;
+//        return true;
+//    }
+//
+//    int wind_last_pck_id = this->last_acked_pkt_id + wnd_frg_count;
+//
+//    int acknum = 0;
+//    int fail = 0;
+//
+//    // GBN
+////    cout << endl
+//
+////         << " Fragments in window: " << wnd_frg_count
+////         << " Window end:" << wind_last_pck_id
+////         << endl;
+//
+//    SendWindow(pck_arr_ptr, wnd_frg_count);
+//
+//    // Collect the sent window ACKs
+//    while (this->last_acked_pkt_id < wind_last_pck_id
+//           && this->last_acked_pkt_id < (file_frg_count - 1)) {
+//
+//
+//        unique_ptr<Packet> ack;
+//
+//        if (!worker_socket.ReceiveAckPacket(ack)) {
+//            // Failed to receive
+//            if (fail++ == WND_SIZE * MAX_FAIL_COUNT) {
+//                cerr << "Client died?" << endl;
+//                return false;
+//            }
+//            cout << "Fail ACK receive timeout, Resend window" << endl;
+//            SendWindow(pck_arr_ptr, wnd_frg_count);
+//            continue;
+//        }
+//
+//        acknum = ack->header->seqno;
+//
+//        if (acknum == (this->last_acked_pkt_id + 1)) {
+//
+//            // Slide the window
+//            cout << "Correct ACK received [" << acknum << "]" << endl;
+//            this->last_acked_pkt_id++;
+//
+//        } else {
+//
+//            cout << "ACK Invalid Received [" << acknum << "]"
+//                 << " Expected [" << (this->last_acked_pkt_id + 1) << "]"
+//                 << endl;
+//        }
+//    }
     return true;
 }

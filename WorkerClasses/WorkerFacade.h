@@ -8,6 +8,7 @@
 #include "WorkerSocket.h"
 #include "FileFragmenter.h"
 #include <Packet.h>
+#include <RawUdpSocket.h>
 
 typedef int sock_descriptor;
 
@@ -18,7 +19,7 @@ typedef int sock_descriptor;
 class WorkerFacade
 {
 public:
-    WorkerFacade(sock_descriptor sockfd);
+    WorkerFacade(RawUdpSocket *redirect_socket, AddressInfo client_info);
 
     void StartWorking();
 
@@ -34,15 +35,14 @@ public:
     ~WorkerFacade();
 
 private:
-    WorkerSocket worker_socket;
+    unique_ptr<RawUdpSocket> worker_socket;
+    unique_ptr<AddressInfo> client_info;
     FileFragmenter fragmenter;
     bool is_working;
 
     // Starting for -1 makes the ACK process logically straight to think of
     // as it prevents causing an off by one error
     int last_acked_pkt_id = -1;
-
-    void CreateWindowFragments(int &wnd_idx, int &seq_num, unique_ptr<Packet> wnd_pckts[]);
 };
 
 
