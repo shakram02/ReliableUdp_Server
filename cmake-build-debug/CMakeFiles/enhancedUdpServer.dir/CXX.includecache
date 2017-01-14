@@ -10,12 +10,6 @@
 string
 -
 
-../../../clg_ReliableUdp_Lib/include/Checksum.h
-Packet.h
-../../../clg_ReliableUdp_Lib/include/Packet.h
-cstdint
--
-
 ../../../clg_ReliableUdp_Lib/include/Packet.h
 UdpLibGlobaldefs.h
 ../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
@@ -54,24 +48,6 @@ vector
 memory
 -
 
-../../../clg_ReliableUdp_Lib/include/netutils.h
-stdio.h
--
-sys/socket.h
--
-unistd.h
--
-netdb.h
--
-memory.h
--
-arpa/inet.h
--
-errno.h
--
-stdlib.h
--
-
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.cpp
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
@@ -87,8 +63,6 @@ netinet/in.h
 -
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
-WorkerClasses/WorkerSocket.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/NetworkOperationResult.cpp
 
@@ -157,6 +131,8 @@ string
 -
 fstream
 -
+UdpLibGlobaldefs.h
+-
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.cpp
 cstring
@@ -171,37 +147,11 @@ plp.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.h
-WorkerSocket.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
 FileFragmenter.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
 Packet.h
 -
 RawUdpSocket.h
--
-
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.cpp
-arpa/inet.h
--
-WorkerSocket.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
-../server_config.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
-
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerSocket.h
-string
--
-iostream
--
-netinet/in.h
--
-cstring
--
-Packet.h
--
-Checksum.h
--
-netutils.h
 -
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h
@@ -211,30 +161,14 @@ UdpLibGlobaldefs.h
 -
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/main.cpp
-sys/socket.h
--
-timecalc.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/timecalc.h
-../libs/data_packet.h
-/home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
 WelcomingSocket.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
 ClientObserver.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientObserver.h
-WorkerClasses/FileFragmenter.h
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
 server_config.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
-
-/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/timecalc.h
-time.h
--
-malloc.h
--
-
-/home/ahmed/code/c/ReliableUdpTransfer/libs/data_packet.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/libs/netutils.h
 stdio.h

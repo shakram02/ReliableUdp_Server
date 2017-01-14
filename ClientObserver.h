@@ -10,8 +10,6 @@
 #include <netinet/in.h>
 #include "WelcomingSocket.h"
 
-#include "WorkerClasses/WorkerSocket.h"
-
 //using namespace boost;
 using namespace std;
 

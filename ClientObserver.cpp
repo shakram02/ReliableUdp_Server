@@ -27,8 +27,6 @@ void ClientObserver::StartListening()
 
 void ClientObserver::NotifyForClient(RawUdpSocket *redirect_socket, AddressInfo client_info)
 {
-
-
     std::thread th([redirect_socket, client_info]() {
         time_t t = time(0);   // get time now
         struct tm *now = localtime(&t);
@@ -40,12 +38,9 @@ void ClientObserver::NotifyForClient(RawUdpSocket *redirect_socket, AddressInfo 
 
         // TODO Spawn a worker subsystem
         WorkerFacade worker_subsystem(redirect_socket, client_info);
-        //pthread_attr_setstacksize()
         worker_subsystem.StartWorking();
     });
 
     th.detach();
-    //th.join();
-    //client_threads.push_back(th);
 }
 

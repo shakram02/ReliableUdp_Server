@@ -8,18 +8,6 @@
 #include "ClientObserver.h"
 #include "server_config.h"
 
-
-#define BUFF_LEN 256
-
-#define HANDSHAKE "hndshk"
-#define WELCOME_BUFFLEN strlen(HANDSHAKE)+1
-
-// TODO remove this later
-void log_error(const char *func_name)
-{
-    fprintf(stderr, "%s:%s\n", func_name, strerror(errno));
-}
-
 WelcomingSocket::WelcomingSocket(string &serverIp, unsigned const short portNumber)
 {
     this->is_receiving = false;
