@@ -7,7 +7,7 @@
 #include "WelcomingSocket.h"
 #include "ClientMediator.h"
 #include "server_config.h"
-#include <ProtocolMsgId.h>
+#include <ProtocolDef.h>
 
 WelcomingSocket::WelcomingSocket(string &serverIp, unsigned const short portNumber)
 {
@@ -32,12 +32,12 @@ void WelcomingSocket::StartReceiving()
 
         // TODO move this to a separate function
         AddressInfo client_main_socket;
-        string buf;
-        int seqno = this->main_sock->ReceiveStringPacket(client_main_socket, buf);
+        string rcv_buf;
+        int seqno = this->main_sock->ReceiveStringPacket(client_main_socket, rcv_buf);
 
         cout << "MSG SEQNO:" << seqno << endl;
         // Check validity of handshake message
-        if (seqno != ID_HAND_SHAKE) {
+        if (seqno != ID_HNDSHK_CLNT) {
             // Ignore unwanted handshake
             cout << "Ignored suspicious client" << endl;
             continue;
@@ -56,11 +56,13 @@ void WelcomingSocket::StartReceiving()
 
         AddressInfo client_file_socket;
         // Update client info when it sends the redirection confirmation message
-        if (redirect_socket->ReceiveString(client_file_socket) == string(REDIRECT_SUCCESS)) {
+
+
+        if (redirect_socket->ReceiveStringPacket(client_file_socket, rcv_buf) == ID_REDIRECT_SUCC_CLNT) {
             // TODO start thread here ?
             cout << "Client file socket port:" << client_file_socket.port_number << endl;
-            string assert_redirection(SERV_REDIRECT_OK);
-            redirect_socket->SendString(client_file_socket, assert_redirection);
+            string assert_redirection(REDIRECT_OK_SRV);
+            redirect_socket->SendStringPacket(client_file_socket, assert_redirection, ID_REDIRECT_OK_SRV);
 
             ClientMediator::NotifyForClient(redirect_socket.release(), client_file_socket);
         } else {

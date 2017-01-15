@@ -28,7 +28,7 @@ UdpLibGlobaldefs.h
 memory
 -
 
-../../../clg_ReliableUdp_Lib/include/ProtocolMsgId.h
+../../../clg_ReliableUdp_Lib/include/ProtocolDef.h
 
 ../../../clg_ReliableUdp_Lib/include/RawUdpSocket.h
 arpa/inet.h
@@ -73,7 +73,7 @@ ClientMediator.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.h
 server_config.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
-ProtocolMsgId.h
+ProtocolDef.h
 -
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WelcomingSocket.h
@@ -145,6 +145,8 @@ WorkerFacade.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.h
 ../server_config.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
+ProtocolDef.h
+-
 plp.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h
 
@@ -169,6 +171,8 @@ ClientMediator.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.h
 server_config.h
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
+ProtocolDef.h
+-
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/server_config.h
 

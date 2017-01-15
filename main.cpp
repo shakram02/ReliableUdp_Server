@@ -1,6 +1,7 @@
 #include "WelcomingSocket.h"
 #include "ClientMediator.h"
 #include "server_config.h"
+#include <ProtocolDef.h>
 
 int main()
 {

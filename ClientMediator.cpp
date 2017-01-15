@@ -31,6 +31,7 @@ void ClientMediator::NotifyForClient(RawUdpSocket *redirect_socket, AddressInfo 
         time_t t = time(0);   // get time now
         struct tm *now = localtime(&t);
 
+        // TODO change to use a time stap or something
         cout << "Welcomed at "
              << now->tm_hour << ":"
              << now->tm_min << ":"
