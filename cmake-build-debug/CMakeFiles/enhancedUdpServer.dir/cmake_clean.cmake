@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/enhancedUdpServer.dir/WelcomingSocket.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/main.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o"
+  "CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o"
   "CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o"
   "enhancedUdpServer.pdb"
   "enhancedUdpServer"

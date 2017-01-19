@@ -36,20 +36,18 @@ WorkerFacade::WorkerFacade(RawUdpSocket *redirect_socket, AddressInfo client_inf
         cout << "Requested file name:" << file_name << endl;
     }
 
-    this->fragmenter.SetFragmentSize(DATA_FRAGMENT_SIZE);
-
     if (this->fragmenter.SetFilePath(file_name)) {
         this->is_working = true;
     } else {
         // TODO send fail to client
-
+        // TODO reply with not found
         cerr << "Worker#Failed to set the file path" << endl;
     }
 }
 
 void WorkerFacade::StartWorking()
 {
-//    // TODO reply with not found
+
 //    // TODO Create GbnSender class
 //    // TODO 2D fragments array from the fragmenter
 //    // TODO Checksum
@@ -63,7 +61,7 @@ void WorkerFacade::StartWorking()
     worker_socket->SendStringPacket(*(this->client_info), file_send_header, ID_FILE_SZ_SRV);
 
     int pack_seq_num = 0, wnd_arr_idx = 0;
-    // TODO this loop is huge
+
     // TODO separate the GBN sender
     while (pack_seq_num < total_frg_count) {
 
@@ -94,10 +92,10 @@ void WorkerFacade::StartWorking()
     // TODO move this to the generic sender class
     // TODO if final ack rcv fails, wait till it's send and fail on max fail count,
     // send an ack back to client
-    if (!EndTransmission(total_frg_count)) {
-        cerr << "Err in receiving final ack" << endl;
-    } else {
+    if (EndTransmission(total_frg_count)) {
         cout << "Transmission completed." << endl;
+    } else {
+        cerr << "Failed to receive final ack" << endl;
     }
 }
 
@@ -117,10 +115,8 @@ bool WorkerFacade::EndTransmission(int total_frag_count)
     if (worker_socket->ReceivePacket(final_ack)) {
         cout << "Final ack num [" << final_ack->header->seqno << "] total frag count " << total_frag_count << endl;
         return final_ack->header->seqno == total_frag_count && final_ack->header->dataLen == 0;
-    } else {
-        cerr << "Failed to receive final ack" << endl;
-        return false;
     }
+    return false;
 }
 
 void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
@@ -129,6 +125,7 @@ void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
 
         // PLP Path loss probability
         if (will_be_sent()) {
+            // TODO is this non-blocking ?
             worker_socket->SendPacket(*client_info, pck_arr_ptr[k]);
         } else {
             cout << "Dropped packet [" << pck_arr_ptr[k]->header->seqno << "]" << endl;
@@ -139,6 +136,11 @@ void WorkerFacade::SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count)
 
 bool WorkerFacade::GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], int file_frg_count)
 {
+
+    // TODO when timer expires, retransmit all UN-ACKED packets
+    // the implementation here sends also the acked packets ( the whole window )
+    // TODO create the window object to be used with GBN and selective repeat to control
+    // the packets in window that will be sent/acked
 
     if (wnd_frg_count < 1) {
         cout << "Empty window" << endl;

@@ -29,6 +29,17 @@ CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o: ../../../cl
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o: ../WorkerClasses/FileFragmenter.cpp
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/FileFragmenter.cpp.o: ../WorkerClasses/FileFragmenter.h
 
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../clg_ReliableUdp_Lib/include/AddressInfo.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../clg_ReliableUdp_Lib/include/FileTransferState.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../clg_ReliableUdp_Lib/include/Packet.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../clg_ReliableUdp_Lib/include/PacketHeader.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../clg_ReliableUdp_Lib/include/RawUdpSocket.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../AbstractSender.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../WorkerClasses/FileFragmenter.h
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../WorkerClasses/GbnSender.cpp
+CMakeFiles/enhancedUdpServer.dir/WorkerClasses/GbnSender.cpp.o: ../WorkerClasses/GbnSender.h
+
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../../../clg_ReliableUdp_Lib/include/AddressInfo.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../../../clg_ReliableUdp_Lib/include/Packet.h
 CMakeFiles/enhancedUdpServer.dir/WorkerClasses/WorkerFacade.cpp.o: ../../../clg_ReliableUdp_Lib/include/PacketHeader.h

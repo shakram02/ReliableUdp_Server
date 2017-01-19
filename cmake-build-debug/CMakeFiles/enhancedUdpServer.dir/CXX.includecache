@@ -10,6 +10,8 @@
 string
 -
 
+../../../clg_ReliableUdp_Lib/include/FileTransferState.h
+
 ../../../clg_ReliableUdp_Lib/include/Packet.h
 UdpLibGlobaldefs.h
 ../../../clg_ReliableUdp_Lib/include/UdpLibGlobaldefs.h
@@ -49,6 +51,16 @@ vector
 -
 memory
 -
+
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/AbstractSender.h
+RawUdpSocket.h
+-
+FileTransferState.h
+-
+atomic
+-
+WorkerClasses/FileFragmenter.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/FileFragmenter.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/ClientMediator.cpp
 ClientMediator.h
@@ -135,6 +147,14 @@ fstream
 -
 UdpLibGlobaldefs.h
 -
+
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/GbnSender.cpp
+GbnSender.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/GbnSender.h
+
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/GbnSender.h
+../AbstractSender.h
+/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/AbstractSender.h
 
 /home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.cpp
 cstring
