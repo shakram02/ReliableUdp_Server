@@ -9,6 +9,9 @@
 #include "FileFragmenter.h"
 #include <Packet.h>
 #include <RawUdpSocket.h>
+#include <list>
+
+typedef std::list<unique_ptr<Packet>> PacketList;
 
 /**
  * Provides an interface to a subsystem that handles file fragmentation
@@ -23,12 +26,11 @@ public:
 
     void StopWorking();
 
-    bool EndTransmission(int total_frag_count);
-
-    void inline SendWindow(unique_ptr<Packet> pck_arr_ptr[], int frg_count);
-
-
-    bool GoBackN(int wnd_frg_count, unique_ptr<Packet> pck_arr_ptr[], int file_frg_count);
+//    bool EndTransmission(int total_frag_count);
+//
+//    void inline SendWindow(PacketList &window);
+//
+//    bool GoBackN(PacketList &pck_arr_ptr, int file_frg_count);
 
     ~WorkerFacade();
 

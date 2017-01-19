@@ -8,17 +8,14 @@
 
 #include "../AbstractSender.h"
 
-class GbnSender : protected AbstractSender
+class GbnSender : public AbstractSender
 {
-    /**
-     // TODO refactor the file fragmenter into its own layer of the application ?
-     */
+protected:
+
 public:
-    GbnSender(string file_name, AddressInfo client_endpoint, unique_ptr<RawUdpSocket> send_socket);
+    GbnSender(AddressInfo client_endpoint, unique_ptr<RawUdpSocket> send_socket);
 
-    bool SendFile() override;
-
-    void StopSending(FileTransferState &state) override;
+    bool SendWindow(PacketList &window) override;
 };
 
 

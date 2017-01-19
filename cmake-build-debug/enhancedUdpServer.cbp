@@ -86,6 +86,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/AbstractSender.cpp">
+			<Option target="enhancedUdpServer"/>
+		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/AbstractSender.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
@@ -117,9 +120,6 @@
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/WorkerFacade.h">
-			<Option target="enhancedUdpServer"/>
-		</Unit>
-		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/WorkerClasses/plp.h">
 			<Option target="enhancedUdpServer"/>
 		</Unit>
 		<Unit filename="/home/ahmed/code/c/ReliableUdpTransfer/clg_ReliableUdp_Server/main.cpp">
