@@ -4,39 +4,28 @@
 
 #include <vector>
 #include <sys/stat.h>
+#include <UdpLibGlobaldefs.h>
 #include "FileFragmenter.h"
 
-unsigned int FileFragmenter::NextFragment(void **buffer)
+unique_ptr<ByteVector> FileFragmenter::NextFragment()
 {
-
-    if (!this->has_bytes) {
-        (*buffer) = nullptr;
-        return 0;
-    }
     // Read fragment size from file
-    if (this->current_fragment_idx < this->file_fragments) {
+    if (this->current_fragment_idx >= this->file_fragments)return nullptr;
 
-        unsigned int current_frag_size = GetNextFragmentSize();
+    unsigned int current_frag_size = GetNextFragmentSize();
 
-        //cout << "Fragment size:" << current_frag_size << endl;
-        (*buffer) = (char *) calloc((size_t) current_frag_size, sizeof(char));
-        this->file.read((char *) (*buffer), current_frag_size);
+    char temp_container[current_frag_size];
+    this->file.read((temp_container), current_frag_size);
 
-        this->current_fragment_idx++;
-        return current_frag_size;
-    } else {
-        this->has_bytes = false;
-        cout << "Fragments ended" << endl;
-        return 0;
+    if (this->file.fail()) {
+        cerr << "Failed to read file" << endl;
+        return nullptr;
     }
 
-}
+    ByteVector *buffer = CopyToVector(temp_container, current_frag_size);
 
-FileFragmenter::~FileFragmenter()
-{
-    if (this->file.is_open()) {
-        this->file.close();
-    }
+    this->current_fragment_idx++;
+    return unique_ptr<ByteVector>(buffer);
 }
 
 bool FileFragmenter::EndOfFile()
@@ -44,14 +33,8 @@ bool FileFragmenter::EndOfFile()
     return GetNextFragmentSize() == 0;
 }
 
-FileFragmenter::FileFragmenter(std::string file_path, unsigned int fragment_size)
+FileFragmenter::FileFragmenter(std::string file_path)
 {
-    if (fragment_size < 1) {
-        cerr << "Invalid fragment size" << endl;
-        return;
-    }
-
-    this->fragment_size = fragment_size;
     if (!ValidateFile(file_path)) {
         cerr << "File fragmenter won't work, file isn't valid" << endl;
     }
@@ -61,48 +44,39 @@ FileFragmenter::FileFragmenter()
 {
 }
 
-bool FileFragmenter::SetFragmentSize(unsigned int frag_size)
-{
-    if (frag_size < 1) {
-        cerr << "Fragmenter#Invalid fragment size" << endl;
-        return false;
-    }
-    this->fragment_size = frag_size;
-    return true;
-}
-
-
 bool FileFragmenter::ValidateFile(string file_path)
 {
     this->file.open(file_path.c_str(), ios::in | ios::binary);
 
-    if (this->file.is_open()) {
-        cout << "File open success" << endl;
-        struct stat file_stat;
-        if (stat(file_path.c_str(), &file_stat) == 0) {
-
-            this->file_fragments = ((int) file_stat.st_size / fragment_size) + 1;
-
-            if (file_stat.st_size < 1) {
-                cerr << "File is empty" << endl;
-                this->has_bytes = false;
-                return false;
-            }
-            this->has_bytes = true;
-            this->file_size = (unsigned int) (file_stat.st_size);
-            this->current_fragment_idx++;   // Move to fragment 0
-
-            cout << "File fragments:" << this->file_fragments
-                 << " File size in bytes:" << file_stat.st_size
-                 << endl;
-        } else {
-            cout << "Failed to get file stats" << endl;
-            return false;
-        }
-    } else {
-        cout << "Failed to open file" << endl;
+    if (this->file.fail()) {
+        cerr << "Failed to open file" << endl;
         return false;
     }
+
+    struct stat file_stat;
+
+    if (stat(file_path.c_str(), &file_stat) != 0) {
+        cerr << "Failed to get file stats" << endl;
+        return false;
+    }
+
+    this->file_fragments = ((int) file_stat.st_size / DATA_FRAGMENT_SIZE) + 1;
+
+    if (file_stat.st_size < 1) {
+        cerr << "File is empty" << endl;
+        this->has_bytes = false;
+        return false;
+    }
+
+    this->has_bytes = true;
+    this->file_size = (unsigned int) (file_stat.st_size);
+    this->current_fragment_idx++;   // Move to fragment 0
+
+    // Debug statements
+//    cout << "File fragments:" << this->file_fragments
+//         << " File size in bytes:" << file_stat.st_size
+//         << endl;
+
     return true;
 }
 
@@ -127,18 +101,36 @@ unsigned int FileFragmenter::GetNextFragmentSize()
     unsigned int frag_size = 0;
 
     if (file_fragments - current_fragment_idx > 1) {
-        frag_size = this->fragment_size;
+        frag_size = DATA_FRAGMENT_SIZE;
+
     } else if (file_fragments - current_fragment_idx == 1) {
 
-        // TODO last fragment, don't read frag size, read the rest of the file
+        // last fragment, don't read frag size, read the rest of the file
         unsigned int bytes_left = this->file_size - this->file.tellg();
         frag_size = bytes_left;
+
     } else {
         this->has_bytes = false;
     }
 
-
-    //last_requested_frag_size_idx = this->current_fragment_idx;
-
     return frag_size;
+}
+
+ByteVector *FileFragmenter::CopyToVector(char container[], int length)
+{
+    // C --> C++, unfortunately, copying can't be avoided
+    ByteVector *buffer = new ByteVector();
+    buffer->reserve((unsigned long) length); // Avoid re-allocations
+    for (int i = 0; i < length; ++i) {
+        buffer->push_back(std::move((byte) container[i]));
+    }
+    return buffer;
+}
+
+
+FileFragmenter::~FileFragmenter()
+{
+    if (this->file.is_open()) {
+        this->file.close();
+    }
 }

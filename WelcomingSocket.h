@@ -25,7 +25,7 @@
 
 
 #include "../libs/netutils.h"
-
+#include <RawUdpSocket.h>
 
 using namespace std;
 
@@ -39,7 +39,7 @@ public:
     /**
      * Creates a new instance of a UDP server, this doesn't start any networking operation
      */
-    WelcomingSocket(const string serverIp, unsigned short portNumber);
+    WelcomingSocket(string &serverIp, unsigned short portNumber);
 
     ~WelcomingSocket();
 
@@ -56,13 +56,9 @@ public:
      */
     bool is_receiving;
 private:
-    int CreateClientSocket(unsigned short &redirect_port, sockaddr_in &redirect_address);
+    unique_ptr<RawUdpSocket> CreateClientSocket(string &client_ip);
 
-    string handShake;
-    string server_ip;
-    int socket_fd;
-
-    void PrintClientDetails(sockaddr_in client_address);
+    unique_ptr<RawUdpSocket> main_sock;
 };
 
 

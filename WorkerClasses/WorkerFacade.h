@@ -5,10 +5,13 @@
 #ifndef ENHANCEDUDPSERVER_WORKER_H
 #define ENHANCEDUDPSERVER_WORKER_H
 
-#include "WorkerSocket.h"
-#include "FileFragmenter.h"
 
-typedef int sock_descriptor;
+#include "FileFragmenter.h"
+#include <Packet.h>
+#include <RawUdpSocket.h>
+#include <list>
+
+typedef std::list<unique_ptr<Packet>> PacketList;
 
 /**
  * Provides an interface to a subsystem that handles file fragmentation
@@ -17,30 +20,23 @@ typedef int sock_descriptor;
 class WorkerFacade
 {
 public:
-    WorkerFacade(sock_descriptor sockfd);
+    WorkerFacade(RawUdpSocket *redirect_socket, AddressInfo client_info);
 
     void StartWorking();
 
     void StopWorking();
 
-    bool EndTransmission(int total_frag_count);
-
-    bool SendWindow(DataPacket *pck_arr_ptr[], int frg_count);
-
-    bool GoBackN(int wnd_frg_count, DataPacket **pck_arr_ptr, int file_frg_count);
-
     ~WorkerFacade();
 
 private:
-    WorkerSocket worker_socket;
+    unique_ptr<RawUdpSocket> worker_socket;
+    unique_ptr<AddressInfo> client_info;
     FileFragmenter fragmenter;
     bool is_working;
-
+    unsigned int lost_winds = 0;
     // Starting for -1 makes the ACK process logically straight to think of
     // as it prevents causing an off by one error
     int last_acked_pkt_id = -1;
-
-    void DeleteWindow(DataPacket **pck_arr_ptr, int frg_count);
 };
 
 

@@ -10,8 +10,6 @@
 #include <netinet/in.h>
 #include "WelcomingSocket.h"
 
-#include "WorkerClasses/WorkerSocket.h"
-
 //using namespace boost;
 using namespace std;
 
@@ -19,7 +17,7 @@ using namespace std;
  * The top class that redirects clients from the welcome gate to the dedicated
  * socket
  */
-class ClientObserver
+class ClientMediator
 {
 public :
     /**
@@ -38,9 +36,9 @@ public :
      * @param portNumber The port number of the welcoming port,
      *          this number should be a constant and must be know for the clients
      */
-    ClientObserver(const string &serverIp, const unsigned short &portNumber);
+    ClientMediator(string &serverIp, const unsigned short &portNumber);
 
-    static void NotifyForClient(int sock_fd);
+    static void NotifyForClient(RawUdpSocket *redirect_socket, AddressInfo client_info);
 
 private:
 
