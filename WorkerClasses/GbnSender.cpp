@@ -13,7 +13,7 @@ GbnSender::GbnSender(AddressInfo client_endpoint,
 
 bool GbnSender::SendWindow(PacketList &window)
 {
-// TODO when timer expires, retransmit all UN-ACKED packets
+    // TODO when timer expires, retransmit all UN-ACKED packets
     // the implementation here sends also the acked packets ( the whole window )
 
     if (window.empty()) {
@@ -24,6 +24,7 @@ bool GbnSender::SendWindow(PacketList &window)
     int acknum = 0;
     int fail = 0;
 
+    // Here for debugging
 //    cout << endl
 //         << " Fragments in window: " << wnd_frg_count
 //         << " Window end:" << wind_last_pck_id
@@ -56,7 +57,6 @@ bool GbnSender::SendWindow(PacketList &window)
             // Slide the window
             // cout << "Correct ACK
             // received [" << acknum << "]" << endl;
-
 
             window.pop_front();
             this->last_acked_pkt_id++;

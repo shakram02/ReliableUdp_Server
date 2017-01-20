@@ -26,12 +26,6 @@ public:
 
     void StopWorking();
 
-//    bool EndTransmission(int total_frag_count);
-//
-//    void inline SendWindow(PacketList &window);
-//
-//    bool GoBackN(PacketList &pck_arr_ptr, int file_frg_count);
-
     ~WorkerFacade();
 
 private:
