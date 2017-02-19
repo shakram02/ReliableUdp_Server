@@ -5,4 +5,4 @@ A multi threadded server side C++ application that transferes files to clients u
 The program implements GBN ( Go back N ), packets are sent to the client, the client either ACKs the packet
 or the packets reach a send treshold, then transmission is aborted.
 
-**This project will not compile with using the [library](https://github.com/shakram02/ReliableUdp_Lib) that contains the core classes, it's also here on GitHub**
+**This project will not compile with using the [library](https://github.com/shakram02/ReliableUdp_Lib) that contains the core classes**
